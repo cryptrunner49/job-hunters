@@ -1,8 +1,8 @@
 require "test_helper"
 
-class UsersControllerTest < ActionDispatch::IntegrationTest
+class HuntersControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
-    get new_user_url  # Use new_user_url instead of users_new_url
+    get new_hunter_url  # Use new_user_url instead of users_new_url
     assert_response :success
   end
 
