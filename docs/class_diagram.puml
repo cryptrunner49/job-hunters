@@ -1,5 +1,13 @@
 @startuml
 
+' Candidate represents the user applying to jobs.
+class Candidate {
+  + id: int
+  + name: string
+  + email: string
+  + phone: string
+}
+
 ' Company offers many JobOffers.
 class Company {
   + id: int
@@ -9,13 +17,14 @@ class Company {
   + github: string
   + website: string
   + job_search_website: string
+  + description: text
 }
 
 ' JobOffer belongs to one Company and is associated with one Role.
 class JobOffer {
   + id: int
   + title: string
-  + description: string
+  + description: text
   + skills_required: string
   + experience: string
   + location: string
@@ -25,6 +34,9 @@ class JobOffer {
   + english_level: EnglishType
   + japanese_level: JapaneseType
   + salary: decimal
+  + employment_type: EmploymentType
+  + posted_at: datetime
+  + closing_date: datetime
   + company_id: int
   + role_id: int
 }
@@ -33,31 +45,38 @@ class JobOffer {
 class Role {
   + id: int
   + name: string
-  + description: string
+  + description: text
 }
 
-' A Resume represents the candidate's CV.
+' A Resume represents one of possibly many CVs a candidate can maintain.
 class Resume {
   + id: int
-  + candidate_name: string
+  + candidate_id: int
+  + title: string
   + content: text
+  + updated_at: datetime
 }
 
 ' A CoverLetter that accompanies a JobApplication.
 class CoverLetter {
   + id: int
+  + subject: string
   + content: text
+  + created_at: datetime
 }
 
 ' JobApplication links a candidate (with a Resume and CoverLetter) to a JobOffer.
 class JobApplication {
   + id: int
+  + candidate_id: int
   + job_offer_id: int
   + resume_id: int
   + cover_letter_id: int
   + status: string
   + phase: string
   + mail: string
+  + applied_at: datetime
+  + feedback: text
 }
 
 ' An Interview is scheduled for a JobApplication.
@@ -66,6 +85,8 @@ class Interview {
   + job_application_id: int
   + scheduled_date: datetime
   + result: string
+  + mode: InterviewMode
+  + notes: text
 }
 
 enum RemoteType {
@@ -75,22 +96,42 @@ enum RemoteType {
 }
 
 enum EnglishType {
+  BASIC
+  INTERMEDIATE
   BUSINESS_LEVEL
 }
 
 enum JapaneseType {
-  BUSINESS_LEVEL
   N5
   N4
   N3
   N2
   N1
+  BUSINESS_LEVEL
+}
+
+enum EmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  TEMPORARY
+  INTERN
+}
+
+enum InterviewMode {
+  IN_PERSON
+  VIDEO
+  PHONE
 }
 
 ' Define relationships
+Candidate "1" -- "0..*" Resume : owns
+Candidate "1" -- "0..*" JobApplication : applies
+
 Company "1" -- "0..*" JobOffer : offers
 JobOffer "1" -- "1" Role : is_for
 JobOffer "1" -- "0..*" JobApplication : receives
+
 JobApplication "1" -- "1" Resume : includes
 JobApplication "1" -- "1" CoverLetter : includes
 JobApplication "1" -- "0..*" Interview : triggers
