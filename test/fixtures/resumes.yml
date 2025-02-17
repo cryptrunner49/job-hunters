@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  hunter: one
+  title: MyString
+  latex_source: MyText
+  pdf_path: MyString
+  resume_type: 1
+
+two:
+  hunter: two
+  title: MyString
+  latex_source: MyText
+  pdf_path: MyString
+  resume_type: 1
