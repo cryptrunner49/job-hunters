@@ -33,7 +33,7 @@
 
   <div class="my-5">
     <%= form.label :resume_type %>
-    <%= form.number_field :resume_type, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": resume.errors[:resume_type].none?, "border-red-400 focus:outline-red-600": resume.errors[:resume_type].any?}] %>
+    <%= form.select :resume_type, options_for_select(Resume.resume_types.keys.map { |key| [key.humanize, key] }), include_blank: true %>
   </div>
 
   <div class="inline">
