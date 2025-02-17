@@ -1,5 +1,15 @@
 class Resume < ApplicationRecord
   belongs_to :hunter
 
-  enum resume_type: { none: 0, developer: 1, designer: 2, manager: 3, analyst: 4 }
+  enum :resume_type, [
+    :backend,
+    :frontend,
+    :fullstack,
+    :software_engineer,
+    :ai,
+    :data_science,
+    :designer,
+    :manager,
+    :ux
+  ], prefix: true
 end

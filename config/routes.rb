@@ -8,11 +8,15 @@ Rails.application.routes.draw do
   post "signup", to: "hunters#create"
 
   # Others
-  resources :interviews
-  resources :job_applications
-  resources :cover_letters
-  resources :resumes
-  resources :job_offers
-  resources :roles
+  # root "job_offers#index"
+
+  resources :candidates
   resources :companies
+  resources :roles
+  resources :job_offers
+  resources :resumes
+  resources :cover_letters
+  resources :job_applications do
+    resources :interviews
+  end
 end
