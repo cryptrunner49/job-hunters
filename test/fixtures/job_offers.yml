@@ -1,0 +1,37 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  skills_required: MyString
+  experience: MyString
+  location: MyString
+  relocation: false
+  apply_from_anywhere: false
+  remote: 1
+  english_level: 1
+  japanese_level: 1
+  salary: 9.99
+  employment_type: 1
+  posted_at: 2025-02-17 19:44:25
+  closing_date: 2025-02-17 19:44:25
+  company: one
+  role: one
+
+two:
+  title: MyString
+  description: MyText
+  skills_required: MyString
+  experience: MyString
+  location: MyString
+  relocation: false
+  apply_from_anywhere: false
+  remote: 1
+  english_level: 1
+  japanese_level: 1
+  salary: 9.99
+  employment_type: 1
+  posted_at: 2025-02-17 19:44:25
+  closing_date: 2025-02-17 19:44:25
+  company: two
+  role: two
