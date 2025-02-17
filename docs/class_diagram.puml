@@ -88,10 +88,11 @@ class Interview {
   + scheduled_date: datetime
   + result: string
   + mode: InterviewMode
+  + interview_type: InterviewType
   + notes: text
 }
 
-' Enums definitions
+' Enum definitions
 enum RemoteType {
   NO
   PARTIAL
@@ -134,6 +135,12 @@ enum InterviewMode {
   PHONE
 }
 
+enum InterviewType {
+  TECHNICAL
+  HR
+  FINAL
+}
+
 ' Define relationships
 Candidate "1" -- "0..*" Resume : owns
 Candidate "1" -- "0..*" CoverLetter : creates
@@ -146,7 +153,6 @@ JobOffer "1" -- "0..*" JobApplication : receives
 
 JobApplication "1" -- "1" Resume : uses
 JobApplication "0..1" -- "1" CoverLetter : includes
-
 JobApplication "1" -- "0..*" Interview : triggers
 
 @enduml
