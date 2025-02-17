@@ -1,0 +1,50 @@
+<% if flash[:alert] %>
+  <p class="py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg inline-block" id="alert">
+    <%= flash[:alert] %>
+  </p>
+<% end %>
+<% if flash[:notice] %>
+  <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice">
+    <%= flash[:notice] %>
+  </p>
+<% end %>
+
+<div class="max-w-md mx-auto mb-8 mt-20 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+  <h1 class="text-2xl font-semibold mb-4">Sign Up</h1>
+
+  <%= form_with model: @user, url: signup_path, local: true do |form| %>
+    <div class="mb-4">
+      <%= form.label :name, class: "block text-sm font-medium text-gray-700 dark:text-gray-200" %>
+      <%= form.text_field :name, class: "mt-1 block w-full border border-gray-300 rounded-md p-2" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :email_address, class: "block text-sm font-medium text-gray-700 dark:text-gray-200" %>
+      <%= form.email_field :email_address, class: "mt-1 block w-full border border-gray-300 rounded-md p-2" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :password, class: "block text-sm font-medium text-gray-700 dark:text-gray-200" %>
+      <%= form.password_field :password, class: "mt-1 block w-full border border-gray-300 rounded-md p-2" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :password_confirmation, "Confirm Password", class: "block text-sm font-medium text-gray-700 dark:text-gray-200" %>
+      <%= form.password_field :password_confirmation, class: "mt-1 block w-full border border-gray-300 rounded-md p-2" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :profile_picture, "Profile Picture", class: "block text-sm font-medium text-gray-700 dark:text-gray-200" %>
+      <%= form.file_field :profile_picture, accept: "image/*", class: "mt-1 block w-full" %>
+    </div>
+
+    <div>
+      <%= form.submit 'Sign Up', class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full" %>
+    </div>
+  <% end %>
+
+  <p class="mt-4 text-sm">
+    Already have an account?
+    <%= link_to 'Sign In', new_session_path, class: 'text-blue-500 hover:text-blue-700 font-medium' %>
+  </p>
+</div>
