@@ -1,6 +1,6 @@
 @startuml
 
-' Candidate represents the user applying to jobs.
+' Candidate represents a user applying to jobs.
 class Candidate {
   + id: int
   + name: string
@@ -20,6 +20,13 @@ class Company {
   + description: text
 }
 
+' Role defines the position for a JobOffer.
+class Role {
+  + id: int
+  + name: string
+  + description: text
+}
+
 ' JobOffer belongs to one Company and is associated with one Role.
 class JobOffer {
   + id: int
@@ -28,8 +35,8 @@ class JobOffer {
   + skills_required: string
   + experience: string
   + location: string
-  + relocation: bool
-  + apply_from_anywhere: bool
+  + relocation: boolean
+  + apply_from_anywhere: boolean
   + remote: RemoteType
   + english_level: EnglishType
   + japanese_level: JapaneseType
@@ -41,37 +48,32 @@ class JobOffer {
   + role_id: int
 }
 
-' Role defines the position for a JobOffer.
-class Role {
-  + id: int
-  + name: string
-  + description: text
-}
-
-' A Resume represents one of possibly many CVs a candidate can maintain.
+' Resume represents one of the candidate's CVs.
 class Resume {
   + id: int
   + candidate_id: int
   + title: string
-  + content: text
-  + updated_at: datetime
+  + latex_source: text
+  + pdf_path: string
+  + resume_type: ResumeType
 }
 
-' A CoverLetter that accompanies a JobApplication.
+' CoverLetter represents a cover letter a candidate can create.
 class CoverLetter {
   + id: int
+  + candidate_id: int
   + subject: string
-  + content: text
-  + created_at: datetime
+  + latex_source: text
+  + pdf_path: string
 }
 
-' JobApplication links a candidate (with a Resume and CoverLetter) to a JobOffer.
+' JobApplication links a candidate (with a Resume and an optional CoverLetter) to a JobOffer.
 class JobApplication {
   + id: int
   + candidate_id: int
   + job_offer_id: int
   + resume_id: int
-  + cover_letter_id: int
+  + cover_letter_id: int   ' This field is optional; job application may have no cover letter.
   + status: string
   + phase: string
   + mail: string
@@ -79,7 +81,7 @@ class JobApplication {
   + feedback: text
 }
 
-' An Interview is scheduled for a JobApplication.
+' Interview is scheduled for a JobApplication.
 class Interview {
   + id: int
   + job_application_id: int
@@ -89,6 +91,7 @@ class Interview {
   + notes: text
 }
 
+' Enums definitions
 enum RemoteType {
   NO
   PARTIAL
@@ -118,6 +121,13 @@ enum EmploymentType {
   INTERN
 }
 
+enum ResumeType {
+  DEVELOPER
+  DESIGNER
+  MANAGER
+  ANALYST
+}
+
 enum InterviewMode {
   IN_PERSON
   VIDEO
@@ -126,14 +136,17 @@ enum InterviewMode {
 
 ' Define relationships
 Candidate "1" -- "0..*" Resume : owns
+Candidate "1" -- "0..*" CoverLetter : creates
 Candidate "1" -- "0..*" JobApplication : applies
 
 Company "1" -- "0..*" JobOffer : offers
+
 JobOffer "1" -- "1" Role : is_for
 JobOffer "1" -- "0..*" JobApplication : receives
 
-JobApplication "1" -- "1" Resume : includes
-JobApplication "1" -- "1" CoverLetter : includes
+JobApplication "1" -- "1" Resume : uses
+JobApplication "0..1" -- "1" CoverLetter : includes
+
 JobApplication "1" -- "0..*" Interview : triggers
 
 @enduml
