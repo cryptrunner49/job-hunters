@@ -1,0 +1,52 @@
+<%= form_with(model: company, class: "contents") do |form| %>
+  <% if company.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(company.errors.count, "error") %> prohibited this company from being saved:</h2>
+
+      <ul class="list-disc ml-6">
+        <% company.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": company.errors[:name].none?, "border-red-400 focus:outline-red-600": company.errors[:name].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :industry %>
+    <%= form.text_field :industry, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": company.errors[:industry].none?, "border-red-400 focus:outline-red-600": company.errors[:industry].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :location %>
+    <%= form.text_field :location, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": company.errors[:location].none?, "border-red-400 focus:outline-red-600": company.errors[:location].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :github %>
+    <%= form.text_field :github, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": company.errors[:github].none?, "border-red-400 focus:outline-red-600": company.errors[:github].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :website %>
+    <%= form.text_field :website, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": company.errors[:website].none?, "border-red-400 focus:outline-red-600": company.errors[:website].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :job_search_website %>
+    <%= form.text_field :job_search_website, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": company.errors[:job_search_website].none?, "border-red-400 focus:outline-red-600": company.errors[:job_search_website].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :description %>
+    <%= form.textarea :description, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": company.errors[:description].none?, "border-red-400 focus:outline-red-600": company.errors[:description].any?}] %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>
