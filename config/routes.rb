@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :interviews
+  resources :job_applications
+  resources :cover_letters
+  resources :resumes
+  resources :job_offers
+  resources :roles
+  resources :companies
   root "home#index"
   resource :session, only: %i[new create destroy]
   resources :passwords, only: %i[new create edit update], param: :token

@@ -1,0 +1,37 @@
+<%= form_with(model: cover_letter, class: "contents") do |form| %>
+  <% if cover_letter.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(cover_letter.errors.count, "error") %> prohibited this cover_letter from being saved:</h2>
+
+      <ul class="list-disc ml-6">
+        <% cover_letter.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :hunter_id %>
+    <%= form.text_field :hunter_id, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": cover_letter.errors[:hunter_id].none?, "border-red-400 focus:outline-red-600": cover_letter.errors[:hunter_id].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :subject %>
+    <%= form.text_field :subject, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": cover_letter.errors[:subject].none?, "border-red-400 focus:outline-red-600": cover_letter.errors[:subject].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :latex_source %>
+    <%= form.textarea :latex_source, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": cover_letter.errors[:latex_source].none?, "border-red-400 focus:outline-red-600": cover_letter.errors[:latex_source].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :pdf_path %>
+    <%= form.text_field :pdf_path, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": cover_letter.errors[:pdf_path].none?, "border-red-400 focus:outline-red-600": cover_letter.errors[:pdf_path].any?}] %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>
