@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  hunter: one
+  job_offer: one
+  resume: one
+  cover_letter: one
+  status: MyString
+  phase: MyString
+  mail: MyString
+  applied_at: 2025-02-17 20:38:21
+  feedback: MyText
+
+two:
+  hunter: two
+  job_offer: two
+  resume: two
+  cover_letter: two
+  status: MyString
+  phase: MyString
+  mail: MyString
+  applied_at: 2025-02-17 20:38:21
+  feedback: MyText
