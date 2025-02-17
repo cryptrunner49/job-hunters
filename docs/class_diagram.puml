@@ -102,7 +102,7 @@ enum RemoteType {
 enum EnglishType {
   BASIC
   INTERMEDIATE
-  BUSINESS_LEVEL
+  ADVANCED
 }
 
 enum JapaneseType {
