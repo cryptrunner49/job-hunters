@@ -1,0 +1,98 @@
+@startuml
+
+' Company offers many JobOffers.
+class Company {
+  + id: int
+  + name: string
+  + industry: string
+  + location: string
+  + github: string
+  + website: string
+  + job_search_website: string
+}
+
+' JobOffer belongs to one Company and is associated with one Role.
+class JobOffer {
+  + id: int
+  + title: string
+  + description: string
+  + skills_required: string
+  + experience: string
+  + location: string
+  + relocation: bool
+  + apply_from_anywhere: bool
+  + remote: RemoteType
+  + english_level: EnglishType
+  + japanese_level: JapaneseType
+  + salary: decimal
+  + company_id: int
+  + role_id: int
+}
+
+' Role defines the position for a JobOffer.
+class Role {
+  + id: int
+  + name: string
+  + description: string
+}
+
+' A Resume represents the candidate's CV.
+class Resume {
+  + id: int
+  + candidate_name: string
+  + content: text
+}
+
+' A CoverLetter that accompanies a JobApplication.
+class CoverLetter {
+  + id: int
+  + content: text
+}
+
+' JobApplication links a candidate (with a Resume and CoverLetter) to a JobOffer.
+class JobApplication {
+  + id: int
+  + job_offer_id: int
+  + resume_id: int
+  + cover_letter_id: int
+  + status: string
+  + phase: string
+  + mail: string
+}
+
+' An Interview is scheduled for a JobApplication.
+class Interview {
+  + id: int
+  + job_application_id: int
+  + scheduled_date: datetime
+  + result: string
+}
+
+enum RemoteType {
+  NO
+  PARTIAL
+  FULL
+}
+
+enum EnglishType {
+  BUSINESS_LEVEL
+}
+
+enum JapaneseType {
+  BUSINESS_LEVEL
+  N5
+  N4
+  N3
+  N2
+  N1
+}
+
+' Define relationships
+Company "1" -- "0..*" JobOffer : offers
+JobOffer "1" -- "1" Role : is_for
+JobOffer "1" -- "0..*" JobApplication : receives
+JobApplication "1" -- "1" Resume : includes
+JobApplication "1" -- "1" CoverLetter : includes
+JobApplication "1" -- "0..*" Interview : triggers
+
+@enduml
