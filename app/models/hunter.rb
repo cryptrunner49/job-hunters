@@ -1,4 +1,4 @@
-class User < ApplicationRecord
+class Hunter < ApplicationRecord
   has_secure_password
   has_many :sessions, dependent: :destroy
   has_one_attached :profile_picture
