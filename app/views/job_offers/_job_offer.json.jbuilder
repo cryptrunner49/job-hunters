@@ -1,2 +1,2 @@
-json.extract! job_post, :id, :title, :description, :skills_required, :experience, :location, :relocation, :apply_from_anywhere, :remote, :english_level, :japanese_level, :salary, :employment_type, :posted_at, :closing_date, :company_id, :role_id, :created_at, :updated_at
-json.url job_post_url(job_post, format: :json)
+json.extract! job_offer, :id, :hunter_id, :job_post_id, :company_id, :status, :salary, :start_date, :offer_date, :message, :created_at, :updated_at
+json.url job_offer_url(job_offer, format: :json)

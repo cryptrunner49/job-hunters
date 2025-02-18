@@ -1,1 +1,1 @@
-json.partial! "job_posts/job_post", job_post: @job_post
+json.partial! "job_offers/job_offer", job_offer: @job_offer
