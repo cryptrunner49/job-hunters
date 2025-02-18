@@ -48,27 +48,27 @@
 
   <div class="my-5">
     <%= form.label :remote %>
-    <%= form.number_field :remote, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": job_offer.errors[:remote].none?, "border-red-400 focus:outline-red-600": job_offer.errors[:remote].any?}] %>
+    <%= form.select :remote, options_for_select(JobOffer.remotes.keys.map { |key| [key.humanize, key] }), include_blank: true %>
   </div>
 
   <div class="my-5">
     <%= form.label :english_level %>
-    <%= form.number_field :english_level, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": job_offer.errors[:english_level].none?, "border-red-400 focus:outline-red-600": job_offer.errors[:english_level].any?}] %>
+    <%= form.select :english_level, options_for_select(JobOffer.english_levels.keys.map { |key| [key.humanize, key] }), include_blank: true %>
   </div>
 
   <div class="my-5">
     <%= form.label :japanese_level %>
-    <%= form.number_field :japanese_level, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": job_offer.errors[:japanese_level].none?, "border-red-400 focus:outline-red-600": job_offer.errors[:japanese_level].any?}] %>
+    <%= form.select :japanese_level, options_for_select(JobOffer.japanese_levels.keys.map { |key| [key.humanize, key] }), include_blank: true %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :employment_type %>
+    <%= form.select :employment_type, options_for_select(JobOffer.employment_types.keys.map { |key| [key.humanize, key] }), include_blank: true %>
   </div>
 
   <div class="my-5">
     <%= form.label :salary %>
     <%= form.text_field :salary, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": job_offer.errors[:salary].none?, "border-red-400 focus:outline-red-600": job_offer.errors[:salary].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :employment_type %>
-    <%= form.number_field :employment_type, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": job_offer.errors[:employment_type].none?, "border-red-400 focus:outline-red-600": job_offer.errors[:employment_type].any?}] %>
   </div>
 
   <div class="my-5">

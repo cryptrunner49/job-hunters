@@ -14,8 +14,13 @@ class SessionsController < ApplicationController
     end
   end
 
+  # def destroy
+  #  terminate_session
+  #  redirect_to new_session_path
+  # end
   def destroy
-    terminate_session
-    redirect_to new_session_path
+    # Log out user and redirect
+    session[:user_id] = nil
+    redirect_to root_path, notice: "Logged out successfully."
   end
 end
