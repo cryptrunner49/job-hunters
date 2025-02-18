@@ -49,7 +49,7 @@ class JobOffersController < ApplicationController
 
   # DELETE /job_offers/1 or /job_offers/1.json
   def destroy
-    @job_offer.soft_delete!
+    @job_offer.soft_delete
 
     respond_to do |format|
       format.html { redirect_to job_offers_path, status: :see_other, notice: "Job offer was successfully destroyed." }

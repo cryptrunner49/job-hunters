@@ -49,7 +49,7 @@ class CoverLettersController < ApplicationController
 
   # DELETE /cover_letters/1 or /cover_letters/1.json
   def destroy
-    @cover_letter.soft_delete!
+    @cover_letter.soft_delete
 
     respond_to do |format|
       format.html { redirect_to cover_letters_path, status: :see_other, notice: "Cover letter was successfully destroyed." }
