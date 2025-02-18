@@ -41,13 +41,12 @@ class CompaniesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy company" do
-    # Ensure any dependent records are handled before deleting the company
-    @company.job_posts.destroy_all if @company.respond_to?(:job_posts)
-
-    assert_difference("Company.count", -1) do
+    assert_no_difference("Company.count") do
       delete company_url(@company)
     end
 
+    @company.reload
+    assert @company.deleted
     assert_redirected_to companies_url
   end
 
