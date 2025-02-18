@@ -1,47 +1,42 @@
-<%= form_with(model: interview, class: "contents") do |form| %>
-  <% if interview.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(interview.errors.count, "error") %> prohibited this interview from being saved:</h2>
+<%= form_with(model: [@job_application, @interview], local: true) do |form| %>
+  <% if @interview.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@interview.errors.count, "error") %> prohibited this interview from being saved:</h2>
 
-      <ul class="list-disc ml-6">
-        <% interview.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+      <ul>
+        <% @interview.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :job_application_id %>
-    <%= form.text_field :job_application_id, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": interview.errors[:job_application_id].none?, "border-red-400 focus:outline-red-600": interview.errors[:job_application_id].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :scheduled_date %>
-    <%= form.datetime_field :scheduled_date, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": interview.errors[:scheduled_date].none?, "border-red-400 focus:outline-red-600": interview.errors[:scheduled_date].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :result %>
-    <%= form.text_field :result, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": interview.errors[:result].none?, "border-red-400 focus:outline-red-600": interview.errors[:result].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :mode %>
-    <%= form.select :mode, options_for_select(Interview.modes.keys.map { |key| [key.humanize, key] }), include_blank: true %>
-  </div>
-
-  <div class="my-5">
+  <div class="field">
     <%= form.label :interview_type %>
-    <%= form.select :interview_type, options_for_select(Interview.interview_types.keys.map { |key| [key.humanize, key] }), include_blank: true %>
+    <%= form.text_field :interview_type %>
   </div>
 
-  <div class="my-5">
+  <div class="field">
+    <%= form.label :mode %>
+    <%= form.text_field :mode %>
+  </div>
+
+  <div class="field">
+    <%= form.label :scheduled_date %>
+    <%= form.datetime_select :scheduled_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :result %>
+    <%= form.text_field :result %>
+  </div>
+
+  <div class="field">
     <%= form.label :notes %>
-    <%= form.textarea :notes, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": interview.errors[:notes].none?, "border-red-400 focus:outline-red-600": interview.errors[:notes].any?}] %>
+    <%= form.text_area :notes %>
   </div>
 
-  <div class="inline">
-    <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  <div class="actions">
+    <%= form.submit %>
   </div>
 <% end %>

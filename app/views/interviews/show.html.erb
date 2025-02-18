@@ -1,17 +1,27 @@
-<% content_for :title, "Showing interview" %>
+<p>
+  <strong>Interview Type:</strong>
+  <%= @interview.interview_type %>
+</p>
 
-<div class="md:w-2/3 w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
+<p>
+  <strong>Mode:</strong>
+  <%= @interview.mode %>
+</p>
 
-  <h1 class="font-bold text-4xl">Showing interview</h1>
+<p>
+  <strong>Scheduled Date:</strong>
+  <%= @interview.scheduled_date %>
+</p>
 
-  <%= render @interview %>
+<p>
+  <strong>Result:</strong>
+  <%= @interview.result %>
+</p>
 
-  <%= link_to "Edit this interview", edit_interview_path(@interview), class: "mt-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to interviews", interviews_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <div class="inline-block ml-2">
-    <%= button_to "Destroy this interview", @interview, method: :delete, class: "mt-2 rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium" %>
-  </div>
-</div>
+<p>
+  <strong>Notes:</strong>
+  <%= @interview.notes %>
+</p>
+
+<%= link_to 'Edit', edit_job_application_interview_path(@job_application, @interview) %> |
+<%= link_to 'Back', job_application_interviews_path(@job_application) %>
