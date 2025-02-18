@@ -42,7 +42,7 @@ class JobApplicationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should destroy job_application" do
     assert_no_difference("JobApplication.count") do
-      delete job_applications_url(@job_application)
+      delete job_application_url(@job_application)
     end
 
     @job_application.reload
