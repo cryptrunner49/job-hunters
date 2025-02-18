@@ -1,6 +1,6 @@
-class CreateJobOffers < ActiveRecord::Migration[8.0]
+class CreateJobPosts < ActiveRecord::Migration[8.0]
   def change
-    create_table :job_offers do |t|
+    create_table :job_posts do |t|
       t.string :title
       t.text :description
       t.string :skills_required

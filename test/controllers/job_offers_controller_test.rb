@@ -1,48 +1,48 @@
 require "test_helper"
 
-class JobOffersControllerTest < ActionDispatch::IntegrationTest
+class JobPostsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @job_offer = job_offers(:one)
+    @job_post = job_posts(:one)
   end
 
   test "should get index" do
-    get job_offers_url
+    get job_posts_url
     assert_response :success
   end
 
   test "should get new" do
-    get new_job_offer_url
+    get new_job_post_url
     assert_response :success
   end
 
-  test "should create job_offer" do
-    assert_difference("JobOffer.count") do
-      post job_offers_url, params: { job_offer: { apply_from_anywhere: @job_offer.apply_from_anywhere, closing_date: @job_offer.closing_date, company_id: @job_offer.company_id, description: @job_offer.description, employment_type: @job_offer.employment_type, english_level: @job_offer.english_level, experience: @job_offer.experience, japanese_level: @job_offer.japanese_level, location: @job_offer.location, posted_at: @job_offer.posted_at, relocation: @job_offer.relocation, remote: @job_offer.remote, role_id: @job_offer.role_id, salary: @job_offer.salary, skills_required: @job_offer.skills_required, title: @job_offer.title } }
+  test "should create job_post" do
+    assert_difference("JobPost.count") do
+      post job_posts_url, params: { job_post: { apply_from_anywhere: @job_post.apply_from_anywhere, closing_date: @job_post.closing_date, company_id: @job_post.company_id, description: @job_post.description, employment_type: @job_post.employment_type, english_level: @job_post.english_level, experience: @job_post.experience, japanese_level: @job_post.japanese_level, location: @job_post.location, posted_at: @job_post.posted_at, relocation: @job_post.relocation, remote: @job_post.remote, role_id: @job_post.role_id, salary: @job_post.salary, skills_required: @job_post.skills_required, title: @job_post.title } }
     end
 
-    assert_redirected_to job_offer_url(JobOffer.last)
+    assert_redirected_to job_post_url(JobPost.last)
   end
 
-  test "should show job_offer" do
-    get job_offer_url(@job_offer)
+  test "should show job_post" do
+    get job_post_url(@job_post)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_job_offer_url(@job_offer)
+    get edit_job_post_url(@job_post)
     assert_response :success
   end
 
-  test "should update job_offer" do
-    patch job_offer_url(@job_offer), params: { job_offer: { apply_from_anywhere: @job_offer.apply_from_anywhere, closing_date: @job_offer.closing_date, company_id: @job_offer.company_id, description: @job_offer.description, employment_type: @job_offer.employment_type, english_level: @job_offer.english_level, experience: @job_offer.experience, japanese_level: @job_offer.japanese_level, location: @job_offer.location, posted_at: @job_offer.posted_at, relocation: @job_offer.relocation, remote: @job_offer.remote, role_id: @job_offer.role_id, salary: @job_offer.salary, skills_required: @job_offer.skills_required, title: @job_offer.title } }
-    assert_redirected_to job_offer_url(@job_offer)
+  test "should update job_post" do
+    patch job_post_url(@job_post), params: { job_post: { apply_from_anywhere: @job_post.apply_from_anywhere, closing_date: @job_post.closing_date, company_id: @job_post.company_id, description: @job_post.description, employment_type: @job_post.employment_type, english_level: @job_post.english_level, experience: @job_post.experience, japanese_level: @job_post.japanese_level, location: @job_post.location, posted_at: @job_post.posted_at, relocation: @job_post.relocation, remote: @job_post.remote, role_id: @job_post.role_id, salary: @job_post.salary, skills_required: @job_post.skills_required, title: @job_post.title } }
+    assert_redirected_to job_post_url(@job_post)
   end
 
-  test "should destroy job_offer" do
-    assert_difference("JobOffer.count", -1) do
-      delete job_offer_url(@job_offer)
+  test "should destroy job_post" do
+    assert_difference("JobPost.count", -1) do
+      delete job_post_url(@job_post)
     end
 
-    assert_redirected_to job_offers_url
+    assert_redirected_to job_posts_url
   end
 end

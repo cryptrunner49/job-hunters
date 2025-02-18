@@ -8,7 +8,7 @@ class Candidate {
   + phone: string
 }
 
-' Company offers many JobOffers.
+' Company offers many JobPosts.
 class Company {
   + id: int
   + name: string
@@ -20,15 +20,15 @@ class Company {
   + description: text
 }
 
-' Role defines the position for a JobOffer.
+' Role defines the position for a JobPost.
 class Role {
   + id: int
   + name: string
   + description: text
 }
 
-' JobOffer belongs to one Company and is associated with one Role.
-class JobOffer {
+' JobPost belongs to one Company and is associated with one Role.
+class JobPost {
   + id: int
   + title: string
   + description: text
@@ -67,11 +67,11 @@ class CoverLetter {
   + pdf_path: string
 }
 
-' JobApplication links a candidate (with a Resume and an optional CoverLetter) to a JobOffer.
+' JobApplication links a candidate (with a Resume and an optional CoverLetter) to a JobPost.
 class JobApplication {
   + id: int
   + candidate_id: int
-  + job_offer_id: int
+  + job_post_id: int
   + resume_id: int
   + cover_letter_id: int   ' This field is optional; job application may have no cover letter.
   + status: string
@@ -146,10 +146,10 @@ Candidate "1" -- "0..*" Resume : owns
 Candidate "1" -- "0..*" CoverLetter : creates
 Candidate "1" -- "0..*" JobApplication : applies
 
-Company "1" -- "0..*" JobOffer : offers
+Company "1" -- "0..*" JobPost : offers
 
-JobOffer "1" -- "1" Role : is_for
-JobOffer "1" -- "0..*" JobApplication : receives
+JobPost "1" -- "1" Role : is_for
+JobPost "1" -- "0..*" JobApplication : receives
 
 JobApplication "1" -- "1" Resume : uses
 JobApplication "0..1" -- "1" CoverLetter : includes

@@ -9,12 +9,12 @@ Rails.application.routes.draw do
   delete "signout", to: "sessions#destroy"
 
   # Others
-  # root "job_offers#index"
+  # root "job_posts#index"
 
   resources :candidates
   resources :companies
   resources :roles
-  resources :job_offers
+  resources :job_posts
   resources :resumes
   resources :cover_letters
   resources :job_applications do

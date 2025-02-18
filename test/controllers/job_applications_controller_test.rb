@@ -17,7 +17,7 @@ class JobApplicationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create job_application" do
     assert_difference("JobApplication.count") do
-      post job_applications_url, params: { job_application: { applied_at: @job_application.applied_at, cover_letter_id: @job_application.cover_letter_id, feedback: @job_application.feedback, hunter_id: @job_application.hunter_id, job_offer_id: @job_application.job_offer_id, mail: @job_application.mail, phase: @job_application.phase, resume_id: @job_application.resume_id, status: @job_application.status } }
+      post job_applications_url, params: { job_application: { applied_at: @job_application.applied_at, cover_letter_id: @job_application.cover_letter_id, feedback: @job_application.feedback, hunter_id: @job_application.hunter_id, job_post_id: @job_application.job_post_id, mail: @job_application.mail, phase: @job_application.phase, resume_id: @job_application.resume_id, status: @job_application.status } }
     end
 
     assert_redirected_to job_application_url(JobApplication.last)
@@ -34,7 +34,7 @@ class JobApplicationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update job_application" do
-    patch job_application_url(@job_application), params: { job_application: { applied_at: @job_application.applied_at, cover_letter_id: @job_application.cover_letter_id, feedback: @job_application.feedback, hunter_id: @job_application.hunter_id, job_offer_id: @job_application.job_offer_id, mail: @job_application.mail, phase: @job_application.phase, resume_id: @job_application.resume_id, status: @job_application.status } }
+    patch job_application_url(@job_application), params: { job_application: { applied_at: @job_application.applied_at, cover_letter_id: @job_application.cover_letter_id, feedback: @job_application.feedback, hunter_id: @job_application.hunter_id, job_post_id: @job_application.job_post_id, mail: @job_application.mail, phase: @job_application.phase, resume_id: @job_application.resume_id, status: @job_application.status } }
     assert_redirected_to job_application_url(@job_application)
   end
 

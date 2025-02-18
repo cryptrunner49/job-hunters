@@ -3,7 +3,7 @@
     <div class="text-center">
       <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white">Welcome Back, <%= current_hunter.name %>!</h1>
       <p class="text-gray-600 dark:text-gray-400 mt-4">
-        Your dashboard to track job offers and applications.
+        Your dashboard to track job posts and applications.
       </p>
       
       <div class="mt-6">
@@ -11,16 +11,16 @@
       </div>
     </div>
 
-    <!-- Job Offers Section -->
+    <!-- Job Posts Section -->
     <div class="mt-12">
-      <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4">Available Job Offers</h2>
+      <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4">Available Job Posts</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <% @job_offers.each do |job| %>
+        <% @job_posts.each do |job| %>
           <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
             <h3 class="text-xl font-bold text-gray-900 dark:text-white"><%= job.title %></h3>
             <p class="text-gray-600 dark:text-gray-400 mt-2"><%= job.company.name %></p>
             <p class="text-gray-500 dark:text-gray-300 mt-1"><%= job.location %> | <%= job.salary %></p>
-            <%= link_to "View Details", job_offer_path(job), class: "mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" %>
+            <%= link_to "View Details", job_post_path(job), class: "mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" %>
           </div>
         <% end %>
       </div>
@@ -36,7 +36,7 @@
               <li class="py-4">
                 <div class="flex justify-between items-center">
                   <div>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white"><%= application.job_offer.title %></h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white"><%= application.job_post.title %></h3>
                     <p class="text-gray-500 dark:text-gray-300"><%= application.status.capitalize %></p>
                   </div>
                   <%= link_to "View", job_application_path(application), class: "bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700" %>

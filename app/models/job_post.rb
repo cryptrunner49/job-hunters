@@ -1,4 +1,4 @@
-class JobOffer < ApplicationRecord
+class JobPost < ApplicationRecord
   belongs_to :company
   belongs_to :role
 
