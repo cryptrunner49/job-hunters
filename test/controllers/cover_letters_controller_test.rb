@@ -3,6 +3,8 @@ require "test_helper"
 class CoverLettersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @cover_letter = cover_letters(:one)
+    @hunter = hunters(:one)  # Assuming you have a hunter fixture for authentication
+    sign_in_as(@hunter, "password")  # Sign in the hunter before running the tests
   end
 
   test "should get index" do
@@ -39,10 +41,18 @@ class CoverLettersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy cover_letter" do
-    assert_difference("CoverLetter.count", -1) do
+    assert_no_difference("CoverLetter.count") do
       delete cover_letter_url(@cover_letter)
     end
 
+    @cover_letter.reload
+    assert @cover_letter.deleted
     assert_redirected_to cover_letters_url
+  end
+
+  private
+
+  def sign_in_as(hunter, password)
+    post session_url, params: { email_address: hunter.email_address, password: password }
   end
 end

@@ -3,8 +3,8 @@ require "test_helper"
 class CompaniesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @company = companies(:one)
-    @hunter = hunters(:one)  # Assuming you have a hunter fixture for authentication
-    sign_in_as(@hunter, "password")  # Sign in the hunter before running the tests
+    @hunter = hunters(:one)
+    sign_in_as(@hunter, "password")
   end
 
   test "should get index" do

@@ -3,6 +3,8 @@ require "test_helper"
 class JobPostsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @job_post = job_posts(:one)
+    @hunter = hunters(:one)
+    sign_in_as(@hunter, "password")
   end
 
   test "should get index" do
@@ -39,10 +41,18 @@ class JobPostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy job_post" do
-    assert_difference("JobPost.count", -1) do
+    assert_no_difference("JobPost.count") do
       delete job_post_url(@job_post)
     end
 
+    @job_post.reload
+    assert @job_post.deleted
     assert_redirected_to job_posts_url
+  end
+
+  private
+
+  def sign_in_as(hunter, password)
+    post session_url, params: { email_address: hunter.email_address, password: password }
   end
 end

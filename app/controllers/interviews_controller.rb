@@ -1,6 +1,6 @@
 class InterviewsController < ApplicationController
   before_action :set_interview, only: %i[ show edit update destroy ]
-  before_action :set_job_application, only: %i[ index new create ]
+  before_action :set_job_application, only: %i[ index new create edit update destroy show ]
 
   # GET /interviews or /interviews.json
   def index
@@ -20,7 +20,7 @@ class InterviewsController < ApplicationController
   def edit
   end
 
-  # POST /interviews or /interviewaas.json
+  # POST /interviews or /interviews.json
   def create
     @interview = @job_application.interviews.build(interview_params)
 
@@ -39,7 +39,7 @@ class InterviewsController < ApplicationController
   def update
     respond_to do |format|
       if @interview.update(interview_params)
-        format.html { redirect_to job_application_interview_path(@interview.job_application, @interview), notice: "Interview was successfully updated." }
+        format.html { redirect_to job_application_interview_path(@job_application, @interview), notice: "Interview was successfully updated." }
         format.json { render :show, status: :ok, location: @interview }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class InterviewsController < ApplicationController
     @interview.soft_delete
 
     respond_to do |format|
-      format.html { redirect_to job_application_interviews_path(@interview.job_application), status: :see_other, notice: "Interview was successfully deleted." }
+      format.html { redirect_to job_application_interviews_path(@job_application), status: :see_other, notice: "Interview was successfully deleted." }
       format.json { head :no_content }
     end
   end

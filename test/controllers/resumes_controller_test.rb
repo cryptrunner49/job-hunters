@@ -3,6 +3,8 @@ require "test_helper"
 class ResumesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @resume = resumes(:one)
+    @hunter = hunters(:one)
+    sign_in_as(@hunter, "password")
   end
 
   test "should get index" do
@@ -39,10 +41,18 @@ class ResumesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy resume" do
-    assert_difference("Resume.count", -1) do
+    assert_no_difference("Resume.count") do
       delete resume_url(@resume)
     end
 
+    @resume.reload
+    assert @resume.deleted
     assert_redirected_to resumes_url
+  end
+
+  private
+
+  def sign_in_as(hunter, password)
+    post session_url, params: { email_address: hunter.email_address, password: password }
   end
 end

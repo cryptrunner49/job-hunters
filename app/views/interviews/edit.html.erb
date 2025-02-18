@@ -1,10 +1,5 @@
-<% content_for :title, "Editing interview" %>
+<h1>Editing Interview</h1>
 
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing interview</h1>
+<%= render 'form', job_application: @job_application, interview: @interview %>
 
-  <%= render "form", interview: @interview %>
-
-  <%= link_to "Show this interview", @interview, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to interviews", interviews_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-</div>
+<%= link_to 'Back', job_application_interviews_path(@job_application) %>
