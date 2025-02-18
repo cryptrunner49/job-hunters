@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_18_103800) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_18_131847) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -49,6 +49,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_103800) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "deleted", default: false, null: false
   end
 
   create_table "cover_letters", force: :cascade do |t|
@@ -58,6 +59,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_103800) do
     t.string "pdf_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "deleted", default: false, null: false
     t.index ["hunter_id"], name: "index_cover_letters_on_hunter_id"
   end
 
@@ -68,6 +70,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_103800) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "phone"
+    t.boolean "deleted", default: false, null: false
     t.index ["email_address"], name: "index_hunters_on_email_address", unique: true
   end
 
@@ -80,6 +83,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_103800) do
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "deleted", default: false, null: false
     t.index ["job_application_id"], name: "index_interviews_on_job_application_id"
   end
 
@@ -95,6 +99,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_103800) do
     t.text "feedback"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "deleted", default: false, null: false
     t.index ["cover_letter_id"], name: "index_job_applications_on_cover_letter_id"
     t.index ["hunter_id"], name: "index_job_applications_on_hunter_id"
     t.index ["job_post_id"], name: "index_job_applications_on_job_post_id"
@@ -112,6 +117,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_103800) do
     t.text "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "deleted", default: false, null: false
     t.index ["company_id"], name: "index_job_offers_on_company_id"
     t.index ["hunter_id"], name: "index_job_offers_on_hunter_id"
     t.index ["job_post_id"], name: "index_job_offers_on_job_post_id"
@@ -136,6 +142,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_103800) do
     t.integer "role_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "deleted", default: false, null: false
     t.index ["company_id"], name: "index_job_posts_on_company_id"
     t.index ["role_id"], name: "index_job_posts_on_role_id"
   end
@@ -148,6 +155,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_103800) do
     t.integer "resume_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "deleted", default: false, null: false
     t.index ["hunter_id"], name: "index_resumes_on_hunter_id"
   end
 
@@ -156,6 +164,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_103800) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "deleted", default: false, null: false
   end
 
   create_table "sessions", force: :cascade do |t|
