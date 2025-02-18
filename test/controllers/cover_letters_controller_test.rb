@@ -49,10 +49,4 @@ class CoverLettersControllerTest < ActionDispatch::IntegrationTest
     assert @cover_letter.deleted
     assert_redirected_to cover_letters_url
   end
-
-  private
-
-  def sign_in_as(hunter, password)
-    post session_url, params: { email_address: hunter.email_address, password: password }
-  end
 end

@@ -49,10 +49,4 @@ class CompaniesControllerTest < ActionDispatch::IntegrationTest
     assert @company.deleted
     assert_redirected_to companies_url
   end
-
-  private
-
-  def sign_in_as(hunter, password)
-    post session_url, params: { email_address: hunter.email_address, password: password }
-  end
 end

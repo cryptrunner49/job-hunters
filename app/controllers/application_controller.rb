@@ -7,8 +7,4 @@ class ApplicationController < ActionController::Base
   def current_hunter
     @current_hunter ||= Hunter.find(session[:hunter_id]) if session[:hunter_id]
   end
-
-  def hunter_signed_in?
-    current_hunter.present?
-  end
 end

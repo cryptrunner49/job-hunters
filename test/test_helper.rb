@@ -11,5 +11,9 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+    def sign_in_as(hunter, password)
+      post session_url, params: { email_address: hunter.email_address, password: password }
+      # follow_redirect! # Add this line to persist the session
+    end
   end
 end
