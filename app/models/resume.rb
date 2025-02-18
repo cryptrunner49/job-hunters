@@ -1,5 +1,6 @@
 class Resume < ApplicationRecord
   belongs_to :hunter
+  has_many :job_applications
 
   enum :resume_type, [
     :backend,
@@ -12,4 +13,8 @@ class Resume < ApplicationRecord
     :manager,
     :ux
   ], prefix: true
+
+  def soft_delete
+    update(deleted: true)
+  end
 end
