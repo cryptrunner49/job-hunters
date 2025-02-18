@@ -49,10 +49,4 @@ class JobApplicationsControllerTest < ActionDispatch::IntegrationTest
     assert @job_application.deleted
     assert_redirected_to job_applications_url
   end
-
-  private
-
-  def sign_in_as(hunter, password)
-    post session_url, params: { email_address: hunter.email_address, password: password }
-  end
 end
