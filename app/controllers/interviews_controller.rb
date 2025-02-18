@@ -49,7 +49,7 @@ class InterviewsController < ApplicationController
 
   # DELETE /interviews/1 or /interviews/1.json
   def destroy
-    @interview.soft_delete!
+    @interview.soft_delete
 
     respond_to do |format|
       format.html { redirect_to interviews_path, status: :see_other, notice: "Interview was successfully destroyed." }
