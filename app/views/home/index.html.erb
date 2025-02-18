@@ -1,5 +1,6 @@
 <div class="container mx-auto px-6 py-12">
   <% if authenticated? %>
+    <!-- Authenticated User Welcome Section -->
     <div class="text-center">
       <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white">Welcome Back, <%= current_hunter.name %>!</h1>
       <p class="text-gray-600 dark:text-gray-400 mt-4">
@@ -13,14 +14,20 @@
 
     <!-- Job Posts Section -->
     <div class="mt-12">
-      <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4">Available Job Posts</h2>
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">Available Job Posts</h2>
+        <%= link_to "Create New Job Post", new_job_post_path, class: "bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700" %>
+      </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <% @job_posts.each do |job| %>
           <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
             <h3 class="text-xl font-bold text-gray-900 dark:text-white"><%= job.title %></h3>
             <p class="text-gray-600 dark:text-gray-400 mt-2"><%= job.company.name %></p>
             <p class="text-gray-500 dark:text-gray-300 mt-1"><%= job.location %> | <%= job.salary %></p>
-            <%= link_to "View Details", job_post_path(job), class: "mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" %>
+            <div class="mt-4 space-x-2">
+              <%= link_to "View Details", job_post_path(job), class: "inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" %>
+              <%= link_to "Apply", new_job_application_path(job_post_id: job.id), class: "inline-block bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700" %>
+            </div>
           </div>
         <% end %>
       </div>
@@ -51,6 +58,7 @@
     </div>
 
   <% else %>
+    <!-- Unauthenticated User Welcome Section -->
     <div class="text-center">
       <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white">Welcome to Job Hunters</h1>
       <p class="text-gray-600 dark:text-gray-400 mt-4">
