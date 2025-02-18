@@ -19,6 +19,11 @@ class HuntersController < ApplicationController
     end
   end
 
+  def destroy
+    @hunter.soft_delete
+    redirect_to root_path, notice: "Account was successfully deleted."
+  end
+
   private
 
   def hunter_params
