@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   resources :passwords, only: %i[new create edit update], param: :token
 
   # Sign-up routes
-  get "signup", to: "hunters#new", as: :new_hunter
+  get "signin", to: "hunters#new", as: :new_hunter
   post "signup", to: "hunters#create"
+  delete "signout", to: "sessions#destroy"
 
   # Others
   # root "job_offers#index"
