@@ -1,0 +1,10 @@
+<% content_for :title, "Editing job offer" %>
+
+<div class="md:w-2/3 w-full">
+  <h1 class="font-bold text-4xl">Editing job offer</h1>
+
+  <%= render "form", job_post: @job_post %>
+
+  <%= link_to "Show this job offer", @job_post, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <%= link_to "Back to job offers", job_posts_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+</div>
