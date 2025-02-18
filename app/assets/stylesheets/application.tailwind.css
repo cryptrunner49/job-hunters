@@ -11,3 +11,17 @@
 }
 
 */
+.dark [type="checkbox"]:checked {
+  @apply bg-gray-800 text-gray-100 border border-gray-600 rounded-md;
+}
+.dark [type="radio"]:checked {
+  @apply bg-gray-800 text-gray-100 border border-gray-600 rounded-md;
+}
+
+.dark [role="listbox"] {
+  @apply bg-gray-800 text-gray-100 border border-gray-600 rounded-md;
+}
+
+.dark [role="option"] {
+  @apply hover:bg-gray-700 px-3 py-2;
+}

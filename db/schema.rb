@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_18_131847) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_18_214027) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -136,8 +136,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_131847) do
     t.integer "japanese_level"
     t.decimal "salary"
     t.integer "employment_type"
-    t.datetime "posted_at"
-    t.datetime "closing_date"
+    t.date "posted_at"
+    t.date "closing_date"
     t.integer "company_id", null: false
     t.integer "role_id", null: false
     t.datetime "created_at", null: false
