@@ -7,15 +7,15 @@
 
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Job offers</h1>
-    <%= link_to "New job offer", new_job_offer_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+    <%= link_to "New job offer", new_job_post_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
   </div>
 
-  <div id="job_offers" class="min-w-full">
-    <% if @job_offers.any? %>
-      <% @job_offers.each do |job_offer| %>
-        <%= render job_offer %>
+  <div id="job_posts" class="min-w-full">
+    <% if @job_posts.any? %>
+      <% @job_posts.each do |job_post| %>
+        <%= render job_post %>
         <p>
-          <%= link_to "Show this job offer", job_offer, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+          <%= link_to "Show this job offer", job_post, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
         </p>
       <% end %>
     <% else %>

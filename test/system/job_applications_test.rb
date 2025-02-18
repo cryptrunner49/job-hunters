@@ -18,7 +18,7 @@ class JobApplicationsTest < ApplicationSystemTestCase
     fill_in "Cover letter", with: @job_application.cover_letter_id
     fill_in "Feedback", with: @job_application.feedback
     fill_in "Hunter", with: @job_application.hunter_id
-    fill_in "Job offer", with: @job_application.job_offer_id
+    fill_in "Job offer", with: @job_application.job_post_id
     fill_in "Mail", with: @job_application.mail
     fill_in "Phase", with: @job_application.phase
     fill_in "Resume", with: @job_application.resume_id
@@ -37,7 +37,7 @@ class JobApplicationsTest < ApplicationSystemTestCase
     fill_in "Cover letter", with: @job_application.cover_letter_id
     fill_in "Feedback", with: @job_application.feedback
     fill_in "Hunter", with: @job_application.hunter_id
-    fill_in "Job offer", with: @job_application.job_offer_id
+    fill_in "Job offer", with: @job_application.job_post_id
     fill_in "Mail", with: @job_application.mail
     fill_in "Phase", with: @job_application.phase
     fill_in "Resume", with: @job_application.resume_id

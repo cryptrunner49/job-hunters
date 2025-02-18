@@ -2,7 +2,7 @@
 
 one:
   hunter: one
-  job_offer: one
+  job_post: one
   resume: one
   cover_letter: one
   status: MyString
@@ -13,7 +13,7 @@ one:
 
 two:
   hunter: two
-  job_offer: two
+  job_post: two
   resume: two
   cover_letter: two
   status: MyString

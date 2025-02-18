@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_17_205016) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_18_094843) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -101,7 +101,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_17_205016) do
     t.index ["resume_id"], name: "index_job_applications_on_resume_id"
   end
 
-  create_table "job_offers", force: :cascade do |t|
+  create_table "job_posts", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.string "skills_required"
@@ -120,8 +120,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_17_205016) do
     t.integer "role_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_job_offers_on_company_id"
-    t.index ["role_id"], name: "index_job_offers_on_role_id"
+    t.index ["company_id"], name: "index_job_posts_on_company_id"
+    t.index ["role_id"], name: "index_job_posts_on_role_id"
   end
 
   create_table "resumes", force: :cascade do |t|
@@ -157,10 +157,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_17_205016) do
   add_foreign_key "interviews", "job_applications"
   add_foreign_key "job_applications", "cover_letters"
   add_foreign_key "job_applications", "hunters"
-  add_foreign_key "job_applications", "job_offers"
+  add_foreign_key "job_applications", "job_posts", column: "job_offer_id"
   add_foreign_key "job_applications", "resumes"
-  add_foreign_key "job_offers", "companies"
-  add_foreign_key "job_offers", "roles"
+  add_foreign_key "job_posts", "companies"
+  add_foreign_key "job_posts", "roles"
   add_foreign_key "resumes", "hunters"
   add_foreign_key "sessions", "hunters"
 end
