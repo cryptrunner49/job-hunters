@@ -49,7 +49,7 @@ class RolesController < ApplicationController
 
   # DELETE /roles/1 or /roles/1.json
   def destroy
-    @role.destroy!
+    @role.soft_delete!
 
     respond_to do |format|
       format.html { redirect_to roles_path, status: :see_other, notice: "Role was successfully destroyed." }

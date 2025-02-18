@@ -49,7 +49,7 @@ class ResumesController < ApplicationController
 
   # DELETE /resumes/1 or /resumes/1.json
   def destroy
-    @resume.destroy!
+    @resume.soft_delete!
 
     respond_to do |format|
       format.html { redirect_to resumes_path, status: :see_other, notice: "Resume was successfully destroyed." }
