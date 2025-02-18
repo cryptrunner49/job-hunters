@@ -2,97 +2,110 @@
 
 ' Candidate represents a user applying to jobs.
 class Candidate {
-  + id: int
-  + name: string
-  + email: string
-  + phone: string
+  + id: int                      ' Primary key
+  + name: string                 ' Full name of the candidate
+  + email: string                ' Email address
+  + phone: string                ' Contact phone number
 }
 
-' Company offers many JobPosts.
+' Company offers job posts and extends job offers.
 class Company {
-  + id: int
-  + name: string
-  + industry: string
-  + location: string
-  + github: string
-  + website: string
-  + job_search_website: string
-  + description: text
+  + id: int                      ' Primary key
+  + name: string                 ' Company name
+  + industry: string             ' Industry sector
+  + location: string             ' Physical location or headquarters
+  + github: string               ' GitHub account or repository URL
+  + website: string              ' Official website URL
+  + job_search_website: string   ' URL for the company’s recruitment page
+  + description: text            ' Detailed company description
 }
 
-' Role defines the position for a JobPost.
+' Role defines the position for a job post.
 class Role {
-  + id: int
-  + name: string
-  + description: text
+  + id: int                      ' Primary key
+  + name: string                 ' Name of the role (e.g., Developer)
+  + description: text            ' Detailed description of the role
 }
 
-' JobPost belongs to one Company and is associated with one Role.
+' JobPost represents a job posting on the platform.
 class JobPost {
-  + id: int
-  + title: string
-  + description: text
-  + skills_required: string
-  + experience: string
-  + location: string
-  + relocation: boolean
-  + apply_from_anywhere: boolean
-  + remote: RemoteType
-  + english_level: EnglishType
-  + japanese_level: JapaneseType
-  + salary: decimal
-  + employment_type: EmploymentType
-  + posted_at: datetime
-  + closing_date: datetime
-  + company_id: int
-  + role_id: int
+  + id: int                      ' Primary key
+  + title: string                ' Title of the job post
+  + description: text            ' Full description of the job and responsibilities
+  + skills_required: string      ' List of required skills (comma-separated)
+  + experience: string           ' Required experience level or years of experience
+  + location: string             ' Job location
+  + relocation: boolean          ' Whether relocation is required or provided
+  + apply_from_anywhere: boolean ' Whether applicants can apply remotely
+  + remote: RemoteType           ' Remote work option (enum: NO, PARTIAL, FULL)
+  + english_level: EnglishType   ' Required English proficiency (enum: BASIC, INTERMEDIATE, BUSINESS_LEVEL)
+  + japanese_level: JapaneseType ' Required Japanese proficiency (enum: N5, N4, N3, N2, N1, ADVANCED)
+  + salary: decimal              ' Offered salary or salary range
+  + employment_type: EmploymentType ' Type of employment (enum: FULL_TIME, PART_TIME, CONTRACT, TEMPORARY, INTERN)
+  + posted_at: datetime          ' Date and time when the job was posted
+  + closing_date: datetime       ' Application deadline
+  + company_id: int              ' Foreign key to Company (which posts the job)
+  + role_id: int                 ' Foreign key to Role (the position offered)
 }
 
 ' Resume represents one of the candidate's CVs.
 class Resume {
-  + id: int
-  + candidate_id: int
-  + title: string
-  + latex_source: text
-  + pdf_path: string
-  + resume_type: ResumeType
+  + id: int                      ' Primary key
+  + candidate_id: int            ' Foreign key to Candidate (owner of the resume)
+  + title: string                ' Title or label for the resume (e.g., "Technical Resume")
+  + latex_source: text           ' LaTeX source code for generating the resume PDF
+  + pdf_path: string             ' File path to the generated PDF version
+  + resume_type: ResumeType      ' Category/type of resume (enum: DEVELOPER, DESIGNER, MANAGER, ANALYST)
 }
 
 ' CoverLetter represents a cover letter a candidate can create.
 class CoverLetter {
-  + id: int
-  + candidate_id: int
-  + subject: string
-  + latex_source: text
-  + pdf_path: string
+  + id: int                      ' Primary key
+  + candidate_id: int            ' Foreign key to Candidate (creator of the cover letter)
+  + subject: string              ' Subject line of the cover letter
+  + latex_source: text           ' LaTeX source code for generating the cover letter PDF
+  + pdf_path: string             ' File path to the generated PDF version
 }
 
 ' JobApplication links a candidate (with a Resume and an optional CoverLetter) to a JobPost.
 class JobApplication {
-  + id: int
-  + candidate_id: int
-  + job_post_id: int
-  + resume_id: int
-  + cover_letter_id: int   ' This field is optional; job application may have no cover letter.
-  + status: string
-  + phase: string
-  + mail: string
-  + applied_at: datetime
-  + feedback: text
+  + id: int                      ' Primary key
+  + candidate_id: int            ' Foreign key to Candidate (applicant)
+  + job_post_id: int             ' Foreign key to JobPost (the job being applied to)
+  + resume_id: int               ' Foreign key to Resume used in the application
+  + cover_letter_id: int         ' Foreign key to CoverLetter (optional)
+  + status: string               ' Status of the application (e.g., pending, accepted)
+  + phase: string                ' Current phase (e.g., initial screening, interview)
+  + mail: string                 ' Email used for correspondence
+  + applied_at: datetime         ' Date and time when the application was submitted
+  + feedback: text               ' Feedback or additional notes regarding the application
 }
 
 ' Interview is scheduled for a JobApplication.
 class Interview {
-  + id: int
-  + job_application_id: int
-  + scheduled_date: datetime
-  + result: string
-  + mode: InterviewMode
-  + interview_type: InterviewType
-  + notes: text
+  + id: int                      ' Primary key
+  + job_application_id: int      ' Foreign key to JobApplication
+  + scheduled_date: datetime     ' Date and time for the interview
+  + result: string               ' Outcome or result of the interview
+  + mode: InterviewMode          ' Mode of interview (enum: IN_PERSON, VIDEO, PHONE)
+  + interview_type: InterviewType ' Type of interview (enum: TECHNICAL, HR, FINAL)
+  + notes: text                  ' Additional notes about the interview
 }
 
-' Enum definitions
+' JobOffer represents the actual offer extended by a company.
+class JobOffer {
+  + id: int                      ' Primary key
+  + candidate_id: int            ' Foreign key to Candidate receiving the offer
+  + job_post_id: int             ' Foreign key to JobPost from which the offer originates
+  + company_id: int              ' Foreign key to Company extending the offer
+  + status: string               ' Current status of the offer (e.g., pending, accepted, declined)
+  + salary: decimal              ' Final offered salary (may differ from job post salary)
+  + start_date: date             ' Proposed start date for employment
+  + offer_date: date             ' Date when the offer was extended
+  + message: text                ' Additional details or the official offer message
+}
+
+' Enums definitions
 enum RemoteType {
   NO
   PARTIAL
@@ -102,7 +115,7 @@ enum RemoteType {
 enum EnglishType {
   BASIC
   INTERMEDIATE
-  ADVANCED
+  BUSINESS_LEVEL
 }
 
 enum JapaneseType {
@@ -111,7 +124,7 @@ enum JapaneseType {
   N3
   N2
   N1
-  BUSINESS_LEVEL
+  ADVANCED
 }
 
 enum EmploymentType {
@@ -145,11 +158,15 @@ enum InterviewType {
 Candidate "1" -- "0..*" Resume : owns
 Candidate "1" -- "0..*" CoverLetter : creates
 Candidate "1" -- "0..*" JobApplication : applies
+Candidate "1" -- "0..*" JobOffer : receives
 
-Company "1" -- "0..*" JobPost : offers
+Company "1" -- "0..*" JobPost : posts
+Company "1" -- "0..*" JobOffer : extends
 
-JobPost "1" -- "1" Role : is_for
+Role "1" -- "0..*" JobPost : defines
+
 JobPost "1" -- "0..*" JobApplication : receives
+JobPost "1" -- "0..*" JobOffer : generates
 
 JobApplication "1" -- "1" Resume : uses
 JobApplication "0..1" -- "1" CoverLetter : includes
