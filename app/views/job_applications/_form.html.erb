@@ -100,25 +100,54 @@
   <div class="inline">
     <%= form.submit class: "rounded-md  w-full px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white inline-block font-medium cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-500" %>
   </div>
+
+  <script>
+        document.addEventListener('turbo:load', function() {
+          document.querySelectorAll('.add-new-btn').forEach(button => {
+            button.addEventListener('click', function() {
+              const fieldType = this.dataset.fieldType;
+              const formId = `new-${fieldType.replace('_id', '')}-form`;
+              const form = document.getElementById(formId);
+              form.classList.toggle('hidden');
+            });
+          });
+        });
+
+        document.addEventListener('turbo:load', function() {
+          const buttons = document.querySelectorAll('.add-new-btn');
+
+          buttons.forEach(button => {
+            button.addEventListener('click', function() {
+              this.textContent = this.textContent === 'Add New' ? 'Cancel' : 'Add New';
+            });
+          });
+        });
+  </script>
 <% end %>
   </div>
 
   <div class="mt-9">
-    <div id="new-company-form" class="hidden mt-4">
-          <%= form_with(model: Company.new, url: companies_path, data: { remote: true }, class: "flex flex-col gap-2") do |f| %>
-            <%= f.text_field :name, 
-                  placeholder: "New company name", 
+    <div id="new-resume-form" class="hidden mt-4">
+          <%= form_with(model: Resume.new, url: resumes_path, data: { remote: true }, class: "flex flex-col gap-2") do |form| %>
+            <%= form.text_field :name,
+                  placeholder: "New resume name",
                   class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
-            <%= f.submit "Create", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white cursor-pointer" %>
+            <%= form.text_area :latex_source,
+                  placeholder: "Latex source",
+                  class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
+            <%= form.submit "Create", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white cursor-pointer" %>
           <% end %>
     </div>
 
-    <div id="new-role-form" class="hidden mt-4">
-          <%= form_with(model: Role.new, url: roles_path, data: { remote: true }, class: "flex flex-col gap-2") do |f| %>
-            <%= f.text_field :name, 
-                  placeholder: "New role name", 
+    <div id="new-cover_letter-form" class="hidden mt-4">
+          <%= form_with(model: CoverLetter.new, url: cover_letters_path, data: { remote: true }, class: "flex flex-col gap-2") do |form| %>
+            <%= form.text_field :name,
+                  placeholder: "New cover letter name", 
                   class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
-            <%= f.submit "Create", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white cursor-pointer" %>
+            <%= form.text_area :latex_source,
+                  placeholder: "Latex source",
+                  class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
+            <%= form.submit "Create", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white cursor-pointer" %>
           <% end %>
     </div>
   </div>
