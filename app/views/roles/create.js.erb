@@ -1,0 +1,11 @@
+<% if @role.persisted? %>
+  const roleSelect = document.querySelector('#job_post_role_id');
+  const newOption = new Option('<%= @role.name %>', '<%= @role.id %>');
+  roleSelect.add(newOption, undefined);
+  roleSelect.value = '<%= @role.id %>';
+  document.getElementById('new-role-form').classList.add('hidden');
+  document.getElementById('role_name').value = '';
+<% else %>
+  const form = document.getElementById('new-role-form');
+  form.innerHTML = '<%= j render(partial: "inline_forms", locals: { field: :role_id }) %>';
+<% end %>

@@ -22,12 +22,13 @@ class CompaniesController < ApplicationController
   # POST /companies or /companies.json
   def create
     @company = Company.new(company_params)
-
     respond_to do |format|
       if @company.save
+        format.js  # Renders create.js.erb
         format.html { redirect_to @company, notice: "Company was successfully created." }
         format.json { render :show, status: :created, location: @company }
       else
+        format.js   # Renders create.js.erb with errors
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @company.errors, status: :unprocessable_entity }
       end

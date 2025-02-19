@@ -1,0 +1,14 @@
+<% if @company.persisted? %>
+  // Append the new option and select it
+  const companySelect = document.querySelector('#job_post_company_id');
+  const newOption = new Option('<%= @company.name %>', '<%= @company.id %>');
+  companySelect.add(newOption, undefined);
+  companySelect.value = '<%= @company.id %>';
+  // Hide the form and clear input
+  document.getElementById('new-company-form').classList.add('hidden');
+  document.getElementById('company_name').value = '';
+<% else %>
+  // Display validation errors
+  const form = document.getElementById('new-company-form');
+  form.innerHTML = '<%= j render(partial: "inline_forms", locals: { field: :company_id }) %>';
+<% end %>

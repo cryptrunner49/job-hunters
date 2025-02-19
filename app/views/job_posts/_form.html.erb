@@ -11,24 +11,34 @@
   <% end %>
 
   <%# Table Fields %>
-  <% [:company_id, :role_id].each do |field| %>
+<% [:company_id, :role_id].each do |field| %>
   <div class="my-5">
     <%= form.label field, class: "dark:text-gray-200" %>
-    <%= form.collection_select field, 
-        field == :company_id ? @companies : @roles, 
-        :id, :name, 
-        { prompt: "Select a #{field == :company_id ? 'company' : 'role'}" }, 
-        { 
-          class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full 
-                  bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
-                  border-gray-400 dark:border-gray-600 focus:outline-blue-600 
-                  dark:focus:outline-blue-400 appearance-none",
-          data: { 
-            error: job_post.errors[field].any? ? "true" : "false"
-          }
-        } %>
+    <div class="flex items-center gap-2">
+      <%= form.collection_select field, 
+          field == :company_id ? @companies : @roles, 
+          :id, :name, 
+          { prompt: "Select a #{field == :company_id ? 'company' : 'role'}" }, 
+          { 
+            class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full 
+                    bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
+                    border-gray-400 dark:border-gray-600 focus:outline-blue-600 
+                    dark:focus:outline-blue-400 appearance-none",
+            data: { 
+              error: job_post.errors[field].any? ? "true" : "false"
+            }
+          } %>
+      <button 
+        type="button" 
+        class="add-new-btn rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100"
+        data-field-type="<%= field %>"
+      >
+        Add New
+      </button>
+    </div>
+    <%= render partial: 'inline_forms', locals: { field: field } %>
   </div>
-  <% end %>
+<% end %>
 
   <%# Form Fields %>
   <% [:title, :description, :skills_required, :experience, :location, :salary].each do |field| %>
@@ -89,4 +99,17 @@
   <div class="inline">
     <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white inline-block font-medium cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-500" %>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.add-new-btn').forEach(button => {
+        button.addEventListener('click', function() {
+          const fieldType = this.dataset.fieldType;
+          const formId = `new-${fieldType.replace('_id', '')}-form`;
+          const form = document.getElementById(formId);
+          form.classList.toggle('hidden');
+        });
+      });
+    });
+  </script>
 <% end %>
