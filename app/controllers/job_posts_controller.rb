@@ -13,6 +13,8 @@ class JobPostsController < ApplicationController
   # GET /job_posts/new
   def new
     @job_post = JobPost.new
+    @companies = Company.all
+    @roles = Role.all
   end
 
   # GET /job_posts/1/edit
@@ -22,6 +24,11 @@ class JobPostsController < ApplicationController
   # POST /job_posts or /job_posts.json
   def create
     @job_post = JobPost.new(job_post_params)
+
+    # Validation for company_id and role_id
+    if @job_post.company_id.blank? || @job_post.role_id.blank?
+      @job_post.errors.add(:base, "Please select both a company and a role.")
+    end
 
     respond_to do |format|
       if @job_post.save
