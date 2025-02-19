@@ -1,9 +1,10 @@
 <% content_for :title, "New job application" %>
 
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New job application</h1>
+<div class="w-full bg-white dark:bg-gray-900 p-6 rounded-md shadow-md">
+  <h1 class="font-bold text-4xl text-gray-900 dark:text-gray-100 mb-6">New job application</h1>
 
   <%= render "form", job_application: @job_application %>
 
-  <%= link_to "Back to job applications", job_applications_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <%#= link_to "Back to home", root_path, 
+      class: "rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 font-medium transition-colors" %>
 </div>
