@@ -13,10 +13,14 @@ class JobApplicationsController < ApplicationController
   # GET /job_applications/new
   def new
     @job_application = JobApplication.new
+    @resumes = Resume.all
+    @cover_letters = CoverLetter.all
   end
 
   # GET /job_applications/1/edit
   def edit
+    @resumes = Resume.all
+    @cover_letters = CoverLetter.all
   end
 
   # POST /job_applications or /job_applications.json

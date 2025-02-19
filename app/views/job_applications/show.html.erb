@@ -17,7 +17,7 @@
     <%= link_to "Edit this job application", edit_job_application_path(@job_application),
       class: "rounded-md px-4 py-2 text-gray-700 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 font-medium transition" %>
 
-    <%= link_to "Back to job applications", job_applications_path,
+    <%= link_to "Back to home", root_path,
       class: "rounded-md px-4 py-2 text-gray-700 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 font-medium transition" %>
 
     <%= button_to "Destroy this job application", @job_application, method: :delete,
