@@ -19,6 +19,9 @@ class JobPostsController < ApplicationController
 
   # GET /job_posts/1/edit
   def edit
+    @job_post = JobPost.new
+    @companies = Company.all
+    @roles = Role.all
   end
 
   # POST /job_posts or /job_posts.json
