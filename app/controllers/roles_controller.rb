@@ -25,7 +25,7 @@ class RolesController < ApplicationController
     respond_to do |format|
       if @role.save
         format.js  # Renders create.js.erb
-        format.html { redirect_to @role, notice: "Role was successfully created." }
+        # format.html { redirect_to @role, notice: "Role was successfully created." }
         format.json { render :show, status: :created, location: @role }
       else
         format.js   # Renders create.js.erb with errors
