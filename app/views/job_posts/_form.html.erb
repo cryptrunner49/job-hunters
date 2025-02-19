@@ -1,115 +1,225 @@
-<%= form_with(model: job_post, class: "contents") do |form| %>
-  <% if job_post.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 dark:bg-red-900 text-red-500 dark:text-red-300 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(job_post.errors.count, "error") %> prohibited this job_post from being saved:</h2>
-      <ul class="list-disc ml-6">
-        <% job_post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<div class="grid grid-cols-2 gap-4">
+  <div>
+    <%= form_with(model: job_post, local: true, class: "contents") do |form| %>
+      <% if job_post.errors.any? %>
+        <div id="error_explanation" class="bg-red-50 dark:bg-red-900 text-red-500 dark:text-red-300 px-3 py-2 font-medium rounded-md mt-3">
+          <h2><%= pluralize(job_post.errors.count, "error") %> prohibited this job post from being saved:</h2>
+          <ul class="list-disc ml-6">
+            <% job_post.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <%# Table Fields %>
-<% [:company_id, :role_id].each do |field| %>
-  <div class="my-5">
-    <%= form.label field, class: "dark:text-gray-200" %>
-    <div class="flex items-center gap-2">
-      <%= form.collection_select field, 
-          field == :company_id ? @companies : @roles, 
-          :id, :name, 
-          { prompt: "Select a #{field == :company_id ? 'company' : 'role'}" }, 
-          { 
-            class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full 
+      <div class="my-5">
+        <%= form.label :company_id, class: "dark:text-gray-200 mb-2" %>
+        <div class="flex items-center gap-2">
+          <%= form.collection_select :company_id, @companies, :id, :name, { prompt: "Select a company" }, 
+              { 
+                class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full 
+                        bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
+                        border-gray-400 dark:border-gray-600 focus:outline-blue-600 
+                        dark:focus:outline-blue-400 appearance-none",
+                data: { 
+                  error: job_post.errors[:company_id].any? ? "true" : "false"
+                }
+              } %>
+          <button 
+            type="button" 
+            class="add-new-btn rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 h-10 whitespace-nowrap"
+            data-field-type="company_id">Add New</button>
+        </div>
+      </div>
+
+      <div class="my-5">
+        <%= form.label :role_id, class: "dark:text-gray-200 mb-2" %>
+        <div class="flex items-center gap-2">
+          <%= form.collection_select :role_id, @roles, :id, :name, { prompt: "Select a role" }, 
+              { 
+                class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full 
+                        bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
+                        border-gray-400 dark:border-gray-600 focus:outline-blue-600 
+                        dark:focus:outline-blue-400 appearance-none",
+                data: { 
+                  error: job_post.errors[:role_id].any? ? "true" : "false"
+                }
+              } %>
+          <button 
+            type="button" 
+            class="add-new-btn rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 h-10 whitespace-nowrap"
+            data-field-type="role_id">Add New</button>
+        </div>
+      </div>
+
+      <div class="my-5">
+        <%= form.label :title, class: "dark:text-gray-200" %>
+        <%= form.text_field :title, class: [
+            "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
+            {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_post.errors[:title].none?, 
+            "border-red-400 dark:border-red-600 focus:outline-red-600": job_post.errors[:title].any?}
+          ] %>
+      </div>
+
+      <div class="my-5">
+        <%= form.label :description, class: "dark:text-gray-200" %>
+        <%= form.text_area :description, rows: 4, class: [
+            "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
+            {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_post.errors[:description].none?, 
+            "border-red-400 dark:border-red-600 focus:outline-red-600": job_post.errors[:description].any?}
+          ] %>
+      </div>
+
+      <div class="my-5">
+        <%= form.label :skills_required, class: "dark:text-gray-200" %>
+        <%= form.text_field :skills_required, class: [
+            "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
+            {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_post.errors[:skills_required].none?, 
+            "border-red-400 dark:border-red-600 focus:outline-red-600": job_post.errors[:skills_required].any?}
+          ] %>
+      </div>
+
+      <div class="my-5">
+        <%= form.label :experience, class: "dark:text-gray-200" %>
+        <%= form.text_field :experience, class: [
+            "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
+            {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_post.errors[:experience].none?, 
+            "border-red-400 dark:border-red-600 focus:outline-red-600": job_post.errors[:experience].any?}
+          ] %>
+      </div>
+
+      <div class="my-5">
+        <%= form.label :location, class: "dark:text-gray-200" %>
+        <%= form.text_field :location, class: [
+            "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
+            {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_post.errors[:location].none?, 
+            "border-red-400 dark:border-red-600 focus:outline-red-600": job_post.errors[:location].any?}
+          ] %>
+      </div>
+
+      <div class="my-5">
+        <%= form.label :salary, class: "dark:text-gray-200" %>
+        <%= form.text_field :salary, class: [
+            "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
+            {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_post.errors[:salary].none?, 
+            "border-red-400 dark:border-red-600 focus:outline-red-600": job_post.errors[:salary].any?}
+          ] %>
+      </div>
+
+      <div class="my-5">
+        <%= form.label :posted_at, class: "dark:text-gray-200" %>
+        <%= form.date_field :posted_at, class: [
+            "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
+            {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_post.errors[:posted_at].none?, 
+            "border-red-400 dark:border-red-600 focus:outline-red-600": job_post.errors[:posted_at].any?}
+          ] %>
+      </div>
+
+      <div class="my-5">
+        <%= form.label :closing_date, class: "dark:text-gray-200" %>
+        <%= form.date_field :closing_date, class: [
+            "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
+            {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_post.errors[:closing_date].none?, 
+            "border-red-400 dark:border-red-600 focus:outline-red-600": job_post.errors[:closing_date].any?}
+          ] %>
+      </div>
+
+      <div class="my-5 flex items-center">
+        <%= form.check_box :relocation, class: "h-5 w-5 border-gray-400 dark:border-gray-500 bg-gray-50 dark:bg-gray-800 rounded-md focus:ring-blue-600 dark:focus:ring-blue-400 accent-blue-600 dark:accent-blue-500" %>
+        <%= form.label :relocation, class: "ml-2 dark:text-gray-200" %>
+      </div>
+
+      <div class="my-5 flex items-center">
+        <%= form.check_box :apply_from_anywhere, class: "h-5 w-5 border-gray-400 dark:border-gray-500 bg-gray-50 dark:bg-gray-800 rounded-md focus:ring-blue-600 dark:focus:ring-blue-400 accent-blue-600 dark:accent-blue-500" %>
+        <%= form.label :apply_from_anywhere, class: "ml-2 dark:text-gray-200" %>
+      </div>
+
+      <div class="my-5">
+        <%= form.label :remote, class: "dark:text-gray-200" %>
+        <%= form.select :remote, options_for_select(JobPost.remotes.keys.map { |key| [key.humanize, key] }), 
+          { include_blank: false },
+          { class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full 
                     bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
                     border-gray-400 dark:border-gray-600 focus:outline-blue-600 
-                    dark:focus:outline-blue-400 appearance-none",
-            data: { 
-              error: job_post.errors[field].any? ? "true" : "false"
-            }
-          } %>
-      <button 
-        type="button" 
-        class="add-new-btn rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100"
-        data-field-type="<%= field %>"
-      >
-        Add New
-      </button>
-    </div>
-    <%= render partial: 'inline_forms', locals: { field: field } %>
-  </div>
-<% end %>
+                    dark:focus:outline-blue-400 appearance-none" } %>
+      </div>
 
-  <%# Form Fields %>
-  <% [:title, :description, :skills_required, :experience, :location, :salary].each do |field| %>
-    <div class="my-5">
-      <%= form.label field, class: "dark:text-gray-200" %>
-      <%= form.text_field field, class: [
-          "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
-          {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_post.errors[field].none?, 
-           "border-red-400 dark:border-red-600 focus:outline-red-600": job_post.errors[field].any?}
-        ] %>
-    </div>
-  <% end %>
+      <div class="my-5">
+        <%= form.label :english_level, class: "dark:text-gray-200" %>
+        <%= form.select :english_level, options_for_select(JobPost.english_levels.keys.map { |key| [key.humanize, key] }), 
+          { include_blank: false },
+          { class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full 
+                    bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
+                    border-gray-400 dark:border-gray-600 focus:outline-blue-600 
+                    dark:focus:outline-blue-400 appearance-none" } %>
+      </div>
 
-  <%# Date Fields %>
-  <% [ :posted_at, :closing_date ].each do |field| %>
-    <div class="my-5">
-      <%= form.label field, class: "dark:text-gray-200" %>
-      <%= form.date_field field, class: [
-          "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
-          {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_post.errors[field].none?, 
-           "border-red-400 dark:border-red-600 focus:outline-red-600": job_post.errors[field].any?}
-        ] %>
-    </div>
-  <% end %>
+      <div class="my-5">
+        <%= form.label :japanese_level, class: "dark:text-gray-200" %>
+        <%= form.select :japanese_level, options_for_select(JobPost.japanese_levels.keys.map { |key| [key.humanize, key] }), 
+          { include_blank: false },
+          { class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full 
+                    bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
+                    border-gray-400 dark:border-gray-600 focus:outline-blue-600 
+                    dark:focus:outline-blue-400 appearance-none" } %>
+      </div>
 
-  <%# Textarea Field %>
-  <div class="my-5">
-    <%= form.label :description, class: "dark:text-gray-200" %>
-    <%= form.text_area :description, rows: 4, class: [
-          "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
-          {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_post.errors[:description].none?, 
-           "border-red-400 dark:border-red-600 focus:outline-red-600": job_post.errors[:description].any?}
-        ] %>
-  </div>
+      <div class="my-5">
+        <%= form.label :employment_type, class: "dark:text-gray-200" %>
+        <%= form.select :employment_type, options_for_select(JobPost.employment_types.keys.map { |key| [key.humanize, key] }), 
+          { include_blank: false },
+          { class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full 
+                    bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
+                    border-gray-400 dark:border-gray-600 focus:outline-blue-600 
+                    dark:focus:outline-blue-400 appearance-none" } %>
+      </div>
 
-  <%# Checkboxes %>
-  <% [:relocation, :apply_from_anywhere].each do |field| %>
-    <div class="my-5 flex items-center">
-      <%= form.check_box field, class: "h-5 w-5 border-gray-400 dark:border-gray-500 bg-gray-50 dark:bg-gray-800 rounded-md focus:ring-blue-600 dark:focus:ring-blue-400 accent-blue-600 dark:accent-blue-500" %>
-      <%= form.label field, class: "ml-2 dark:text-gray-200" %>
-    </div>
-  <% end %>
+      <div class="inline">
+        <%= form.submit class: "rounded-md w-full px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white inline-block font-medium cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-500" %>
+      </div>
 
-  <%# Select Fields %>
-  <% [:remote, :english_level, :japanese_level, :employment_type].each do |field| %>
-    <div class="my-5">
-      <%= form.label field, class: "dark:text-gray-200" %>
-      <%= form.select field, options_for_select(JobPost.send("#{field}s").keys.map { |key| [key.humanize, key] }), 
-        { include_blank: false },
-        { class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full 
-                  bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
-                  border-gray-400 dark:border-gray-600 focus:outline-blue-600 
-                  dark:focus:outline-blue-400 appearance-none" } %>
-    </div>
-  <% end %>
-
-  <%# Submit Button %>
-  <div class="inline">
-    <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white inline-block font-medium cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-500" %>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('.add-new-btn').forEach(button => {
-        button.addEventListener('click', function() {
-          const fieldType = this.dataset.fieldType;
-          const formId = `new-${fieldType.replace('_id', '')}-form`;
-          const form = document.getElementById(formId);
-          form.classList.toggle('hidden');
+      <script>
+        document.addEventListener('turbo:load', function() {
+          document.querySelectorAll('.add-new-btn').forEach(button => {
+            button.addEventListener('click', function() {
+              const fieldType = this.dataset.fieldType;
+              const formId = `new-${fieldType.replace('_id', '')}-form`;
+              const form = document.getElementById(formId);
+              form.classList.toggle('hidden');
+            });
+          });
         });
-      });
-    });
-  </script>
-<% end %>
+
+        document.addEventListener('turbo:load', function() {
+          const buttons = document.querySelectorAll('.add-new-btn');
+
+          buttons.forEach(button => {
+            button.addEventListener('click', function() {
+              this.textContent = this.textContent === 'Add New' ? 'Cancel' : 'Add New';
+            });
+          });
+        });
+      </script>
+    <% end %>
+  </div>
+
+  <div class="mt-9">
+    <div id="new-company-form" class="hidden mt-4">
+          <%= form_with(model: Company.new, url: companies_path, data: { remote: true }, class: "flex flex-col gap-2") do |f| %>
+            <%= f.text_field :name, 
+                  placeholder: "New company name", 
+                  class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
+            <%= f.submit "Create", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white cursor-pointer" %>
+          <% end %>
+    </div>
+
+    <div id="new-role-form" class="hidden mt-4">
+          <%= form_with(model: Role.new, url: roles_path, data: { remote: true }, class: "flex flex-col gap-2") do |f| %>
+            <%= f.text_field :name, 
+                  placeholder: "New role name", 
+                  class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
+            <%= f.submit "Create", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white cursor-pointer" %>
+          <% end %>
+    </div>
+  </div>
+</div>

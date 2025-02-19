@@ -19,7 +19,6 @@ class JobPostsController < ApplicationController
 
   # GET /job_posts/1/edit
   def edit
-    @job_post = JobPost.new
     @companies = Company.all
     @roles = Role.all
   end
@@ -27,15 +26,16 @@ class JobPostsController < ApplicationController
   # POST /job_posts or /job_posts.json
   def create
     @job_post = JobPost.new(job_post_params)
+    @companies = Company.all
+    @roles = Role.all
 
-    # Validation for company_id and role_id
     if @job_post.company_id.blank? || @job_post.role_id.blank?
       @job_post.errors.add(:base, "Please select both a company and a role.")
     end
 
     respond_to do |format|
       if @job_post.save
-        format.html { redirect_to @job_post, notice: "Job offer was successfully created." }
+        format.html { redirect_to @job_post, notice: "Job post was successfully created." }
         format.json { render :show, status: :created, location: @job_post }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -48,7 +48,7 @@ class JobPostsController < ApplicationController
   def update
     respond_to do |format|
       if @job_post.update(job_post_params)
-        format.html { redirect_to @job_post, notice: "Job offer was successfully updated." }
+        format.html { redirect_to @job_post, notice: "Job post was successfully updated." }
         format.json { render :show, status: :ok, location: @job_post }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -62,7 +62,7 @@ class JobPostsController < ApplicationController
     @job_post.soft_delete
 
     respond_to do |format|
-      format.html { redirect_to job_posts_path, status: :see_other, notice: "Job offer was successfully destroyed." }
+      format.html { redirect_to job_posts_path, status: :see_other, notice: "Job post was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -70,11 +70,11 @@ class JobPostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_job_post
-      @job_post = JobPost.find(params.expect(:id))
+      @job_post = JobPost.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def job_post_params
-      params.expect(job_post: [ :title, :description, :skills_required, :experience, :location, :relocation, :apply_from_anywhere, :remote, :english_level, :japanese_level, :salary, :employment_type, :posted_at, :closing_date, :company_id, :role_id ])
+      params.require(:job_post).permit(:title, :description, :skills_required, :experience, :location, :relocation, :apply_from_anywhere, :remote, :english_level, :japanese_level, :salary, :employment_type, :posted_at, :closing_date, :company_id, :role_id)
     end
 end
