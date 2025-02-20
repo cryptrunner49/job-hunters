@@ -21,4 +21,6 @@ Rails.application.routes.draw do
   resources :job_applications do
     resources :interviews
   end
+
+  post "preview", to: "previews#create", as: :preview
 end
