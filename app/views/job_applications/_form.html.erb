@@ -205,9 +205,9 @@
                   const url = URL.createObjectURL(blob);
                   console.log(formType);
                   if (formType == "resume") {
-                    document.getElementById('resume-preview').src = `${url}#toolbar=0`;
+                    document.getElementById('resume-preview').src = `${url}#navpanes=0&toolbar=0&pagemode=none`;
                   } else {
-                    document.getElementById('cover_letter-preview').src = `${url}#navpanes=0&toolbar=0`;
+                    document.getElementById('cover_letter-preview').src = `${url}#navpanes=0&toolbar=0&pagemode=none`;
                   }
                 })
                 .catch(console.error);
