@@ -15,27 +15,27 @@
   <%= form_with model: @hunter, url: signup_path, local: true do |form| %>
     <div class="mb-4">
       <%= form.label :name, class: "block text-sm font-medium text-gray-700 dark:text-gray-200" %>
-      <%= form.text_field :name, class: "mt-1 block w-full border border-gray-300 rounded-md p-2" %>
+      <%= form.text_field :name, class: "mt-1 block w-full border border-gray-300 rounded-md p-2 dark:bg-gray-900" %>
     </div>
 
     <div class="mb-4">
       <%= form.label :email_address, class: "block text-sm font-medium text-gray-700 dark:text-gray-200" %>
-      <%= form.email_field :email_address, class: "mt-1 block w-full border border-gray-300 rounded-md p-2" %>
+      <%= form.email_field :email_address, class: "mt-1 block w-full border border-gray-300 rounded-md p-2 dark:bg-gray-900" %>
     </div>
 
     <div class="mb-4">
       <%= form.label :password, class: "block text-sm font-medium text-gray-700 dark:text-gray-200" %>
-      <%= form.password_field :password, class: "mt-1 block w-full border border-gray-300 rounded-md p-2" %>
+      <%= form.password_field :password, class: "mt-1 block w-full border border-gray-300 rounded-md p-2 dark:bg-gray-900" %>
     </div>
 
     <div class="mb-4">
       <%= form.label :password_confirmation, "Confirm Password", class: "block text-sm font-medium text-gray-700 dark:text-gray-200" %>
-      <%= form.password_field :password_confirmation, class: "mt-1 block w-full border border-gray-300 rounded-md p-2" %>
+      <%= form.password_field :password_confirmation, class: "mt-1 block w-full border border-gray-300 rounded-md p-2 dark:bg-gray-900" %>
     </div>
 
     <div class="mb-4">
       <%= form.label :profile_picture, "Profile Picture", class: "block text-sm font-medium text-gray-700 dark:text-gray-200" %>
-      <%= form.file_field :profile_picture, accept: "image/*", class: "mt-1 block w-full" %>
+      <%= form.file_field :profile_picture, accept: "image/*", class: "mt-1 block w-full dark:bg-gray-800" %>
     </div>
 
     <div>

@@ -1,42 +1,19 @@
+<!-- Ace Editor -->
+<script rel="preload" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js" crossorigin="anonymous"></script>
+
 <div class="grid grid-cols-2 gap-4">
   <div>
-<%= form_with(model: job_application, class: "contents") do |form| %>
-  <% if job_application.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 dark:bg-red-900 text-red-500 dark:text-red-300 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(job_application.errors.count, "error") %> prohibited this job_application from being saved:</h2>
-      <ul class="list-disc ml-6">
-        <% job_application.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div id="new-resume-form" class="hidden mt-4">
-          <%= form_with(model: Resume.new, url: resumes_path, data: { remote: true }, class: "flex flex-col gap-2") do |form| %>
-            <%= form.text_field :name,
-                  placeholder: "New resume name",
-                  class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
-            <%#= form.text_area :latex_source,
-                  placeholder: "Latex source",
-                  class: "hidden block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
-            <div id="resume-editor" style="width: 100%; height: 500px;"></div>
-            <%= form.submit "Create", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white cursor-pointer" %>
+  <%= form_with(model: job_application, class: "contents") do |form| %>
+    <% if job_application.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 dark:bg-red-900 text-red-500 dark:text-red-300 px-3 py-2 font-medium rounded-md mt-3">
+        <h2><%= pluralize(job_application.errors.count, "error") %> prohibited this job_application from being saved:</h2>
+        <ul class="list-disc ml-6">
+          <% job_application.errors.each do |error| %>
+            <li><%= error.full_message %></li>
           <% end %>
-    </div>
-
-    <div id="new-cover_letter-form" class="hidden mt-4">
-          <%= form_with(model: CoverLetter.new, url: cover_letters_path, data: { remote: true }, class: "flex flex-col gap-2") do |form| %>
-            <%= form.text_field :name,
-                  placeholder: "New cover letter name", 
-                  class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
-            <%#= form.text_area :latex_source,
-                  placeholder: "Latex source",
-                  class: "hidden block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
-            <div id="cover_letter-editor" style="width: 100%; height: 500px;"></div>
-            <%= form.submit "Create", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white cursor-pointer" %>
-          <% end %>
-    </div>
+        </ul>
+      </div>
+    <% end %>
 
   <div class="my-5">
         <%= form.label :resume_id, class: "dark:text-gray-200 mb-2" %>
@@ -53,10 +30,19 @@
               } %>
           <button
             type="button" 
-            class="add-new-btn rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 h-10 whitespace-nowrap"
+            class="appplication-add-new-btn rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 h-10 whitespace-nowrap"
             data-field-type="resume_id">Add New</button>
         </div>
   </div>
+  <div id="new-resume-form" class="hidden mt-4">
+          <%= form_with(model: Resume.new, url: resumes_path, data: { remote: true }, class: "flex flex-col gap-2") do |form| %>
+            <%= form.text_field :name,
+                  placeholder: "New resume name",
+                  class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
+            <div id="resume-editor" style="width: 100%; height: 500px;"></div>
+            <%= form.submit "Create", class: "w-full mt-2 rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white cursor-pointer" %>
+          <% end %>
+    </div>
 
   <div class="my-5">
         <%= form.label :cover_letter_id, class: "dark:text-gray-200 mb-2" %>
@@ -73,10 +59,19 @@
               } %>
           <button
             type="button" 
-            class="add-new-btn rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 h-10 whitespace-nowrap"
+            class="appplication-add-new-btn rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 h-10 whitespace-nowrap"
             data-field-type="cover_letter_id">Add New</button>
         </div>
   </div>
+  <div id="new-cover_letter-form" class="hidden mt-4">
+          <%= form_with(model: CoverLetter.new, url: cover_letters_path, data: { remote: true }, class: "flex flex-col gap-2") do |form| %>
+            <%= form.text_field :name,
+                  placeholder: "New cover letter name", 
+                  class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
+            <div id="cover_letter-editor" style="width: 100%; height: 500px; margin-top: -8px;"></div>
+            <%= form.submit "Create", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white cursor-pointer" %>
+          <% end %>
+    </div>
 
   <div class="my-5">
     <%= form.label :status, class: "dark:text-gray-200" %>
@@ -126,108 +121,111 @@
   <div class="inline">
     <%= form.submit class: "rounded-md  w-full px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white inline-block font-medium cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-500" %>
   </div>
-
-  <script>
-        document.addEventListener('turbo:load', function() {
-          document.querySelectorAll('.add-new-btn').forEach(button => {
-            button.addEventListener('click', function() {
-              const fieldType = this.dataset.fieldType;
-              const formId = `new-${fieldType.replace('_id', '')}-form`;
-              const form = document.getElementById(formId);
-              form.classList.toggle('hidden');
-            });
-          });
-        });
-
-        document.addEventListener('turbo:load', function() {
-          const buttons = document.querySelectorAll('.add-new-btn');
-
-          buttons.forEach(button => {
-            button.addEventListener('click', function() {
-              this.textContent = this.textContent === 'Add New' ? 'Cancel' : 'Add New';
-            });
-          });
-        });
-  </script>
-  
-  <!-- Ace Editor -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js" crossorigin="anonymous"></script>
-
-  <!-- Initialize Ace Editor -->
-  <script>
-    document.addEventListener('turbo:load', function() {
-      // Toggle forms and handle Ace editors
-      document.querySelectorAll('.add-new-btn').forEach(button => {
-        button.addEventListener('click', function() {
-          const fieldType = this.dataset.fieldType;
-          const formType = fieldType.replace('_id', '');
-          const formId = `new-${formType}-form`;
-          const form = document.getElementById(formId);
-          const isVisible = !form.classList.contains('hidden');
-
-          if (isVisible) {
-            const editorId = `${formType}-editor`;
-            const editorDiv = document.getElementById(editorId);
-            //const textarea = form.querySelector(`textarea[name$="[latex_source]"]`);
-
-            if (editorDiv && !editorDiv.aceEditor) {
-              const editor = ace.edit(editorId);
-              editor.setTheme("ace/theme/chrome");
-              editor.session.setMode("ace/mode/latex");
-              //editor.session.setValue(textarea.value);
-
-              let debounceTimer;
-              editor.session.on('change', function() {
-                clearTimeout(debounceTimer);
-                debounceTimer = setTimeout(() => {
-                  const latex = editor.getValue();
-                  //textarea.value = latex;
-
-                  const formData = new FormData();
-                  formData.append('latex_source', latex);
-
-                  fetch('/preview', {
-                    method: 'POST',
-                    headers: {
-                      'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-                    },
-                    body: formData
-                  })
-                  .then(response => response.blob())
-                  .then(blob => {
-                    const url = URL.createObjectURL(blob);
-                    console.log(formType);
-                    if (formType == "resume") {
-                      document.getElementById('resume-preview').src = url;
-                    } else {
-                      document.getElementById('cover-letter-preview').src = url;
-                    }
-                    //document.getElementById('pdf-preview').src = url;
-                  })
-                  .catch(console.error);
-                }, 1000);
-              });
-
-              // Dark mode handling
-              const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-              const updateTheme = () => {
-                editor.setTheme(darkModeMediaQuery.matches ? "ace/theme/monokai" : "ace/theme/chrome");
-              };
-              darkModeMediaQuery.addListener(updateTheme);
-              updateTheme();
-
-              editorDiv.aceEditor = editor;
-            }
-          }
-        });
-      });
-    });
-  </script>
 <% end %>
 </div>
 
 <div class="mt-9">
   <!-- PDF Preview -->
-  <iframe id="resume-preview" style="width: 100%; height: 500px;" frameborder="0"></iframe>
-  <iframe id="cover-letter-preview" style="width: 100%; height: 500px; margin-top: 50px;" frameborder="0"></iframe>
+  <div id="preview-resume-div" class="hidden">
+    <iframe id="resume-preview" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+  </div>
+  <div id="preview-cover_letter-div" class="hidden">
+    <iframe id="cover_letter-preview" style="width: 100%; height: 500px; margin-top: 50px;" frameborder="0"></iframe>
+  </div>
 </div>
+
+<script>
+    document.addEventListener('turbo:load', function() {
+    document.querySelectorAll('.appplication-add-new-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const fieldType = this.dataset.fieldType;
+        const formId = `new-${fieldType.replace('_id', '')}-form`;
+        const form = document.getElementById(formId);
+        form.classList.toggle('hidden');
+        // Toggle pdf preview
+        const previewId = `preview-${fieldType.replace('_id', '')}-div`;
+        console.log(previewId);
+        const previewDiv = document.getElementById(previewId);
+        previewDiv.classList.toggle('hidden');
+      });
+    });
+  });
+
+  document.addEventListener('turbo:load', function() {
+    const buttons = document.querySelectorAll('.appplication-add-new-btn');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', function() {
+        this.textContent = this.textContent === 'Add New' ? 'Cancel' : 'Add New';
+      });
+    });
+  });
+</script>
+
+<!-- Initialize Ace Editor -->
+<script>
+  document.addEventListener('turbo:load', function() {
+    console.log("!!!JobApplication!!!");
+    // Toggle forms and handle Ace editors
+    document.querySelectorAll('.appplication-add-new-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const fieldType = this.dataset.fieldType;
+        const formType = fieldType.replace('_id', '');
+        const formId = `new-${formType}-form`;
+        const form = document.getElementById(formId);
+        const isVisible = !form.classList.contains('hidden');
+
+        if (isVisible) {
+          const editorId = `${formType}-editor`;
+          const editorDiv = document.getElementById(editorId);
+
+          if (editorDiv && !editorDiv.aceEditor) {
+            const editor = ace.edit(editorId);
+            editor.setTheme("ace/theme/chrome");
+            editor.session.setMode("ace/mode/latex");
+
+            let debounceTimer;
+            editor.session.on('change', function() {
+              clearTimeout(debounceTimer);
+              debounceTimer = setTimeout(() => {
+                const latex = editor.getValue();
+
+                const formData = new FormData();
+                formData.append('latex_source', latex);
+
+                fetch('/preview', {
+                  method: 'POST',
+                  headers: {
+                    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+                  },
+                  body: formData
+                })
+                .then(response => response.blob())
+                .then(blob => {
+                  const url = URL.createObjectURL(blob);
+                  console.log(formType);
+                  if (formType == "resume") {
+                    document.getElementById('resume-preview').src = `${url}#toolbar=0`;
+                  } else {
+                    document.getElementById('cover_letter-preview').src = `${url}#navpanes=0&toolbar=0`;
+                  }
+                })
+                .catch(console.error);
+              }, 1000);
+            });
+
+            // Dark mode handling
+            const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+            const updateTheme = () => {
+              editor.setTheme(darkModeMediaQuery.matches ? "ace/theme/monokai" : "ace/theme/chrome");
+            };
+            darkModeMediaQuery.addListener(updateTheme);
+            updateTheme();
+
+            editorDiv.aceEditor = editor;
+          }
+        }
+      });
+    });
+  });
+</script>
