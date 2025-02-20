@@ -196,7 +196,13 @@
                   .then(response => response.blob())
                   .then(blob => {
                     const url = URL.createObjectURL(blob);
-                    document.getElementById('pdf-preview').src = url;
+                    console.log(formType);
+                    if (formType == "resume") {
+                      document.getElementById('resume-preview').src = url;
+                    } else {
+                      document.getElementById('cover-letter-preview').src = url;
+                    }
+                    //document.getElementById('pdf-preview').src = url;
                   })
                   .catch(console.error);
                 }, 1000);
@@ -222,5 +228,6 @@
 
 <div class="mt-9">
   <!-- PDF Preview -->
-  <iframe id="pdf-preview" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+  <iframe id="resume-preview" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+  <iframe id="cover-letter-preview" style="width: 100%; height: 500px; margin-top: 50px;" frameborder="0"></iframe>
 </div>
