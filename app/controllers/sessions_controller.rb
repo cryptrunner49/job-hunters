@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
   def create
     if hunter = Hunter.authenticate_by(params.permit(:email_address, :password))
       start_new_session_for hunter
+      session[:hunter_id] = hunter.id  # Log in the hunter after successful authentication.
       redirect_to after_authentication_url
     else
       redirect_to new_session_path, alert: "Try another email address or password."

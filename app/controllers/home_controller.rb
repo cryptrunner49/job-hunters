@@ -3,6 +3,10 @@ class HomeController < ApplicationController
 
   def index
     @job_posts = JobPost.all
-    @job_applications = JobApplication.where(hunter_id: current_hunter.id)
+    if authenticated?
+      @job_applications = JobApplication.where(hunter_id: current_hunter.id)
+    else
+      @job_applications = []
+    end
   end
 end
