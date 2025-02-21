@@ -1,14 +1,16 @@
-<% if @company.persisted? %>
+<% if @cover_letter.persisted? %>
   // Append the new option and select it
-  const companySelect = document.querySelector('#job_post_company_id');
-  const newOption = new Option('<%= @company.name %>', '<%= @company.id %>');
-  companySelect.add(newOption, undefined);
-  companySelect.value = '<%= @company.id %>';
+  const cover_letterSelect = document.querySelector('#job_post_cover_letter_id');
+  const newOption = new Option('<%= @cover_letter.subject %>', '<%= @cover_letter.id %>');
+  cover_letterSelect.add(newOption, undefined);
+  cover_letterSelect.value = '<%= @cover_letter.id %>';
   // Hide the form and clear input
-  document.getElementById('new-company-form').classList.add('hidden');
-  document.getElementById('company_name').value = '';
+  document.getElementById('new-cover_letter-form').classList.add('hidden');
+  document.getElementById('cover_letter_subject').value = '';
+  document.getElementById('cover_letter_latex_source').value = '';
+  document.getElementById('cover_letter-editor').value = '';
 <% else %>
   // Display validation errors
-  const form = document.getElementById('new-company-form');
-  form.innerHTML = '<%= j render(partial: "inline_forms", locals: { field: :company_id }) %>';
+  const form = document.getElementById('new-cover_letter-form');
+  form.innerHTML = '<%= j render(partial: "inline_forms", locals: { field: :cover_letter_id }) %>';
 <% end %>
