@@ -26,6 +26,9 @@ class JobApplicationsController < ApplicationController
   # POST /job_applications or /job_applications.json
   def create
     @job_application = JobApplication.new(job_application_params)
+    @resumes = Resume.all
+    @cover_letters = CoverLetter.all
+    @job_application.hunter=current_hunter
 
     respond_to do |format|
       if @job_application.save
@@ -69,6 +72,6 @@ class JobApplicationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def job_application_params
-      params.expect(job_application: [ :hunter_id, :job_post_id, :resume_id, :cover_letter_id, :status, :phase, :mail, :applied_at, :feedback ])
+      params.expect(job_application: [ :job_post_id, :resume_id, :cover_letter_id, :status, :phase, :mail, :applied_at, :feedback ])
     end
 end

@@ -22,12 +22,15 @@ class ResumesController < ApplicationController
   # POST /resumes or /resumes.json
   def create
     @resume = Resume.new(resume_params)
+    @resume.hunter=current_hunter
 
     respond_to do |format|
       if @resume.save
-        format.html { redirect_to @resume, notice: "Resume was successfully created." }
+        format.js  # Renders create.js.erb
+        # format.html { redirect_to @resume, notice: "Resume was successfully created." }
         format.json { render :show, status: :created, location: @resume }
       else
+        format.js   # Renders create.js.erb with errors
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @resume.errors, status: :unprocessable_entity }
       end
@@ -65,6 +68,6 @@ class ResumesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def resume_params
-      params.expect(resume: [ :hunter_id, :title, :latex_source, :pdf_path, :resume_type ])
+      params.expect(resume: [ :title, :latex_source, :pdf_path, :resume_type ])
     end
 end

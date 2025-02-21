@@ -1,0 +1,14 @@
+<% if @resume.persisted? %>
+  // Append the new option and select it
+  const resumeSelect = document.querySelector('#job_post_resume_id');
+  const newOption = new Option('<%= @resume.name %>', '<%= @resume.id %>');
+  resumeSelect.add(newOption, undefined);
+  resumeSelect.value = '<%= @resume.id %>';
+  // Hide the form and clear input
+  document.getElementById('new-resume-form').classList.add('hidden');
+  document.getElementById('resume_name').value = '';
+<% else %>
+  // Display validation errors
+  const form = document.getElementById('new-resume-form');
+  form.innerHTML = '<%= j render(partial: "inline_forms", locals: { field: :resume_id }) %>';
+<% end %>

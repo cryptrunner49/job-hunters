@@ -1,9 +1,51 @@
 <!-- Ace Editor -->
 <script rel="preload" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js" crossorigin="anonymous"></script>
+<!--<script rel="preload" src="<%#= asset_path('ace.js') %>"></script>-->
 
 <div class="grid grid-cols-2 gap-4">
+  <div id="new-resume-form" class="hidden mt-4">
+          <%= form_with(model: Resume.new, url: resumes_path, data: { remote: true }, class: "flex flex-col gap-2") do |form| %>
+          <%= form.select :resume_type, options_for_select(Resume.resume_types.keys.map { |key| [key.humanize, key] }),
+                { include_blank: false },
+                { class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full 
+                    bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
+                    border-gray-400 dark:border-gray-600 focus:outline-blue-600 
+                    dark:focus:outline-blue-400 appearance-none" } %>
+            <%= form.text_field :title,
+                  placeholder: "Resume title",
+                  class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
+            <%= form.text_area :latex_source,
+                  placeholder: "Latex source",
+                  class: "hidden block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
+            <div id="resume-editor" style="width: 100%; height: 500px; margin-top: -8px;"></div>
+            <%= form.submit "Create", class: "w-full mt-2 rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white cursor-pointer" %>
+          <% end %>
+  </div>
+  <!-- PDF Preview -->
+  <div id="preview-resume-div" class="hidden">
+    <iframe id="resume-preview" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+  </div>
+
+  <div id="new-cover_letter-form" class="hidden mt-4">
+          <%= form_with(model: CoverLetter.new, url: cover_letters_path, data: { remote: true }, class: "flex flex-col gap-2") do |form| %>
+            <%= form.text_field :subject,
+                  placeholder: "Cover letter subject", 
+                  class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
+            <%= form.text_area :latex_source,
+                  placeholder: "Latex source",
+                  class: "hidden block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
+            <div id="cover_letter-editor" style="width: 100%; height: 500px; margin-top: -8px;"></div>
+            <%= form.submit "Create", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white cursor-pointer" %>
+          <% end %>
+  </div>
+  <!-- PDF Preview -->
+  <div id="preview-cover_letter-div" class="hidden">
+    <iframe id="cover_letter-preview" style="width: 100%; height: 500px; margin-top: 50px;" frameborder="0"></iframe>
+  </div>
+
   <div>
   <%= form_with(model: job_application, class: "contents") do |form| %>
+    <%= form.hidden_field :job_post_id, value: params[:job_post_id] %>
     <% if job_application.errors.any? %>
       <div id="error_explanation" class="bg-red-50 dark:bg-red-900 text-red-500 dark:text-red-300 px-3 py-2 font-medium rounded-md mt-3">
         <h2><%= pluralize(job_application.errors.count, "error") %> prohibited this job_application from being saved:</h2>
@@ -18,7 +60,7 @@
   <div class="my-5">
         <%= form.label :resume_id, class: "dark:text-gray-200 mb-2" %>
         <div class="flex items-center gap-2">
-          <%= form.collection_select :resume_id, @resumes, :id, :name, { prompt: "Select a Resume" }, 
+          <%= form.collection_select :resume_id, @resumes, :id, :title, { prompt: "Select a Resume" }, 
               { 
                 class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full 
                         bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
@@ -30,24 +72,15 @@
               } %>
           <button
             type="button" 
-            class="appplication-add-new-btn rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 h-10 whitespace-nowrap"
+            class="application-add-new-btn rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 h-10 whitespace-nowrap"
             data-field-type="resume_id">Add New</button>
         </div>
   </div>
-  <div id="new-resume-form" class="hidden mt-4">
-          <%= form_with(model: Resume.new, url: resumes_path, data: { remote: true }, class: "flex flex-col gap-2") do |form| %>
-            <%= form.text_field :name,
-                  placeholder: "New resume name",
-                  class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
-            <div id="resume-editor" style="width: 100%; height: 500px;"></div>
-            <%= form.submit "Create", class: "w-full mt-2 rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white cursor-pointer" %>
-          <% end %>
-    </div>
 
   <div class="my-5">
         <%= form.label :cover_letter_id, class: "dark:text-gray-200 mb-2" %>
         <div class="flex items-center gap-2">
-          <%= form.collection_select :cover_letter_id, @cover_letters, :id, :name, { prompt: "Select a Cover Letter" }, 
+          <%= form.collection_select :cover_letter_id, @cover_letters, :id, :subject, { prompt: "Select a Cover Letter" }, 
               { 
                 class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full 
                         bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
@@ -59,19 +92,10 @@
               } %>
           <button
             type="button" 
-            class="appplication-add-new-btn rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 h-10 whitespace-nowrap"
+            class="application-add-new-btn rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 h-10 whitespace-nowrap"
             data-field-type="cover_letter_id">Add New</button>
         </div>
   </div>
-  <div id="new-cover_letter-form" class="hidden mt-4">
-          <%= form_with(model: CoverLetter.new, url: cover_letters_path, data: { remote: true }, class: "flex flex-col gap-2") do |form| %>
-            <%= form.text_field :name,
-                  placeholder: "New cover letter name", 
-                  class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
-            <div id="cover_letter-editor" style="width: 100%; height: 500px; margin-top: -8px;"></div>
-            <%= form.submit "Create", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white cursor-pointer" %>
-          <% end %>
-    </div>
 
   <div class="my-5">
     <%= form.label :status, class: "dark:text-gray-200" %>
@@ -102,7 +126,7 @@
 
   <div class="my-5">
     <%= form.label :applied_at, class: "dark:text-gray-200" %>
-    <%= form.datetime_field :applied_at, class: [
+    <%= form.date_field :applied_at, class: [
           "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
           {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_application.errors[:applied_at].none?, 
            "border-red-400 dark:border-red-600 focus:outline-red-600": job_application.errors[:applied_at].any?}
@@ -124,19 +148,9 @@
 <% end %>
 </div>
 
-<div class="mt-9">
-  <!-- PDF Preview -->
-  <div id="preview-resume-div" class="hidden">
-    <iframe id="resume-preview" style="width: 100%; height: 500px;" frameborder="0"></iframe>
-  </div>
-  <div id="preview-cover_letter-div" class="hidden">
-    <iframe id="cover_letter-preview" style="width: 100%; height: 500px; margin-top: 50px;" frameborder="0"></iframe>
-  </div>
-</div>
-
 <script>
     document.addEventListener('turbo:load', function() {
-    document.querySelectorAll('.appplication-add-new-btn').forEach(button => {
+    document.querySelectorAll('.application-add-new-btn').forEach(button => {
       button.addEventListener('click', function() {
         const fieldType = this.dataset.fieldType;
         const formId = `new-${fieldType.replace('_id', '')}-form`;
@@ -152,7 +166,7 @@
   });
 
   document.addEventListener('turbo:load', function() {
-    const buttons = document.querySelectorAll('.appplication-add-new-btn');
+    const buttons = document.querySelectorAll('.application-add-new-btn');
 
     buttons.forEach(button => {
       button.addEventListener('click', function() {
@@ -165,9 +179,8 @@
 <!-- Initialize Ace Editor -->
 <script>
   document.addEventListener('turbo:load', function() {
-    console.log("!!!JobApplication!!!");
     // Toggle forms and handle Ace editors
-    document.querySelectorAll('.appplication-add-new-btn').forEach(button => {
+    document.querySelectorAll('.application-add-new-btn').forEach(button => {
       button.addEventListener('click', function() {
         const fieldType = this.dataset.fieldType;
         const formType = fieldType.replace('_id', '');
@@ -178,17 +191,20 @@
         if (isVisible) {
           const editorId = `${formType}-editor`;
           const editorDiv = document.getElementById(editorId);
+          const textarea = form.querySelector(`textarea[name$="[latex_source]"]`);
 
           if (editorDiv && !editorDiv.aceEditor) {
             const editor = ace.edit(editorId);
             editor.setTheme("ace/theme/chrome");
             editor.session.setMode("ace/mode/latex");
+            editor.session.setValue(textarea.value);
 
             let debounceTimer;
             editor.session.on('change', function() {
               clearTimeout(debounceTimer);
               debounceTimer = setTimeout(() => {
                 const latex = editor.getValue();
+                textarea.value = latex;
 
                 const formData = new FormData();
                 formData.append('latex_source', latex);

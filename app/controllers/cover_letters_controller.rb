@@ -22,12 +22,15 @@ class CoverLettersController < ApplicationController
   # POST /cover_letters or /cover_letters.json
   def create
     @cover_letter = CoverLetter.new(cover_letter_params)
+    @cover_letter.hunter=current_hunter
 
     respond_to do |format|
       if @cover_letter.save
-        format.html { redirect_to @cover_letter, notice: "Cover letter was successfully created." }
+        format.js  # Renders create.js.erb
+        # format.html { redirect_to @cover_letter, notice: "Cover letter was successfully created." }
         format.json { render :show, status: :created, location: @cover_letter }
       else
+        format.js  # Renders create.js.erb
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @cover_letter.errors, status: :unprocessable_entity }
       end
@@ -65,6 +68,6 @@ class CoverLettersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cover_letter_params
-      params.expect(cover_letter: [ :hunter_id, :subject, :latex_source, :pdf_path ])
+      params.expect(cover_letter: [ :subject, :latex_source, :pdf_path ])
     end
 end
