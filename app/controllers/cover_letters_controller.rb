@@ -26,13 +26,13 @@ class CoverLettersController < ApplicationController
 
     respond_to do |format|
       if @cover_letter.save
-        format.js  # Renders create.js.erb
+        # format.js  # Renders create.js.erb
         # format.html { redirect_to @cover_letter, notice: "Cover letter was successfully created." }
         format.json { render :show, status: :created, location: @cover_letter }
       else
-        format.js  # Renders create.js.erb
+        # format.js  # Renders create.js.erb
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @cover_letter.errors, status: :unprocessable_entity }
+        # format.json { render json: @cover_letter.errors, status: :unprocessable_entity }
       end
     end
   end

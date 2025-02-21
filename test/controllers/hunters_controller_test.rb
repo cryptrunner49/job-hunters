@@ -7,7 +7,7 @@ class HuntersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create hunter" do
-    post signup_path, params: { hunter: { name: "Test Hunter", email_address: "testhunter@example.com", password: "password", password_confirmation: "password" } }
+    post sign_up_path, params: { hunter: { name: "Test Hunter", email_address: "testhunter@example.com", password: "password", password_confirmation: "password" } }
     assert_response :redirect
     follow_redirect!
     assert_response :success

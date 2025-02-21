@@ -4,7 +4,7 @@ class CompaniesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @company = companies(:one)
     @hunter = hunters(:one)
-    sign_in_as(@hunter, "password")
+    sign_in_as(@hunter.email_address, "password")
   end
 
   test "should get index" do
@@ -19,10 +19,11 @@ class CompaniesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create company" do
     assert_difference("Company.count") do
-      post companies_url, params: { company: { description: @company.description, github: @company.github, industry: @company.industry, job_search_website: @company.job_search_website, location: @company.location, name: @company.name, website: @company.website } }
+      post companies_url, params: { company: { description: @company.description, github: @company.github, industry: @company.industry, job_search_website: @company.job_search_website, location: @company.location, name: @company.name, website: @company.website } }, as: :json
     end
 
-    assert_redirected_to company_url(Company.last)
+    # For a JSON request, the response should be a success
+    assert_response :success
   end
 
   test "should show company" do

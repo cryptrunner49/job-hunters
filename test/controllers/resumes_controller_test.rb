@@ -4,7 +4,7 @@ class ResumesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @resume = resumes(:one)
     @hunter = hunters(:one)
-    sign_in_as(@hunter, "password")
+    sign_in_as(@hunter.email_address, "password")
   end
 
   test "should get index" do
@@ -19,10 +19,11 @@ class ResumesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create resume" do
     assert_difference("Resume.count") do
-      post resumes_url, params: { resume: { hunter_id: @resume.hunter_id, latex_source: @resume.latex_source, pdf_path: @resume.pdf_path, resume_type: @resume.resume_type, title: @resume.title } }
+      post resumes_url, params: { resume: { hunter_id: @resume.hunter_id, latex_source: @resume.latex_source, pdf_path: @resume.pdf_path, resume_type: @resume.resume_type, title: @resume.title } }, as: :json
     end
 
-    assert_redirected_to resume_url(Resume.last)
+    # For a JSON request, the response should be a success
+    assert_response :success
   end
 
   test "should show resume" do

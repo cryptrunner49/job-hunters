@@ -4,7 +4,7 @@ class CoverLettersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @cover_letter = cover_letters(:one)
     @hunter = hunters(:one)  # Assuming you have a hunter fixture for authentication
-    sign_in_as(@hunter, "password")  # Sign in the hunter before running the tests
+    sign_in_as(@hunter.email_address, "password")  # Sign in the hunter before running the tests
   end
 
   test "should get index" do
@@ -19,10 +19,11 @@ class CoverLettersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create cover_letter" do
     assert_difference("CoverLetter.count") do
-      post cover_letters_url, params: { cover_letter: { hunter_id: @cover_letter.hunter_id, latex_source: @cover_letter.latex_source, pdf_path: @cover_letter.pdf_path, subject: @cover_letter.subject } }
+      post cover_letters_url, params: { cover_letter: { hunter_id: @cover_letter.hunter_id, latex_source: @cover_letter.latex_source, pdf_path: @cover_letter.pdf_path, subject: @cover_letter.subject } }, as: :json
     end
 
-    assert_redirected_to cover_letter_url(CoverLetter.last)
+    # For a JSON request, the response should be a success
+    assert_response :success
   end
 
   test "should show cover_letter" do

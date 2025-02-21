@@ -24,13 +24,13 @@ class RolesController < ApplicationController
     @role = Role.new(role_params)
     respond_to do |format|
       if @role.save
-        format.js  # Renders create.js.erb
+        # format.js  # Renders create.js.erb
         # format.html { redirect_to @role, notice: "Role was successfully created." }
         format.json { render :show, status: :created, location: @role }
       else
-        format.js   # Renders create.js.erb with errors
+        # format.js   # Renders create.js.erb with errors
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @role.errors, status: :unprocessable_entity }
+        # format.json { render json: @role.errors, status: :unprocessable_entity }
       end
     end
   end

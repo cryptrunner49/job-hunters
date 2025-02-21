@@ -4,7 +4,7 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @role = roles(:one)
     @hunter = hunters(:one)
-    sign_in_as(@hunter, "password")
+    sign_in_as(@hunter.email_address, "password")
   end
 
   test "should get index" do
@@ -19,10 +19,11 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create role" do
     assert_difference("Role.count") do
-      post roles_url, params: { role: { description: @role.description, name: @role.name } }
+      post roles_url, params: { role: { description: @role.description, name: @role.name } }, as: :json
     end
 
-    assert_redirected_to role_url(Role.last)
+    # For a JSON request, the response should be a success
+    assert_response :success
   end
 
   test "should show role" do

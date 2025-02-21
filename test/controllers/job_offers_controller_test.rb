@@ -4,7 +4,7 @@ class JobOffersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @job_offer = job_offers(:one)
     @hunter = hunters(:one)
-    sign_in_as(@hunter, "password")
+    sign_in_as(@hunter.email_address, "password")
   end
 
   test "should get index" do
