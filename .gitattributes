@@ -8,3 +8,4 @@ config/credentials.yml.enc diff=rails_credentials
 *.png filter=lfs diff=lfs merge=lfs -text
 *.svg filter=lfs diff=lfs merge=lfs -text
 *.jpg filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
