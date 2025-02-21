@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   resources :passwords, only: %i[new create edit update], param: :token
 
   # Sign-up routes
-  get "signup", to: "hunters#new", as: :new_hunter
-  post "signup", to: "hunters#create"
-  delete "signout", to: "sessions#destroy"
+  get "sign_up", to: "hunters#new", as: :new_hunter
+  post "sign_up", to: "hunters#create"
+  delete "sign_out", to: "sessions#destroy"
 
   # Others
   resources :candidates
