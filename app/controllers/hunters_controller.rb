@@ -11,6 +11,7 @@ class HuntersController < ApplicationController
   def create
     @hunter = Hunter.new(hunter_params)
     if @hunter.save
+      start_new_session_for @hunter
       session[:hunter_id] = @hunter.id  # Log in the hunter after successful registration.
       redirect_to root_path, notice: "Account created successfully!"
     else
