@@ -1,22 +1,19 @@
 <script data-controller="monaco-editor"></script>
 <div class="grid grid-cols-2 gap-4">
   <div id="new-resume-form" class="hidden mt-4">
-          <%= form_with(model: Resume.new, url: resumes_path, data: { remote: true }, class: "flex flex-col gap-2") do |form| %>
-          <%= form.select :resume_type, options_for_select(Resume.resume_types.keys.map { |key| [key.humanize, key] }),
-                { include_blank: false },
-                { class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full 
-                    bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
-                    border-gray-400 dark:border-gray-600 focus:outline-blue-600 
-                    dark:focus:outline-blue-400 appearance-none" } %>
-            <%= form.text_field :title,
-                  placeholder: "Resume title",
-                  class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
-            <%= form.text_area :latex_source,
-                  placeholder: "Latex source",
-                  class: "hidden block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
-            <div id="resume-editor" style="height: 400px; width: 100%; margin-top: -8px;"></div>
-            <%= form.submit "Create", class: "w-full mt-2 rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white cursor-pointer" %>
-          <% end %>
+    <%= form_with(model: Resume.new, url: resumes_path, data: { remote: true }, class: "flex flex-col gap-2") do |form| %>
+      <%= form.select :resume_type, options_for_select(Resume.resume_types.keys.map { |key| [key.humanize, key] }),
+            { include_blank: false },
+            { class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400 appearance-none" } %>
+      <%= form.text_field :title,
+            placeholder: "Resume title",
+            class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
+      <%= form.text_area :latex_source,
+            placeholder: "Latex source",
+            class: "hidden block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
+      <div id="resume-editor" style="height: 300px; width: 100%; margin-top: -8px;"></div>
+      <%= form.submit "Create", class: "w-full mt-2 rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white font-medium cursor-pointer shadow-md transition-colors" %>
+    <% end %>
   </div>
   <!-- PDF Preview -->
   <div id="preview-resume-div" class="hidden">
@@ -24,123 +21,114 @@
   </div>
 
   <div id="new-cover_letter-form" class="hidden mt-4">
-          <%= form_with(model: CoverLetter.new, url: cover_letters_path, data: { remote: true }, class: "flex flex-col gap-2") do |form| %>
-            <%= form.text_field :subject,
-                  placeholder: "Cover letter subject", 
-                  class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
-            <%= form.text_area :latex_source,
-                  placeholder: "Latex source",
-                  class: "hidden block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
-            <div id="cover_letter-editor" style="height: 400px; width: 100%;margin-top: -8px;"></div>
-            <%= form.submit "Create", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white cursor-pointer" %>
-          <% end %>
+    <%= form_with(model: CoverLetter.new, url: cover_letters_path, data: { remote: true }, class: "flex flex-col gap-2") do |form| %>
+      <%= form.text_field :subject,
+            placeholder: "Cover letter subject",
+            class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
+      <%= form.text_area :latex_source,
+            placeholder: "Latex source",
+            class: "hidden block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
+      <div id="cover_letter-editor" style="height: 400px; width: 100%; margin-top: -8px;"></div>
+      <%= form.submit "Create", class: "w-full mt-2 rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white font-medium cursor-pointer shadow-md transition-colors" %>
+    <% end %>
   </div>
   <!-- PDF Preview -->
   <div id="preview-cover_letter-div" class="hidden">
-    <iframe id="cover_letter-preview" style="width: 100%; height: 500px; margin-top: 50px;" frameborder="0"></iframe>
+    <iframe id="cover_letter-preview" style="width: 100%; height: 500px; margin-top: 5px;" frameborder="0"></iframe>
   </div>
 
   <div>
-  <%= form_with(model: job_application, class: "contents") do |form| %>
-    <%= form.hidden_field :job_post_id, value: params[:job_post_id] %>
-    <% if job_application.errors.any? %>
-      <div id="error_explanation" class="bg-red-50 dark:bg-red-900 text-red-500 dark:text-red-300 px-3 py-2 font-medium rounded-md mt-3">
-        <h2><%= pluralize(job_application.errors.count, "error") %> prohibited this job_application from being saved:</h2>
-        <ul class="list-disc ml-6">
-          <% job_application.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+    <%= form_with(model: job_application, class: "contents") do |form| %>
+      <%= form.hidden_field :job_post_id, value: params[:job_post_id] %>
+      <% if job_application.errors.any? %>
+        <div id="error_explanation" class="bg-red-50 dark:bg-red-900 text-red-500 dark:text-red-300 px-3 py-2 font-medium rounded-md mt-3">
+          <h2><%= pluralize(job_application.errors.count, "error") %> prohibited this job_application from being saved:</h2>
+          <ul class="list-disc ml-6">
+            <% job_application.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <div class="my-5">
-        <%= form.label :resume_id, class: "dark:text-gray-200 mb-2" %>
+      <div class="my-5">
+        <%= form.label :resume_id, class: "dark:text-gray-200 mb-2 block" %>
         <div class="flex items-center gap-2">
-          <%= form.collection_select :resume_id, @resumes, :id, :title, { prompt: "Select a Resume" }, 
+          <%= form.collection_select :resume_id, @resumes, :id, :title, { prompt: "Select a Resume" },
               { 
-                class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full 
-                        bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
-                        border-gray-400 dark:border-gray-600 focus:outline-blue-600 
-                        dark:focus:outline-blue-400 appearance-none",
-                data: { 
-                  error: job_application.errors[:resume_id].any? ? "true" : "false"
-                }
+                class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400 appearance-none",
+                data: { error: job_application.errors[:resume_id].any? ? "true" : "false" }
               } %>
           <button
-            type="button" 
+            type="button"
             class="application-add-new-btn rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 h-10 whitespace-nowrap"
             data-field-type="resume_id">Add New</button>
         </div>
-  </div>
+      </div>
 
-  <div class="my-5">
-        <%= form.label :cover_letter_id, class: "dark:text-gray-200 mb-2" %>
+      <div class="my-5">
+        <%= form.label :cover_letter_id, class: "dark:text-gray-200 mb-2 block" %>
         <div class="flex items-center gap-2">
-          <%= form.collection_select :cover_letter_id, @cover_letters, :id, :subject, { prompt: "Select a Cover Letter" }, 
+          <%= form.collection_select :cover_letter_id, @cover_letters, :id, :subject, { prompt: "Select a Cover Letter" },
               { 
-                class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full 
-                        bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
-                        border-gray-400 dark:border-gray-600 focus:outline-blue-600 
-                        dark:focus:outline-blue-400 appearance-none",
-                data: { 
-                  error: job_application.errors[:cover_letter_id].any? ? "true" : "false"
-                }
+                class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400 appearance-none",
+                data: { error: job_application.errors[:cover_letter_id].any? ? "true" : "false" }
               } %>
           <button
-            type="button" 
+            type="button"
             class="application-add-new-btn rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 h-10 whitespace-nowrap"
             data-field-type="cover_letter_id">Add New</button>
         </div>
-  </div>
+      </div>
 
-  <div class="my-5">
-    <%= form.label :status, class: "dark:text-gray-200" %>
-    <%= form.text_field :status, class: [
-          "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
-          {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_application.errors[:status].none?, 
-           "border-red-400 dark:border-red-600 focus:outline-red-600": job_application.errors[:status].any?}
-        ] %>
-  </div>
+      <div class="my-5">
+        <%= form.label :status, class: "dark:text-gray-200 mb-2 block" %>
+        <%= form.text_field :status, class: [
+              "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
+              {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_application.errors[:status].none?, 
+               "border-red-400 dark:border-red-600 focus:outline-red-600": job_application.errors[:status].any?}
+            ] %>
+      </div>
 
-  <div class="my-5">
-    <%= form.label :phase, class: "dark:text-gray-200" %>
-    <%= form.text_field :phase, class: [
-          "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
-          {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_application.errors[:phase].none?, 
-           "border-red-400 dark:border-red-600 focus:outline-red-600": job_application.errors[:phase].any?}
-        ] %>
-  </div>
+      <div class="my-5">
+        <%= form.label :phase, class: "dark:text-gray-200 mb-2 block" %>
+        <%= form.text_field :phase, class: [
+              "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
+              {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_application.errors[:phase].none?, 
+               "border-red-400 dark:border-red-600 focus:outline-red-600": job_application.errors[:phase].any?}
+            ] %>
+      </div>
 
-  <div class="my-5">
-    <%= form.label :mail, class: "dark:text-gray-200" %>
-    <%= form.text_field :mail, class: [
-          "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
-          {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_application.errors[:mail].none?, 
-           "border-red-400 dark:border-red-600 focus:outline-red-600": job_application.errors[:mail].any?}
-        ] %>
-  </div>
+      <div class="my-5">
+        <%= form.label :mail, class: "dark:text-gray-200 mb-2 block" %>
+        <%= form.text_field :mail, class: [
+              "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
+              {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_application.errors[:mail].none?, 
+               "border-red-400 dark:border-red-600 focus:outline-red-600": job_application.errors[:mail].any?}
+            ] %>
+      </div>
 
-  <div class="my-5">
-    <%= form.label :applied_at, class: "dark:text-gray-200" %>
-    <%= form.date_field :applied_at, class: [
-          "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
-          {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_application.errors[:applied_at].none?, 
-           "border-red-400 dark:border-red-600 focus:outline-red-600": job_application.errors[:applied_at].any?}
-        ] %>
-  </div>
+      <div class="my-5">
+        <%= form.label :applied_at, class: "dark:text-gray-200 mb-2 block" %>
+        <%= form.date_field :applied_at, class: [
+              "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
+              {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_application.errors[:applied_at].none?, 
+               "border-red-400 dark:border-red-600 focus:outline-red-600": job_application.errors[:applied_at].any?}
+            ] %>
+      </div>
 
-  <div class="my-5">
-    <%= form.label :feedback, class: "dark:text-gray-200" %>
-    <%= form.text_area :feedback, rows: 4, class: [
-          "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
-          {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_application.errors[:feedback].none?, 
-           "border-red-400 dark:border-red-600 focus:outline-red-600": job_application.errors[:feedback].any?}
-        ] %>
-  </div>
+      <div class="my-5">
+        <%= form.label :feedback, class: "dark:text-gray-200 mb-2 block" %>
+        <%= form.text_area :feedback, rows: 4, class: [
+              "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100",
+              {"border-gray-400 dark:border-gray-600 focus:outline-blue-600": job_application.errors[:feedback].none?, 
+               "border-red-400 dark:border-red-600 focus:outline-red-600": job_application.errors[:feedback].any?}
+            ] %>
+      </div>
 
-  <div class="inline">
-    <%= form.submit class: "rounded-md  w-full px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white inline-block font-medium cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-500" %>
+      <div class="mt-6">
+        <%= form.submit class: "w-full rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white font-medium cursor-pointer shadow-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-500" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
 </div>

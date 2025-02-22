@@ -125,7 +125,7 @@ export default class extends Controller {
   connect() {
     console.log("Monaco Editor Controller is connected!");
     const latexTemplate = [
-      "% LaTeX Editor - Start coding here",
+      "% LaTeX Editor",
       "\\documentclass[11pt]{article}",
       "",
       "\\begin{document}",
