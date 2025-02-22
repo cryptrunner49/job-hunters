@@ -1,25 +1,31 @@
 <% content_for :title, "Resumes" %>
 
-<div class="w-full">
+<div class="w-full px-4 py-8">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md" id="notice"><%= notice %></p>
   <% end %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Resumes</h1>
-    <%= link_to "New resume", new_resume_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+  <div class="flex flex-col md:flex-row md:justify-between items-center mb-8">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-white">Resumes</h1>
+    <%= link_to "New Resume", new_resume_path, class: "mt-4 md:mt-0 px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md font-semibold transition-colors shadow hover:shadow-lg" %>
   </div>
 
-  <div id="resumes" class="min-w-full">
+  <!-- Grid layout with fixed-size cards -->
+  <div id="resumes" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
     <% if @resumes.any? %>
       <% @resumes.each do |resume| %>
-        <%= render resume %>
-        <p>
-          <%= link_to "Show this resume", resume, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-        </p>
+        <div id="<%= dom_id resume %>" class="w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 m-4 border border-gray-200 dark:border-gray-700 transition transform hover:scale-105">
+          <%= render resume %>
+          <!-- Action Buttons -->
+          <div class="mt-6 flex flex-col gap-2">
+            <%= link_to "Edit", edit_resume_path(resume), class: "w-full text-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 font-semibold transition-colors" %>
+            <%= link_to "Show this resume", resume, class: "w-full text-center px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 font-semibold transition-colors" %>
+            <%= button_to "Destroy this resume", resume, method: :delete, data: { confirm: "Are you sure?" }, class: "w-full text-center px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-500 font-semibold transition-colors" %>
+          </div>
+        </div>
       <% end %>
     <% else %>
-      <p class="text-center my-10">No resumes found.</p>
+      <p class="text-center text-gray-600 dark:text-gray-400 my-10">No resumes found.</p>
     <% end %>
   </div>
 </div>

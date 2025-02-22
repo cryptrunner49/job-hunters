@@ -10,10 +10,10 @@ Rails.application.routes.draw do
   delete "sign_out", to: "sessions#destroy"
 
   # Others
-  resources :companies
-  resources :roles
   resources :resumes
   resources :cover_letters
+  resources :roles
+  resources :companies
   resources :job_posts, only: %i[new create edit update show destroy]
   resources :job_offers, only: %i[new create edit update show destroy]
   resources :job_applications, only: %i[new create edit update show destroy] do
