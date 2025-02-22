@@ -1,0 +1,46 @@
+<header class="fixed top-0 left-0 right-0 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm z-10">
+    <nav class="container mx-auto px-6 py-3">
+        <div class="flex items-center justify-between">
+        <!-- Brand -->
+        <div class="text-xl font-bold text-gray-900 dark:text-white">
+            <%= link_to "Job Hunters", root_path %>
+        </div>
+
+        <!-- Tabs -->
+        <ul class="flex space-x-1">
+            <li>
+            <%= link_to "Home", root_path, 
+                class: "px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors #{current_page?(root_path) ? 'bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : ''}" %>
+            </li>
+            <li>
+            <%= link_to "Resumes", resumes_path, 
+                class: "px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors #{current_page?(resumes_path) ? 'bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : ''}" %>
+            </li>
+            <li>
+            <%= link_to "Cover Letters", cover_letters_path, 
+                class: "px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors #{current_page?(cover_letters_path) ? 'bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : ''}" %>
+            </li>
+            <li>
+            <%= link_to "Roles", roles_path, 
+                class: "px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors #{current_page?(roles_path) ? 'bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : ''}" %>
+            </li>
+            <li>
+            <%= link_to "Companies", companies_path, 
+                class: "px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors #{current_page?(companies_path) ? 'bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : ''}" %>
+            </li>
+            <li>
+            <%#= link_to "Interviews", interviews_path, 
+                class: "px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors #{current_page?(interviews_path) ? 'bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : ''}" %>
+            </li>
+            <li>
+            <%= link_to "Job Offers", job_offers_path, 
+                class: "px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors #{current_page?(job_offers_path) ? 'bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : ''}" %>
+            </li>
+            <li>
+            <%#= link_to "Settings", settings_path, 
+                class: "px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors #{current_page?(settings_path) ? 'bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : ''}" %>
+            </li>
+        </ul>
+        </div>
+    </nav>
+</header>
