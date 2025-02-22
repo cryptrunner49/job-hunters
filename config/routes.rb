@@ -10,14 +10,14 @@ Rails.application.routes.draw do
   delete "sign_out", to: "sessions#destroy"
 
   # Others
-  resources :companies, only: %i[new create edit update show]
-  resources :roles, only: %i[new create edit update show]
-  resources :job_posts, only: %i[new create edit update show]
-  resources :job_offers, only: %i[new create edit update show]
+  resources :companies, only: %i[new create edit update show destroy]
+  resources :roles, only: %i[new create edit update show destroy]
+  resources :job_posts, only: %i[new create edit update show destroy]
+  resources :job_offers, only: %i[new create edit update show destroy]
   resources :resumes
   resources :cover_letters
-  resources :job_applications, only: %i[new create edit update show] do
-    resources :interviews, only: %i[new create edit update show]
+  resources :job_applications, only: %i[new create edit update show destroy] do
+    resources :interviews, only: %i[new create edit update show destroy]
   end
 
   post "preview", to: "previews#create", as: :preview

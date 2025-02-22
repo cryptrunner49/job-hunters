@@ -3,7 +3,7 @@ class JobPostsController < ApplicationController
 
   # GET /job_posts or /job_posts.json
   def index
-    @job_posts = JobPost.all
+    @job_posts = JobPost.where(deleted: false)
   end
 
   # GET /job_posts/1 or /job_posts/1.json
@@ -13,21 +13,21 @@ class JobPostsController < ApplicationController
   # GET /job_posts/new
   def new
     @job_post = JobPost.new
-    @companies = Company.all
-    @roles = Role.all
+    @companies = Company.where(deleted: false)
+    @roles = Role.where(deleted: false)
   end
 
   # GET /job_posts/1/edit
   def edit
-    @companies = Company.all
-    @roles = Role.all
+    @companies = Company.where(deleted: false)
+    @roles = Role.where(deleted: false)
   end
 
   # POST /job_posts or /job_posts.json
   def create
     @job_post = JobPost.new(job_post_params)
-    @companies = Company.all
-    @roles = Role.all
+    @companies = Company.where(deleted: false)
+    @roles = Role.where(deleted: false)
 
     if @job_post.company_id.blank? || @job_post.role_id.blank?
       @job_post.errors.add(:base, "Please select both a company and a role.")
@@ -62,7 +62,7 @@ class JobPostsController < ApplicationController
     @job_post.soft_delete
 
     respond_to do |format|
-      format.html { redirect_to job_posts_path, status: :see_other, notice: "Job post was successfully destroyed." }
+      format.html { redirect_to root_path, status: :see_other, notice: "Job post was successfully destroyed." }
       format.json { head :no_content }
     end
   end

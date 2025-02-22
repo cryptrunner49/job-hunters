@@ -19,15 +19,15 @@ class JobApplicationsController < ApplicationController
 
   # GET /job_applications/1/edit
   def edit
-    @resumes = Resume.all
-    @cover_letters = CoverLetter.all
+    @resumes = Resume.where(deleted: false)
+    @cover_letters = CoverLetter.where(deleted: false)
   end
 
   # POST /job_applications or /job_applications.json
   def create
     @job_application = JobApplication.new(job_application_params)
-    @resumes = Resume.all
-    @cover_letters = CoverLetter.all
+    @resumes = Resume.where(deleted: false)
+    @cover_letters = CoverLetter.where(deleted: false)
     @job_application.hunter=current_hunter
 
     respond_to do |format|
@@ -59,7 +59,7 @@ class JobApplicationsController < ApplicationController
     @job_application.soft_delete
 
     respond_to do |format|
-      format.html { redirect_to job_applications_path, status: :see_other, notice: "Job application was successfully destroyed." }
+      format.html { redirect_to root_path, status: :see_other, notice: "Job application was successfully destroyed." }
       format.json { head :no_content }
     end
   end
