@@ -1,32 +1,40 @@
-  <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 border-b pb-2">Resume Details</h2>
-  
-  <div class="space-y-4">
-    <div>
-      <dt class="font-semibold text-gray-700 dark:text-gray-300">Hunter</dt>
-      <dd class="mt-1 text-gray-600 dark:text-gray-400"><%= resume.hunter_id %></dd>
-    </div>
+<h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 border-b pb-2">
+  Resume Details
+</h2>
 
-    <div>
-      <dt class="font-semibold text-gray-700 dark:text-gray-300">Title</dt>
-      <dd class="mt-1 text-gray-600 dark:text-gray-400"><%= resume.title %></dd>
-    </div>
-
-    <div>
-      <dt class="font-semibold text-gray-700 dark:text-gray-300">LaTeX Source</dt>
-      <dd class="mt-1 text-gray-600 dark:text-gray-400 font-mono bg-gray-100 dark:bg-gray-900 p-3 rounded-md overflow-x-auto"><%= resume.latex_source %></dd>
-    </div>
-
-    <div>
-      <dt class="font-semibold text-gray-700 dark:text-gray-300">PDF Path</dt>
-      <dd class="mt-1 text-gray-600 dark:text-gray-400">
-        <%= link_to resume.pdf_path, resume.pdf_path, class: "text-blue-600 dark:text-blue-400 hover:underline" %>
-      </dd>
-    </div>
-
-    <div>
-      <dt class="font-semibold text-gray-700 dark:text-gray-300">Resume Type</dt>
-      <dd class="mt-1 text-gray-600 dark:text-gray-400 capitalize"><%= resume.resume_type %></dd>
-    </div>
+<div class="space-y-4">
+  <div>
+    <dt class="font-semibold text-gray-700 dark:text-gray-300">Hunter</dt>
+    <dd class="mt-1 text-gray-600 dark:text-gray-400">
+      <%= resume.hunter_id %>
+    </dd>
   </div>
 
-  
+  <div>
+    <dt class="font-semibold text-gray-700 dark:text-gray-300">Title</dt>
+    <dd class="mt-1 text-gray-600 dark:text-gray-400">
+      <%= resume.title %>
+    </dd>
+  </div>
+
+  <div>
+    <dt class="font-semibold text-gray-700 dark:text-gray-300">LaTeX Source</dt>
+    <dd class="mt-1 text-gray-600 dark:text-gray-400 font-mono bg-gray-100 dark:bg-gray-900 p-3 rounded-md overflow-x-auto">
+      <%= resume.latex_source %>
+    </dd>
+  </div>
+
+  <div>
+    <dt class="font-semibold text-gray-700 dark:text-gray-300">PDF Path</dt>
+    <dd class="mt-1 text-gray-600 dark:text-gray-400">
+      <%= link_to resume.pdf_path, resume.pdf_path, class: "text-blue-600 dark:text-blue-400 hover:underline" %>
+    </dd>
+  </div>
+
+  <div>
+    <dt class="font-semibold text-gray-700 dark:text-gray-300">Resume Type</dt>
+    <dd class="mt-1 text-gray-600 dark:text-gray-400 capitalize">
+      <%= resume.resume_type %>
+    </dd>
+  </div>
+</div>

@@ -1,17 +1,21 @@
-<% content_for :title, "Showing role" %>
+<% content_for :title, "Showing Role" %>
 
-<div class="md:w-2/3 w-full">
+<div class="max-w-3xl mx-auto px-4 py-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+    <p id="notice" class="py-2 px-3 bg-green-50 dark:bg-green-800 mb-5 text-green-500 dark:text-green-300 font-medium rounded-md">
+      <%= notice %>
+    </p>
   <% end %>
 
-  <h1 class="font-bold text-4xl">Showing role</h1>
+  <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-6">Showing Role</h1>
+  
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+    <%= render @role %>
+  </div>
 
-  <%= render @role %>
-
-  <%= link_to "Edit this role", edit_role_path(@role), class: "mt-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to roles", roles_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <div class="inline-block ml-2">
-    <%= button_to "Destroy this role", @role, method: :delete, class: "mt-2 rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium" %>
+  <div class="mt-6 flex flex-wrap gap-4">
+    <%= link_to "Edit this Role", edit_role_path(@role), class: "px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md font-semibold transition-colors" %>
+    <%= link_to "Back to Roles", roles_path, class: "px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 font-semibold transition-colors" %>
+    <%= button_to "Destroy this Role", @role, method: :delete, data: { confirm: "Are you sure?" }, class: "px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-md font-semibold transition-colors" %>
   </div>
 </div>

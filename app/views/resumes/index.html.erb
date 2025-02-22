@@ -1,8 +1,10 @@
 <% content_for :title, "Resumes" %>
 
-<div class="w-full px-4 py-8">
+<div class="w-full px-4 py-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md" id="notice"><%= notice %></p>
+    <p class="py-2 px-3 bg-green-50 dark:bg-green-800 mb-5 text-green-500 dark:text-green-300 font-medium rounded-md" id="notice">
+      <%= notice %>
+    </p>
   <% end %>
 
   <div class="flex flex-col md:flex-row md:justify-between items-center mb-8">
@@ -11,10 +13,10 @@
   </div>
 
   <!-- Grid layout with fixed-size cards -->
-  <div id="resumes" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+  <div id="resumes" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-center">
     <% if @resumes.any? %>
       <% @resumes.each do |resume| %>
-        <div id="<%= dom_id resume %>" class="w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 m-4 border border-gray-200 dark:border-gray-700 transition transform hover:scale-105">
+        <div id="<%= dom_id resume %>" class="w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700 transition transform hover:scale-105">
           <%= render resume %>
           <!-- Action Buttons -->
           <div class="mt-6 flex flex-col gap-2">

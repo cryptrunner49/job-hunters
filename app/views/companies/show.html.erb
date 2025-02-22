@@ -1,17 +1,21 @@
-<% content_for :title, "Showing company" %>
+<% content_for :title, "Showing Company" %>
 
-<div class="md:w-2/3 w-full">
+<div class="max-w-3xl mx-auto px-4 py-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+    <p id="notice" class="py-2 px-3 bg-green-50 dark:bg-green-800 mb-5 text-green-500 dark:text-green-300 font-medium rounded-md">
+      <%= notice %>
+    </p>
   <% end %>
 
-  <h1 class="font-bold text-4xl">Showing company</h1>
+  <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-6">Showing Company</h1>
+  
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+    <%= render @company %>
+  </div>
 
-  <%= render @company %>
-
-  <%= link_to "Edit this company", edit_company_path(@company), class: "mt-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to companies", companies_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <div class="inline-block ml-2">
-    <%= button_to "Destroy this company", @company, method: :delete, class: "mt-2 rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium" %>
+  <div class="mt-6 flex flex-wrap gap-4">
+    <%= link_to "Edit this Company", edit_company_path(@company), class: "px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md font-semibold transition-colors" %>
+    <%= link_to "Back to Companies", companies_path, class: "px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 font-semibold transition-colors" %>
+    <%= button_to "Destroy this Company", @company, method: :delete, data: { confirm: "Are you sure?" }, class: "px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-md font-semibold transition-colors" %>
   </div>
 </div>

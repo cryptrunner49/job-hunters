@@ -1,30 +1,33 @@
-<div id="<%= dom_id company %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= company.name %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Industry:</strong>
-    <%= company.industry %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Location:</strong>
-    <%= company.location %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Github:</strong>
-    <%= company.github %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Website:</strong>
-    <%= company.website %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Job search website:</strong>
-    <%= company.job_search_website %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Description:</strong>
-    <%= company.description %>
-  </p>
+<div id="<%= dom_id company %>" class="w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 m-4 border border-gray-200 dark:border-gray-700 transition transform hover:scale-105">
+  <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 border-b pb-2">Company Details</h2>
+  <div class="space-y-4">
+    <div>
+      <dt class="font-semibold text-gray-700 dark:text-gray-300">Name</dt>
+      <dd class="mt-1 text-gray-600 dark:text-gray-400"><%= company.name %></dd>
+    </div>
+    <div>
+      <dt class="font-semibold text-gray-700 dark:text-gray-300">Industry</dt>
+      <dd class="mt-1 text-gray-600 dark:text-gray-400"><%= company.industry %></dd>
+    </div>
+    <div>
+      <dt class="font-semibold text-gray-700 dark:text-gray-300">Location</dt>
+      <dd class="mt-1 text-gray-600 dark:text-gray-400"><%= company.location %></dd>
+    </div>
+    <div>
+      <dt class="font-semibold text-gray-700 dark:text-gray-300">Github</dt>
+      <dd class="mt-1 text-gray-600 dark:text-gray-400"><%= company.github %></dd>
+    </div>
+    <div>
+      <dt class="font-semibold text-gray-700 dark:text-gray-300">Website</dt>
+      <dd class="mt-1 text-gray-600 dark:text-gray-400"><%= company.website %></dd>
+    </div>
+    <div>
+      <dt class="font-semibold text-gray-700 dark:text-gray-300">Job Search Website</dt>
+      <dd class="mt-1 text-gray-600 dark:text-gray-400"><%= company.job_search_website %></dd>
+    </div>
+    <div>
+      <dt class="font-semibold text-gray-700 dark:text-gray-300">Description</dt>
+      <dd class="mt-1 text-gray-600 dark:text-gray-400"><%= company.description %></dd>
+    </div>
+  </div>
 </div>
