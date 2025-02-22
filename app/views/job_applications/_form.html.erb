@@ -158,7 +158,6 @@
         form.classList.toggle('hidden');
         // Toggle pdf preview
         const previewId = `preview-${fieldType.replace('_id', '')}-div`;
-        console.log(previewId);
         const previewDiv = document.getElementById(previewId);
         previewDiv.classList.toggle('hidden');
       });
@@ -219,7 +218,6 @@
                 .then(response => response.blob())
                 .then(blob => {
                   const url = URL.createObjectURL(blob);
-                  console.log(formType);
                   if (formType == "resume") {
                     document.getElementById('resume-preview').src = `${url}#navpanes=0&toolbar=0&pagemode=none`;
                   } else {
@@ -237,7 +235,18 @@
             };
             darkModeMediaQuery.addListener(updateTheme);
             updateTheme();
-
+            const templateString = [
+              "% LaTeX Editor - Use LaTeX to make a Resume.",
+              "\\documentclass[11pt]{article}",
+              "",
+              "\\begin{document}",
+              "",
+              "Start Template",
+              "",
+              "\\end{document}",
+              "",
+            ].join("\n");
+            editor.setValue(templateString);
             editorDiv.aceEditor = editor;
           }
         }
