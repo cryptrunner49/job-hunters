@@ -1,4 +1,3 @@
-// app/javascript/controllers/monaco_editor_controller.js
 import { Controller } from "@hotwired/stimulus"
 
 import * as monaco from "monaco-editor";
@@ -73,7 +72,6 @@ monaco.languages.setMonarchTokensProvider('tex', {
 });
 
 // Define themes with custom delimiter tokens
-
 // Light theme
 monaco.editor.defineTheme('latex-light', {
   base: 'vs', // Based on light theme
