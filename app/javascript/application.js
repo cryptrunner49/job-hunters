@@ -2,6 +2,8 @@
 import "@hotwired/turbo-rails";
 import "controllers";// Optional theme
 
+console.log("application.js is running!");
+
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     document.documentElement.className = 'dark';
 } else {
