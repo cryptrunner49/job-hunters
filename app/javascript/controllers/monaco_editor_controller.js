@@ -1,125 +1,7 @@
 // app/javascript/controllers/monaco_editor_controller.js
 import { Controller } from "@hotwired/stimulus"
 
-/*
-import * as monaco from "monaco-editor"
-
-// Configure Monaco environment for web workers
-window.MonacoEnvironment = {
-  getWorkerUrl: function (moduleId, label) {
-    return `https://ga.jspm.io/npm:monaco-editor@0.52.2/esm/vs/editor/editor.worker.js`
-  }
-};
-
-export default class extends Controller {
-  static values = {
-    language: { type: String, default: "text" },
-    theme: { type: String, default: "vs-dark" }
-  }
-
-  connect() {
-    console.log("MyController is connected!");
-    this.editor = monaco.editor.create(this.element, {
-      value: this.element.textContent,
-      language: this.languageValue,
-      theme: this.themeValue,
-      automaticLayout: true,
-      minimap: { enabled: false }
-    })
-  }
-
-  disconnect() {
-    this.editor.dispose()
-  }
-}
-*/
-
-/*
-// Parse the import map for worker URLs
-const importMap = JSON.parse(document.querySelector('script[type="importmap"]').textContent).imports;
-
-// Configure MonacoEnvironment for worker URLs
-self.MonacoEnvironment = {
-  getWorkerUrl: function(moduleId, label) {
-    return importMap['monaco-editor/editor.worker'];
-  }
-};
-
-// Import Monaco Editor
-import * as monaco from 'monaco-editor';
-
-// Register LaTeX language
-monaco.languages.register({ id: 'tex' });
-
-// Define LaTeX tokenizer (basic syntax highlighting)
-monaco.languages.setMonarchTokensProvider('tex', {
-  tokenizer: {
-    root: [
-      // Comments (start with %)
-      [/%.*$/, 'comment'],
-
-      // LaTeX commands (e.g., \documentclass, \begin)
-      [/\\[a-zA-Z]+(?:\*)?/, 'keyword'],
-
-      // Brackets and braces
-      [/\{/, 'delimiter.curly', '@brackets'],
-      [/\}/, 'delimiter.curly', '@pop'],
-      [/\[/, 'delimiter.square', '@brackets'],
-      [/\]/, 'delimiter.square', '@pop'],
-
-      // Text content
-      [/[^{}[\]\\%]+/, 'string']
-    ],
-    brackets: [
-      ['{', '}', 'delimiter.curly'],
-      ['[', ']', 'delimiter.square']
-    ]
-  }
-});
-
-// Set theme rules (optional: customize colors)
-monaco.editor.defineTheme('latex-theme', {
-  base: 'vs-dark', // Based on dark theme
-  inherit: true,
-  rules: [
-    { token: 'comment', foreground: '6A9955' }, // Green for comments
-    { token: 'keyword', foreground: '569CD6' }, // Blue for commands
-    { token: 'string', foreground: 'D4D4D4' }, // Light gray for text
-    { token: 'delimiter.curly', foreground: 'FFD700' }, // Gold for braces
-    { token: 'delimiter.square', foreground: 'FFD700' } // Gold for brackets
-  ]
-});
-
-// Initialize the editor on page load
-document.addEventListener('turbo:load', () => {
-  const editorContainer = document.getElementById('editor685686');
-  if (editorContainer) {
-    monaco.editor.create(editorContainer, {
-      value: [
-        "% LaTeX Editor - Start coding here",
-        "\\documentclass[11pt]{article}",
-        "",
-        "\\begin{document}",
-        "",
-        "Hello, World!",
-        "",
-        "\\end{document}"
-      ].join("\n"),
-      language: 'tex', // Use the custom LaTeX language
-      theme: 'latex-theme' // Apply custom theme
-    });
-  }
-});
-*/
-
 import * as monaco from "monaco-editor";
-
-// Configure Monaco environment for web workers
-self.MonacoEnvironment = {
-  getWorkerUrl: function(moduleId, label) {
-    return importMap['monaco-editor/editor.worker'];
-  }
-};
 
 // Register LaTeX language
 monaco.languages.register({ id: 'tex' });
@@ -244,6 +126,16 @@ monaco.editor.defineTheme('latex-dark', {
 export default class extends Controller {
   connect() {
     console.log("Monaco Editor Controller is connected!");
+    const latexTemplate = [
+      "% LaTeX Editor - Start coding here",
+      "\\documentclass[11pt]{article}",
+      "",
+      "\\begin{document}",
+      "",
+      "Hello, World!",
+      "",
+      "\\end{document}"
+    ].join("\n");
 
     document.querySelectorAll('.application-add-new-btn').forEach(button => {
       const fieldType = button.dataset.fieldType;
@@ -254,16 +146,7 @@ export default class extends Controller {
       const editorDiv = document.getElementById(editorId);
 
       const editor = monaco.editor.create(editorDiv, {
-        value: [
-          "% LaTeX Editor - Start coding here",
-          "\\documentclass[11pt]{article}",
-          "",
-          "\\begin{document}",
-          "",
-          "Hello, World!",
-          "",
-          "\\end{document}"
-        ].join("\n"),
+        value: "",
         language: "tex",
         theme: "latex-dark",
         automaticLayout: true,
@@ -298,38 +181,22 @@ export default class extends Controller {
           .catch(console.error);
         }, 1000);
       });
+      
+      button.addEventListener('click', function() {
+        const fieldType = this.dataset.fieldType;
+        const formId = `new-${fieldType.replace('_id', '')}-form`;
+        const form = document.getElementById(formId);
+        form.classList.toggle('hidden');
+        // Toggle pdf preview
+        const previewId = `preview-${fieldType.replace('_id', '')}-div`;
+        const previewDiv = document.getElementById(previewId);
+        previewDiv.classList.toggle('hidden');
+        this.textContent = this.textContent === 'Add New' ? 'Cancel' : 'Add New';
+        if(editor.getValue() == "") {
+          editor.setValue(latexTemplate);
+        }
+      });
     });
-
-    /*
-    editor.session.on('change', function() {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        const latex = editor.getValue();
-        textarea.value = latex;
-
-        const formData = new FormData();
-        formData.append('latex_source', latex);
-
-        fetch('/preview', {
-          method: 'POST',
-          headers: {
-            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-          },
-          body: formData
-        })
-        .then(response => response.blob())
-        .then(blob => {
-          const url = URL.createObjectURL(blob);
-          if (formType == "resume") {
-            document.getElementById('resume-preview').src = `${url}#navpanes=0&toolbar=0&pagemode=none`;
-          } else {
-            document.getElementById('cover_letter-preview').src = `${url}#navpanes=0&toolbar=0&pagemode=none`;
-          }
-        })
-        .catch(console.error);
-      }, 1000);
-    });
-    */
   }
 
   disconnect() {

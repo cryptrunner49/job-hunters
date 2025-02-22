@@ -1,17 +1,3 @@
-<!-- Ace Editor -->
-<!--<script rel="preload" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js" crossorigin="anonymous"></script>-->
-<!--<script rel="preload" src="<%#= asset_path('ace.js') %>"></script>-->
-<%#= javascript_include_tag "ace/ace.js", "data-turbo-track": "reload", type: "text/javascript", charset: "utf-8" %>
-<!--<script src="/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>-->
-
-<%# app/views/pages/editor.html.erb %>
-<!--
-<div data-controller="monaco-editor" 
-     data-monaco-editor-language-value="javascript"
-     data-monaco-editor-theme-value="vs-dark"
-     style="height: 200px; width: 100%;">
-</div>
--->
 <script data-controller="monaco-editor"></script>
 <div class="grid grid-cols-2 gap-4">
   <div id="new-resume-form" class="hidden mt-4">
@@ -27,7 +13,7 @@
                   class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
             <%= form.text_area :latex_source,
                   placeholder: "Latex source",
-                  class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
+                  class: "hidden block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
             <div id="resume-editor" style="height: 400px; width: 100%; margin-top: -8px;"></div>
             <%= form.submit "Create", class: "w-full mt-2 rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white cursor-pointer" %>
           <% end %>
@@ -158,91 +144,3 @@
   </div>
 <% end %>
 </div>
-
-<script>
-    document.addEventListener('turbo:load', function() {
-    document.querySelectorAll('.application-add-new-btn').forEach(button => {
-      button.addEventListener('click', function() {
-        const fieldType = this.dataset.fieldType;
-        const formId = `new-${fieldType.replace('_id', '')}-form`;
-        const form = document.getElementById(formId);
-        form.classList.toggle('hidden');
-        // Toggle pdf preview
-        const previewId = `preview-${fieldType.replace('_id', '')}-div`;
-        const previewDiv = document.getElementById(previewId);
-        previewDiv.classList.toggle('hidden');
-      });
-    });
-  });
-
-  document.addEventListener('turbo:load', function() {
-    const buttons = document.querySelectorAll('.application-add-new-btn');
-
-    buttons.forEach(button => {
-      button.addEventListener('click', function() {
-        this.textContent = this.textContent === 'Add New' ? 'Cancel' : 'Add New';
-      });
-    });
-  });
-</script>
-
-<!-- Initialize Ace Editor -->
-<script>
-  /*
-  document.addEventListener('turbo:load', function() {
-    // Toggle forms and handle Ace editors
-    document.querySelectorAll('.application-add-new-btn').forEach(button => {
-      button.addEventListener('click', function() {
-        const fieldType = this.dataset.fieldType;
-        const formType = fieldType.replace('_id', '');
-        const formId = `new-${formType}-form`;
-        const form = document.getElementById(formId);
-        const isVisible = !form.classList.contains('hidden');
-
-        if (isVisible) {
-          const editorId = `${formType}-editor`;
-          const editorDiv = document.getElementById(editorId);
-          const textarea = form.querySelector(`textarea[name$="[latex_source]"]`);
-
-          if (editorDiv && !editorDiv.aceEditor) {
-            const editor = ace.edit(editorId);
-            editor.setTheme("ace/theme/chrome");
-            editor.session.setMode("ace/mode/latex");
-            editor.session.setValue(textarea.value);
-
-            let debounceTimer;
-            editor.session.on('change', function() {
-              clearTimeout(debounceTimer);
-              debounceTimer = setTimeout(() => {
-                const latex = editor.getValue();
-                textarea.value = latex;
-
-                const formData = new FormData();
-                formData.append('latex_source', latex);
-
-                fetch('/preview', {
-                  method: 'POST',
-                  headers: {
-                    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-                  },
-                  body: formData
-                })
-                .then(response => response.blob())
-                .then(blob => {
-                  const url = URL.createObjectURL(blob);
-                  if (formType == "resume") {
-                    document.getElementById('resume-preview').src = `${url}#navpanes=0&toolbar=0&pagemode=none`;
-                  } else {
-                    document.getElementById('cover_letter-preview').src = `${url}#navpanes=0&toolbar=0&pagemode=none`;
-                  }
-                })
-                .catch(console.error);
-              }, 1000);
-            });
-          }
-        }
-      });
-    });
-  });
-  */
-</script>
