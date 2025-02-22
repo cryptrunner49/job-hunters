@@ -7,11 +7,6 @@ class JobApplicationsControllerTest < ActionDispatch::IntegrationTest
     sign_in_as(@hunter.email_address, "password")
   end
 
-  test "should get index" do
-    get job_applications_url
-    assert_response :success
-  end
-
   test "should get new" do
     get new_job_application_url
     assert_response :success
@@ -47,6 +42,6 @@ class JobApplicationsControllerTest < ActionDispatch::IntegrationTest
 
     @job_application.reload
     assert @job_application.deleted
-    assert_redirected_to job_applications_url
+    assert_redirected_to root_url
   end
 end

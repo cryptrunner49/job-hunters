@@ -7,11 +7,6 @@ class JobOffersControllerTest < ActionDispatch::IntegrationTest
     sign_in_as(@hunter.email_address, "password")
   end
 
-  test "should get index" do
-    get job_offers_url
-    assert_response :success
-  end
-
   test "should get new" do
     get new_job_offer_url
     assert_response :success

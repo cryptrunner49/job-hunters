@@ -7,11 +7,6 @@ class CompaniesControllerTest < ActionDispatch::IntegrationTest
     sign_in_as(@hunter.email_address, "password")
   end
 
-  test "should get index" do
-    get companies_url
-    assert_response :success
-  end
-
   test "should get new" do
     get new_company_url
     assert_response :success
