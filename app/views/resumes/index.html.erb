@@ -18,11 +18,8 @@
       <% @resumes.each do |resume| %>
         <div id="<%= dom_id resume %>" class="w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700 transition transform hover:scale-105">
           <%= render resume %>
-          <!-- Action Buttons -->
           <div class="mt-6 flex flex-col gap-2">
-            <%= link_to "Edit", edit_resume_path(resume), class: "w-full text-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 font-semibold transition-colors" %>
             <%= link_to "Show this resume", resume, class: "w-full text-center px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 font-semibold transition-colors" %>
-            <%= button_to "Destroy this resume", resume, method: :delete, data: { confirm: "Are you sure?" }, class: "w-full text-center px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-500 font-semibold transition-colors" %>
           </div>
         </div>
       <% end %>
