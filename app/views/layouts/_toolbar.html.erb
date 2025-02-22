@@ -43,28 +43,10 @@
                     class: "px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors #{current_page?(settings_path) ? 'bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : ''}" %>
               </li>
             </ul>
-
-            <!-- User Menu (only shown if authenticated) -->
-            <% if authenticated? %>
-              <div class="relative">
-                <button id="user-menu-toggle" class="flex items-center px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md transition-colors focus:outline-none">
-                  <%= current_hunter.name %>
-                  <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                  </svg>
-                </button>
-                <div id="user-menu" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg">
-                  <ul class="py-1">
-                    <li>
-                      <%= link_to "Sign Out", sign_out_path, 
+            
+            <%= link_to "Sign Out", sign_out_path, 
                           data: { turbo_method: :delete }, 
                           class: "block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors" %>
-                    </li>
-                    <!-- Add more options here if needed, e.g., Profile -->
-                  </ul>
-                </div>
-              </div>
-            <% end %>
           </div>
         </div>
       </nav>
