@@ -1,74 +1,86 @@
 <header class="fixed top-0 left-0 right-0 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm z-10">
-    <nav class="container mx-auto px-6 py-3">
-        <div class="flex items-center justify-between">
-            <!-- Brand/Logo -->
-            <div class="text-xl font-bold text-gray-900 dark:text-white">
-            <%= link_to "Job Hunters", root_path %>
-            </div>
+  <nav class="container mx-auto px-6 py-3">
+    <div class="flex items-center justify-between">
+      <!-- Brand/Logo -->
+      <div class="text-xl font-bold text-gray-900 dark:text-white">
+        <%= link_to "Job Hunters", root_path %>
+      </div>
 
-            <!-- Tabs and User Menu -->
-            <div class="flex items-center space-x-4">
-            <!-- Tabs -->
-            <ul class="flex space-x-1">
+      <!-- Tabs and User Menu -->
+      <div class="flex items-center space-x-4">
+        <!-- Tabs -->
+        <ul class="flex space-x-1">
+          <li>
+            <%= link_to "Home", root_path, 
+                class: "px-4 #{current_page?(root_path) ? 'py-3 bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : 'py-2'} text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors" %>
+          </li>
+          <li>
+            <%= link_to "Resumes", resumes_path, 
+                class: "px-4 #{current_page?(resumes_path) ? 'py-3 bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : 'py-2'} text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors" %>
+          </li>
+          <li>
+            <%= link_to "Cover Letters", cover_letters_path, 
+                class: "px-4 #{current_page?(cover_letters_path) ? 'py-3 bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : 'py-2'} text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors" %>
+          </li>
+          <li>
+            <%= link_to "Roles", roles_path, 
+                class: "px-4 #{current_page?(roles_path) ? 'py-3 bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : 'py-2'} text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors" %>
+          </li>
+          <li>
+            <%= link_to "Companies", companies_path, 
+                class: "px-4 #{current_page?(companies_path) ? 'py-3 bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : 'py-2'} text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors" %>
+          </li>
+          <li>
+            <%= link_to "Job Offers", job_offers_path, 
+                class: "px-4 #{current_page?(job_offers_path) ? 'py-3 bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : 'py-2'} text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors" %>
+          </li>
+        </ul>
+
+        <!-- User Menu (only shown if authenticated) -->
+        <% if authenticated? %>
+          <div class="relative">
+            <button id="user-menu-toggle" class="flex items-center px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md transition-colors focus:outline-none">
+              <%= current_hunter.name %>
+              <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <!-- The dropdown is now positioned using top-full and a high z-index so it overlays the content -->
+            <div id="user-menu" class="hidden absolute right-0 top-full z-50 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg">
+              <ul class="py-1">
                 <li>
-                <%= link_to "Home", root_path, 
-                    class: "px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors #{current_page?(root_path) ? 'bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : ''}" %>
+                  <%= link_to "Sign Out", sign_out_path, 
+                      data: { turbo_method: :delete }, 
+                      class: "block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors" %>
                 </li>
-                <li>
-                <%= link_to "Resumes", resumes_path, 
-                    class: "px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors #{current_page?(resumes_path) ? 'bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : ''}" %>
-                </li>
-                <li>
-                <%= link_to "Cover Letters", cover_letters_path, 
-                    class: "px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors #{current_page?(cover_letters_path) ? 'bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : ''}" %>
-                </li>
-                <li>
-                <%= link_to "Roles", roles_path, 
-                    class: "px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors #{current_page?(roles_path) ? 'bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : ''}" %>
-                </li>
-                <li>
-                <%= link_to "Companies", companies_path, 
-                    class: "px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors #{current_page?(companies_path) ? 'bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : ''}" %>
-                </li>
-                <!--
-                <li>
-                <%#= link_to "Interviews", interviews_path, 
-                    class: "px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors #{current_page?(interviews_path) ? 'bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : ''}" %>
-                </li>
-                <li>
-                <%#= link_to "Job Offers", job_offers_path, 
-                    class: "px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors #{current_page?(job_offers_path) ? 'bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : ''}" %>
-                </li>
-                <li>
-                <%#= link_to "Settings", settings_path, 
-                    class: "px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors #{current_page?(settings_path) ? 'bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : ''}" %>
-                </li>
-                -->
-            </ul>
-            <%= link_to "Sign Out", sign_out_path, data: { turbo_method: :delete }, 
-                class: "block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors" %>
+                <!-- Additional options can be added here -->
+              </ul>
             </div>
-        </div>
-    </nav>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </nav>
 </header>
 
 <!-- JavaScript for Dropdown Toggle -->
 <script>
-    document.addEventListener('turbo:load', () => {
+  document.addEventListener('turbo:load', () => {
     const toggle = document.getElementById('user-menu-toggle');
     const menu = document.getElementById('user-menu');
 
     if (toggle && menu) {
-        toggle.addEventListener('click', () => {
+      toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
         menu.classList.toggle('hidden');
-        });
+      });
 
-        // Close menu when clicking outside
-        document.addEventListener('click', (event) => {
+      // Close menu when clicking outside
+      document.addEventListener('click', (event) => {
         if (!toggle.contains(event.target) && !menu.contains(event.target)) {
-            menu.classList.add('hidden');
+          menu.classList.add('hidden');
         }
-        });
+      });
     }
-    });
+  });
 </script>
