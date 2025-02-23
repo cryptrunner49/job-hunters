@@ -124,21 +124,77 @@ monaco.editor.defineTheme('latex-dark', {
 export default class extends Controller {
   connect() {
     console.log("Monaco Editor Controller is connected!");
-    const latexTemplate = [
-      "% LaTeX Editor",
-      "\\documentclass[11pt]{article}",
+    const resumeTemplate = [
+      "\\setmainfont{Arial}",
+      "\\setlength{\\parindent}{0pt}",
       "",
       "\\begin{document}",
+      "\t",
+      "\t\\begin{center}",
+      "\t\t{\\LARGE \\textbf{{\\lbrack}Full Name{\\rbrack}}}\\\\[0.5em]",
+      "\t\t{\\lbrack}Address{\\rbrack} $\\vert$ {\\lbrack}Phone Number{\\rbrack} $\\vert$ {\\lbrack}Email Address{\\rbrack} $\\vert$ {\\lbrack}LinkedIn/Website{\\rbrack}",
+      "\t\\end{center}",
+      "\t",
+      "\t\\section*{Professional Summary}",
+      "\t{\\lbrack}Brief professional summary highlighting key skills and experiences relevant to the job.{\\rbrack}",
+      "\t",
+      "\t\\section*{Experience}",
+      "\t\\textbf{{\\lbrack}Job Title{\\rbrack}} \\hfill {\\lbrack}Start Date yyyy-MM-dd -- End Date yyyy-MM-dd{\\rbrack}\\\\",
+      "\t{\\lbrack}Company Name{\\rbrack}, {\\lbrack}Location{\\rbrack}\\\\",
+      "\t{\\lbrack}Brief description of role, responsibilities, and key achievements.{\\rbrack}",
+      "\t",
+      "\t\\vspace{0.5em}",
+      "\t\\textbf{{\\lbrack}Job Title{\\rbrack}} \\hfill {\\lbrack}Start Date yyyy-MM-dd -- End Date yyyy-MM-dd{\\rbrack}\\\\",
+      "\t{\\lbrack}Company Name{\\rbrack}, {\\lbrack}Location{\\rbrack}\\\\",
+      "\t{\\lbrack}Brief description of role, responsibilities, and key achievements.{\\rbrack}",
+      "\t",
+      "\t\\section*{Education}",
+      "\t\\textbf{{\\lbrack}Degree, e.g., Bachelor of Science in Computer Science{\\rbrack}} \\hfill {\\lbrack}Graduation Date yyyy-MM-dd{\\rbrack}\\\\",
+      "\t{\\lbrack}University Name{\\rbrack}, {\\lbrack}Location{\\rbrack}",
+      "\t",
+      "\t\\section*{Skills}",
+      "\t{\\lbrack}Bullet list of key skills: e.g., Programming Languages, Frameworks, Tools, etc.{\\rbrack}",
+      "\t",
+      "\t\\section*{Projects}",
+      "\t\\textbf{{\\lbrack}Project Title{\\rbrack}} \\hfill {\\lbrack}Start Date yyyy-MM-dd -- End Date yyyy-MM-dd{\\rbrack}\\\\",
+      "\t{\\lbrack}Brief description of the project, your role, and outcomes.{\\rbrack}",
       "",
-      "Hello, World!",
+      "\\end{document}"
+    ].join("\n"); 
+    const coverLetterTemplate = [
+      "\\setmainfont{Arial}",
       "",
+      "% Set sender details",
+      "\\signature{{\\lbrack}Your Name{\\rbrack}}",
+      "\\address{{\\lbrack}Your Address{\\rbrack}}",
+      "\\date{{\\lbrack}yyyy-MM-dd{\\rbrack}}",
+      "",
+      "\\begin{document}",
+      "\t",
+      "\t\\begin{letter}{",
+      "\t\t{\\lbrack}Recipient Name{\\rbrack}\\\\",
+      "\t\t{\\lbrack}Recipient Title{\\rbrack}\\\\",
+      "\t\t{\\lbrack}Company Name{\\rbrack}\\\\",
+      "\t\t{\\lbrack}Company Address{\\rbrack}",
+      "\t}",
+      "\t",
+      "\t\\opening{Dear {\\lbrack}Recipient Name{\\rbrack},}",
+      "\t",
+      "\t{\\lbrack}Introduction: Begin with a brief introduction stating the position you are applying for and how you learned about the opportunity.{\\rbrack}",
+      "\t",
+      "\t{\\lbrack}Body: Describe your relevant skills, experiences, and achievements. Explain why you are a strong fit for the role and how you can add value to the company.{\\rbrack}",
+      "\t",
+      "\t{\\lbrack}Closing: Express your enthusiasm for the opportunity, mention your availability for an interview, and thank the recipient for considering your application.{\\rbrack}",
+      "\t",
+      "\t\\closing{Sincerely,}",
+      "\t",
+      "\\end{letter}",
       "\\end{document}"
     ].join("\n");
 
     document.querySelectorAll('.application-add-new-btn').forEach(button => {
       const fieldType = button.dataset.fieldType;
       const formType = fieldType.replace('_id', '');
-      console.log(formType);
 
       const editorId = `${formType}-editor`;
       const editorDiv = document.getElementById(editorId);
@@ -149,6 +205,9 @@ export default class extends Controller {
         theme: "latex-dark",
         automaticLayout: true,
         minimap: { enabled: false },
+        stickyScroll: {
+          enabled: false
+        },
       });
 
       let debounceTimer;
@@ -163,6 +222,7 @@ export default class extends Controller {
           
           const formData = new FormData();
           formData.append('latex_source', latex);
+          formData.append('type', formType);
 
           fetch('/preview', {
             method: 'POST',
@@ -191,7 +251,11 @@ export default class extends Controller {
         previewDiv.classList.toggle('hidden');
         this.textContent = this.textContent === 'Add New' ? 'Cancel' : 'Add New';
         if(editor.getValue() == "") {
-          editor.setValue(latexTemplate);
+          if (formType == "resume") {
+            editor.setValue(resumeTemplate);
+          } else {
+            editor.setValue(coverLetterTemplate);
+          }
         }
       });
     });

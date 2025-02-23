@@ -2,7 +2,7 @@ class PreviewsController < ApplicationController
   require "shellwords"
 
   def create
-    latex_source = sanitize_latex(params[:latex_source])
+    latex_source = sanitize_latex(params[:latex_source], params[:type])
     if latex_source.blank? || latex_source.size > 10.megabytes # Max 10MB
       render plain: "LaTeX  to big, limit 10MB.", status: :unprocessable_entity
       return
@@ -33,7 +33,7 @@ class PreviewsController < ApplicationController
     begin
       File.write(tex_file, latex_source)
       Dir.chdir(temp_dir) do
-        system("timeout 200 pdflatex -interaction=nonstopmode -no-shell-escape #{Shellwords.escape(tex_path)}")
+        system("timeout 200 xelatex -interaction=nonstopmode -no-shell-escape #{Shellwords.escape(tex_path)}")
       end
       pdf_file.to_s
     rescue
@@ -41,7 +41,7 @@ class PreviewsController < ApplicationController
     end
   end
 
-  def sanitize_latex(latex_source)
+  def sanitize_latex(latex_source, type)
     sanitized = latex_source.dup
 
     # Remove explicitly dangerous commands that trigger external execution
@@ -74,7 +74,26 @@ class PreviewsController < ApplicationController
     #  command = Regexp.last_match(1)
     #  allowed_commands.include?(command) ? cmd : ""
     # end
+    #
 
-    sanitized
+    if type == "resume" then
+      default_resume_packages = [
+        "\\documentclass[12pt]{article}",
+        "\\n",
+        "\\usepackage[margin=1in]{geometry}",
+        "\\n",
+        "\\usepackage{fontspec}"
+     ].join
+     default_resume_packages + "\n" + sanitized
+    else
+      default_cover_letter_packages = [
+        "\\documentclass[12pt]{letter}",
+        "\\n",
+        "\\usepackage[margin=1in]{geometry}",
+        "\\n",
+        "\\usepackage{fontspec}"
+      ].join
+      default_cover_letter_packages + "\n" + sanitized
+    end
   end
 end
