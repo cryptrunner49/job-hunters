@@ -3,25 +3,25 @@
     {
       "warning_type": "File Access",
       "warning_code": 16,
-      "fingerprint": "55f244d9294dc35435b0d270afddc3b06cd138e67397827e4fa932eb290733dc",
+      "fingerprint": "645750a1e2e865c0c8b752b186a9ffadbe6f2b06101b9f464827adeb2cc1b23d",
       "check_name": "SendFile",
       "message": "Parameter value used in file name",
       "file": "app/controllers/previews_controller.rb",
       "line": 16,
       "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
-      "code": "send_file(generate_pdf(sanitize_latex(params[:latex_source]), SecureRandom.uuid), :type => \"application/pdf\", :disposition => \"inline\")",
+      "code": "send_file(generate_pdf(sanitize_latex(params[:latex_source], params[:type]), SecureRandom.uuid), :type => \"application/pdf\", :disposition => \"inline\")",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "PreviewsController",
         "method": "create"
       },
-      "user_input": "params[:latex_source]",
+      "user_input": "params[:type]",
       "confidence": "Weak",
       "cwe_id": [
         22
       ],
-      "note": "False Positive - The filename is generated using SecureRandom.uuid."
+      "note": ""
     }
   ],
   "brakeman_version": "7.0.0"
