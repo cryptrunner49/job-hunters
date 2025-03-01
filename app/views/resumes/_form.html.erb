@@ -1,8 +1,7 @@
 <%= form_with(model: resume, class: "contents") do |form| %>
   <% if resume.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+    <div id="error_explanation" class="bg-red-50 dark:bg-red-900 text-red-500 dark:text-red-300 px-3 py-2 font-medium rounded-md mt-3">
       <h2><%= pluralize(resume.errors.count, "error") %> prohibited this resume from being saved:</h2>
-
       <ul class="list-disc ml-6">
         <% resume.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -10,33 +9,73 @@
       </ul>
     </div>
   <% end %>
-
+  <!--
   <div class="my-5">
-    <%= form.label :hunter_id %>
-    <%= form.text_field :hunter_id, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": resume.errors[:hunter_id].none?, "border-red-400 focus:outline-red-600": resume.errors[:hunter_id].any?}] %>
+    <%#= form.label :hunter_id, class: "dark:text-gray-300" %>
+    <%#= form.text_field :hunter_id, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400": resume.errors[:hunter_id].none?, "border-red-400 dark:border-red-600 focus:outline-red-600 dark:focus:outline-red-400": resume.errors[:hunter_id].any?}] %>
   </div>
-
+  -->
   <div class="my-5">
-    <%= form.label :title %>
-    <%= form.text_field :title, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": resume.errors[:title].none?, "border-red-400 focus:outline-red-600": resume.errors[:title].any?}] %>
+    <%= form.label :title, class: "dark:text-gray-300" %>
+    <%= form.text_field :title, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400": resume.errors[:title].none?, "border-red-400 dark:border-red-600 focus:outline-red-600 dark:focus:outline-red-400": resume.errors[:title].any?}] %>
   </div>
-
+  <!--
   <div class="my-5">
-    <%= form.label :latex_source %>
-    <%= form.textarea :latex_source, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": resume.errors[:latex_source].none?, "border-red-400 focus:outline-red-600": resume.errors[:latex_source].any?}] %>
+    <%#= form.label :latex_source, class: "dark:text-gray-300" %>
+    <%#= form.textarea :latex_source, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400": resume.errors[:latex_source].none?, "border-red-400 dark:border-red-600 focus:outline-red-600 dark:focus:outline-red-400": resume.errors[:latex_source].any?}] %>
   </div>
-
+  -->
+  <!--
   <div class="my-5">
-    <%= form.label :pdf_path %>
-    <%= form.text_field :pdf_path, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": resume.errors[:pdf_path].none?, "border-red-400 focus:outline-red-600": resume.errors[:pdf_path].any?}] %>
+    <%#= form.label :pdf_path, class: "dark:text-gray-300" %>
+    <%#= form.text_field :pdf_path, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400": resume.errors[:pdf_path].none?, "border-red-400 dark:border-red-600 focus:outline-red-600 dark:focus:outline-red-400": resume.errors[:pdf_path].any?}] %>
   </div>
-
+  -->
   <div class="my-5">
-    <%= form.label :resume_type %>
-    <%= form.select :resume_type, options_for_select(Resume.resume_types.keys.map { |key| [key.humanize, key] }), include_blank: true %>
+    <%= form.label :resume_type, class: "dark:text-gray-300" %>
+    <%= form.select :resume_type, options_for_select(Resume.resume_types.keys.map { |key| [key.humanize, key] }), include_blank: true, class: "dark:bg-gray-800 dark:text-gray-300" %>
   </div>
-
+  <div class="my-5">
+    <%= form.label :hunter_name, class: "dark:text-gray-300" %>
+    <%= form.text_field :hunter_name, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400": resume.errors[:latex_source].none?, "border-red-400 dark:border-red-600 focus:outline-red-600 dark:focus:outline-red-400": resume.errors[:latex_source].any?}] %>
+  </div>
+  <div class="my-5">
+    <%= form.label :hunter_address, class: "dark:text-gray-300" %>
+    <%= form.text_field :hunter_address, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400": resume.errors[:latex_source].none?, "border-red-400 dark:border-red-600 focus:outline-red-600 dark:focus:outline-red-400": resume.errors[:latex_source].any?}] %>
+  </div>
+  <div class="my-5">
+    <%= form.label :hunter_phone, class: "dark:text-gray-300" %>
+    <%= form.number_field :hunter_phone, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400": resume.errors[:latex_source].none?, "border-red-400 dark:border-red-600 focus:outline-red-600 dark:focus:outline-red-400": resume.errors[:latex_source].any?}] %>
+  </div>
+  <div class="my-5">
+    <%= form.label :hunter_mail, class: "dark:text-gray-300" %>
+    <%= form.text_field :hunter_mail, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400": resume.errors[:latex_source].none?, "border-red-400 dark:border-red-600 focus:outline-red-600 dark:focus:outline-red-400": resume.errors[:latex_source].any?}] %>
+  </div>
+  <div class="my-5">
+    <%= form.label :hunter_urls, class: "dark:text-gray-300" %>
+    <%= form.text_field :hunter_urls, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400": resume.errors[:latex_source].none?, "border-red-400 dark:border-red-600 focus:outline-red-600 dark:focus:outline-red-400": resume.errors[:latex_source].any?}] %>
+  </div>
+  <div class="my-5">
+    <%= form.label :hunter_summary, class: "dark:text-gray-300" %>
+    <%= form.textarea :hunter_summary, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400": resume.errors[:latex_source].none?, "border-red-400 dark:border-red-600 focus:outline-red-600 dark:focus:outline-red-400": resume.errors[:latex_source].any?}] %>
+  </div>
+  <div class="my-5">
+    <%= form.label :hunter_experience, class: "dark:text-gray-300" %>
+    <%= form.textarea :hunter_experience, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400": resume.errors[:latex_source].none?, "border-red-400 dark:border-red-600 focus:outline-red-600 dark:focus:outline-red-400": resume.errors[:latex_source].any?}] %>
+  </div>
+  <div class="my-5">
+    <%= form.label :hunter_education, class: "dark:text-gray-300" %>
+    <%= form.textarea :hunter_education, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400": resume.errors[:latex_source].none?, "border-red-400 dark:border-red-600 focus:outline-red-600 dark:focus:outline-red-400": resume.errors[:latex_source].any?}] %>
+  </div>
+  <div class="my-5">
+    <%= form.label :hunter_skill, class: "dark:text-gray-300" %>
+    <%= form.textarea :hunter_skill, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400": resume.errors[:latex_source].none?, "border-red-400 dark:border-red-600 focus:outline-red-600 dark:focus:outline-red-400": resume.errors[:latex_source].any?}] %>
+  </div>
+  <div class="my-5">
+    <%= form.label :hunter_projects, class: "dark:text-gray-300" %>
+    <%= form.textarea :hunter_projects, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400": resume.errors[:latex_source].none?, "border-red-400 dark:border-red-600 focus:outline-red-600 dark:focus:outline-red-400": resume.errors[:latex_source].any?}] %>
+  </div>
   <div class="inline">
-    <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-700 dark:hover:bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>

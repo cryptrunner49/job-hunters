@@ -19,7 +19,6 @@
   <div id="preview-resume-div" class="hidden">
     <iframe id="resume-preview" style="width: 100%; height: 500px;" frameborder="0"></iframe>
   </div>
-
   <div id="new-cover_letter-form" class="hidden mt-4">
     <%= form_with(model: CoverLetter.new, url: cover_letters_path, data: { remote: true }, class: "flex flex-col gap-2") do |form| %>
       <%= form.text_field :subject,
@@ -36,7 +35,6 @@
   <div id="preview-cover_letter-div" class="hidden">
     <iframe id="cover_letter-preview" style="width: 100%; height: 500px; margin-top: 5px;" frameborder="0"></iframe>
   </div>
-
   <div>
     <%= form_with(model: job_application, class: "contents") do |form| %>
       <%= form.hidden_field :job_post_id, value: params[:job_post_id] %>
@@ -50,7 +48,6 @@
           </ul>
         </div>
       <% end %>
-
       <div class="my-5">
         <%= form.label :resume_id, class: "dark:text-gray-200 mb-2 block" %>
         <div class="flex items-center gap-2">
@@ -65,7 +62,6 @@
             data-field-type="resume_id">Add New</button>
         </div>
       </div>
-
       <div class="my-5">
         <%= form.label :cover_letter_id, class: "dark:text-gray-200 mb-2 block" %>
         <div class="flex items-center gap-2">
@@ -74,13 +70,14 @@
                 class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400 appearance-none",
                 data: { error: job_application.errors[:cover_letter_id].any? ? "true" : "false" }
               } %>
+          <!--
           <button
             type="button"
             class="application-add-new-btn rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 h-10 whitespace-nowrap"
             data-field-type="cover_letter_id">Add New</button>
+          -->
         </div>
       </div>
-
       <div class="my-5">
         <%= form.label :status, class: "dark:text-gray-200 mb-2 block" %>
         <%= form.text_field :status, class: [
@@ -89,7 +86,6 @@
                "border-red-400 dark:border-red-600 focus:outline-red-600": job_application.errors[:status].any?}
             ] %>
       </div>
-
       <div class="my-5">
         <%= form.label :phase, class: "dark:text-gray-200 mb-2 block" %>
         <%= form.text_field :phase, class: [
@@ -98,7 +94,6 @@
                "border-red-400 dark:border-red-600 focus:outline-red-600": job_application.errors[:phase].any?}
             ] %>
       </div>
-
       <div class="my-5">
         <%= form.label :mail, class: "dark:text-gray-200 mb-2 block" %>
         <%= form.text_field :mail, class: [
@@ -107,7 +102,6 @@
                "border-red-400 dark:border-red-600 focus:outline-red-600": job_application.errors[:mail].any?}
             ] %>
       </div>
-
       <div class="my-5">
         <%= form.label :applied_at, class: "dark:text-gray-200 mb-2 block" %>
         <%= form.date_field :applied_at, class: [
@@ -116,7 +110,6 @@
                "border-red-400 dark:border-red-600 focus:outline-red-600": job_application.errors[:applied_at].any?}
             ] %>
       </div>
-
       <div class="my-5">
         <%= form.label :feedback, class: "dark:text-gray-200 mb-2 block" %>
         <%= form.text_area :feedback, rows: 4, class: [
@@ -125,7 +118,6 @@
                "border-red-400 dark:border-red-600 focus:outline-red-600": job_application.errors[:feedback].any?}
             ] %>
       </div>
-
       <div class="mt-6">
         <%= form.submit class: "w-full rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white font-medium cursor-pointer shadow-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-500" %>
       </div>

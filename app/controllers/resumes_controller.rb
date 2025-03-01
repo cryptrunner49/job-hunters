@@ -68,6 +68,6 @@ class ResumesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def resume_params
-      params.expect(resume: [ :title, :latex_source, :pdf_path, :resume_type ])
+      params.expect(resume: [ :title, :resume_type, :hunter_name, :hunter_address, :hunter_phone, :hunter_mail, :hunter_urls, :hunter_summary, :hunter_experience, :hunter_education, :hunter_skill, :hunter_projects ])
     end
 end
