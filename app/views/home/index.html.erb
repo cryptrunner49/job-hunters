@@ -1,10 +1,4 @@
-<div class="container mx-auto px-6 py-12">
-  <% if notice.present? %>
-    <p class="py-2 px-4 bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-300 font-medium rounded-md mb-5" id="notice">
-      <%= notice %>
-    </p>
-  <% end %>
-
+<div class="container mx-auto px-6">
   <% if authenticated? %>
     <!-- Authenticated User Welcome Section -->
     <div class="text-center">
@@ -13,7 +7,6 @@
         Your dashboard to track job posts and applications.
       </p>
     </div>
-
     <!-- Job Posts Section -->
     <div class="mt-12">
       <div class="flex justify-between items-center mb-4">
@@ -34,9 +27,8 @@
         <% end %>
       </div>
     </div>
-
     <!-- Job Applications Section -->
-    <div class="mt-12">
+    <div class="mt-12 mb-8">
       <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4">Your Job Applications</h2>
       <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
         <% if @job_applications.any? %>
@@ -58,16 +50,14 @@
         <% end %>
       </div>
     </div>
-
   <% else %>
     <!-- Unauthenticated User Welcome Section -->
-    <div class="text-center">
+    <div class="text-center py-12">
       <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white">Welcome to Job Hunters</h1>
       <p class="text-gray-600 dark:text-gray-400 mt-4">
         Your gateway to finding and applying for jobs, managing resumes, and tracking interviews.
       </p>
-
-      <div class="mt-6 space-x-4">
+      <div class="mt-8 space-x-4">
         <%= link_to "Sign In", new_session_path, class: "bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700" %>
         <%= link_to "Sign Up", new_hunter_path, class: "bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700" %>
       </div>

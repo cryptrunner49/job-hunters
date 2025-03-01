@@ -5,7 +5,6 @@
       <div class="text-xl font-bold text-gray-900 dark:text-white">
         <%= link_to "Job Hunters", root_path %>
       </div>
-
       <!-- Tabs and User Menu -->
       <div class="flex items-center space-x-4">
         <!-- Tabs -->
@@ -35,25 +34,22 @@
                 class: "px-4 #{current_page?(job_offers_path) ? 'py-3 bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : 'py-2'} text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors" %>
           </li>
         </ul>
-
         <!-- User Menu (only shown if authenticated) -->
         <% if authenticated? %>
-          <div class="relative">
-            <button id="user-menu-toggle" class="flex items-center px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md transition-colors focus:outline-none">
+          <div class="relative" data-controller="dropdown">
+            <button data-action="dropdown#toggle" class="flex items-center px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md transition-colors focus:outline-none">
               <%= current_hunter.name %>
               <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </button>
-            <!-- The dropdown is now positioned using top-full and a high z-index so it overlays the content -->
-            <div id="user-menu" class="hidden absolute right-0 top-full z-50 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg">
+            <div data-dropdown-target="menu" class="hidden absolute right-0 top-full z-50 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg">
               <ul class="py-1">
                 <li>
                   <%= link_to "Sign Out", sign_out_path, 
                       data: { turbo_method: :delete }, 
                       class: "block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors" %>
                 </li>
-                <!-- Additional options can be added here -->
               </ul>
             </div>
           </div>
@@ -62,25 +58,3 @@
     </div>
   </nav>
 </header>
-
-<!-- JavaScript for Dropdown Toggle -->
-<script>
-  document.addEventListener('turbo:load', () => {
-    const toggle = document.getElementById('user-menu-toggle');
-    const menu = document.getElementById('user-menu');
-
-    if (toggle && menu) {
-      toggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        menu.classList.toggle('hidden');
-      });
-
-      // Close menu when clicking outside
-      document.addEventListener('click', (event) => {
-        if (!toggle.contains(event.target) && !menu.contains(event.target)) {
-          menu.classList.add('hidden');
-        }
-      });
-    }
-  });
-</script>
