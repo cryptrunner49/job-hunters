@@ -25,5 +25,3 @@ JobHunters is a modern web application designed to help job seekers organize the
 📌 Why JobHunters?
 
 Job hunting can be overwhelming, but it doesn’t have to be. JobHunters simplifies the process by combining application tracking, interview scheduling, into a seamless, web-based experience. Stay organized, focused, and ahead of the competition with JobHunters!
-
-bin/rails assets:precompile && bin/rails server
