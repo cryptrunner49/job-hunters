@@ -122,8 +122,7 @@ monaco.editor.defineTheme('latex-dark', {
 
 export default class extends Controller {
   connect() {
-    console.log("Latex editor connected - updated at " + new Date().toISOString())
-    console.log("LaTeX00 Editor Controller is connected!");
+    console.log("LaTeX Editor Controller is connected! - updated at " + new Date().toISOString())
     const resumeTemplate = [
       "\\setmainfont{Arial}",
       "\\setlength{\\parindent}{0pt}",
@@ -160,7 +159,7 @@ export default class extends Controller {
       "\t{\\lbrack}Brief description of the project, your role, and outcomes.{\\rbrack}",
       "",
       "\\end{document}"
-    ].join("\n"); 
+    ].join("\n");
     const coverLetterTemplate = [
       "\\setmainfont{Arial}",
       "",
@@ -192,51 +191,73 @@ export default class extends Controller {
       "\\end{document}"
     ].join("\n");
 
-      const fieldType = "resume";
-      const formType = fieldType.replace('_id', '');
+    const fieldType = "resume";
+    const formType = fieldType.replace('_id', '');
 
-      const editorId = `${formType}-editor`;
-      const editorDiv = document.getElementById(editorId);
+    const editorId = `${formType}-editor`;
+    const editorDiv = document.getElementById(editorId);
 
-      const editor = monaco.editor.create(editorDiv, {
-        value: "",
-        language: "tex",
-        theme: "latex-dark",
-        automaticLayout: true,
-        minimap: { enabled: false },
-        stickyScroll: {
-          enabled: false
-        },
-      });
+    const editor = monaco.editor.create(editorDiv, {
+      value: "",
+      language: "tex",
+      theme: "latex-dark",
+      automaticLayout: true,
+      minimap: { enabled: false },
+      stickyScroll: {
+        enabled: false
+      },
+    });
 
-      let debounceTimer;
-      // This callback is triggered every time the content changes
-      editor.onDidChangeModelContent((event) => {
-        clearTimeout(debounceTimer);
-        // Using debounce to wait 1 second before call again
-        debounceTimer = setTimeout(() => {
-          const latex = editor.getValue();
-          const latexSourceFormField = document.getElementById(formType+"_latex_source");
-          latexSourceFormField.value = latex;
-          
-          const formData = new FormData();
-          formData.append('latex_source', latex);
-          formData.append('type', formType);
+    // Add custom "Paste" action to context menu
+    editor.addAction({
+      id: "custom-paste", // Unique ID for the action
+      label: "Paste",     // Text shown in the context menu
+      contextMenuGroupId: "edit", // Group with other edit actions (e.g., Copy, Cut)
+      contextMenuOrder: 1.5,      // Position in the menu (after Cut, before Copy)
+      run: async (editor) => {
+        try {
+          const clipboardText = await navigator.clipboard.readText();
+          const selection = editor.getSelection();
+          editor.executeEdits('', [{
+            range: selection,
+            text: clipboardText,
+            forceMoveMarkers: true
+          }]);
+          editor.focus();
+        } catch (err) {
+          console.error('Failed to read clipboard contents: ', err);
+        }
+      }
+    });
 
-          fetch('/preview', {
-            method: 'POST',
-            headers: {
-              'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-            },
-            body: formData
-          })
+    let debounceTimer;
+    // This callback is triggered every time the content changes
+    editor.onDidChangeModelContent((event) => {
+      clearTimeout(debounceTimer);
+      // Using debounce to wait 1 second before call again
+      debounceTimer = setTimeout(() => {
+        const latex = editor.getValue();
+        const latexSourceFormField = document.getElementById(formType + "_latex_source");
+        latexSourceFormField.value = latex;
+
+        const formData = new FormData();
+        formData.append('latex_source', latex);
+        formData.append('type', formType);
+
+        fetch('/preview', {
+          method: 'POST',
+          headers: {
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+          },
+          body: formData
+        })
           .then(response => response.blob())
           .then(blob => {
             const url = URL.createObjectURL(blob);
-            document.getElementById(formType+"-preview").src = `${url}#navpanes=0&toolbar=0&pagemode=none`;
+            document.getElementById(formType + "-preview").src = `${url}#navpanes=0&toolbar=0&pagemode=none`;
           })
           .catch(console.error);
-        }, 1000);
+      }, 1000);
     });
   }
 

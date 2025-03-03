@@ -12,7 +12,7 @@
   font-family: 'codicon';
   /* Use the Rails asset helper to generate the proper URL.
      If using .scss.erb, you can do this dynamically. */
-  src: url("/codicon.ttf") format('truetype');
+  src: url("codicon.ttf") format('truetype');
   font-weight: normal;
   font-style: normal;
 }
