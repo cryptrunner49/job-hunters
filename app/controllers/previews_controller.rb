@@ -7,48 +7,51 @@ class PreviewsController < ApplicationController
       render plain: "LaTeX  to big, limit 10MB.", status: :unprocessable_entity
       return
     end
-    template_string = %Q{\\documentclass[12pt]{article}
-\\usepackage[margin=1in]{geometry}
-\\usepackage{fontspec}
-\\setmainfont{Arial}
-\\setlength{\\parindent}{0pt}
-
-\\begin{document}
-
-\\begin{center}
-    {\\LARGE \\textbf{#{current_hunter.name}}}\\\\[0.5em]
-    1234 Main Street, City, State, ZIP $\\vert$ (123) 456-7890 $\\vert$ john.doe@example.com $\\vert$ linkedin.com/in/johndoe\\\\[0.5em]
-\\end{center}
-
-\\section*{Professional Summary}
-Results-driven professional with over 5 years of experience in software development. Skilled in Python, Java, and C++.
-
-\\section*{Experience}
-\\textbf{Senior Software Engineer} \\hfill 2020-02-01 -- 2023-01-01\\
-Tech Solutions Inc., New York, NY\\
-Led the design and development of scalable applications.
-
-\\vspace{0.5em}
-\\textbf{Software Developer} \\hfill 2017-06-01 -- 2020-01-01\\
-Innovative Apps LLC, San Francisco, CA\\
-Developed web applications and maintained legacy systems.
-
-\\section*{Education}
-\\textbf{Bachelor of Science in Computer Science} \\hfill 2017-05-01\\
-State University, City, State
-
-\\section*{Skills}
-Python, Java, C++ \\quad | \\quad Django, React, Angular \\quad | \\quad Git, Docker, AWS
-
-\\section*{Projects}
-\\textbf{Inventory Management System} \\hfill 2021-03-01 -- 2021-11-01\\
-Streamlined supply chain operations reducing overhead by 15\\%.
-
-\\end{document}
-}
 
     random_id = SecureRandom.uuid
-    pdf_path = generate_pdf(template_string, random_id)
+    pdf_path = generate_pdf(latex_source, random_id)
+    if pdf_path
+      # brakeman is dumb this code is safe, the parameter :latex_source is not being used in the filename
+      # and is sanitized in the sanitize_latex function
+      send_file pdf_path, type: "application/pdf", disposition: "inline"
+    else
+      render plain: "Error generating PDF", status: :unprocessable_entity
+    end
+  ensure
+    CleanupJob.perform_later(pdf_path) # Queue cleanup after serving
+  end
+
+  def resume
+    resume_name = sanitize_latex(params[:resume_name], "resume")
+    latex_source = Resume.find_by(title: resume_name).latex_source
+    if latex_source.blank? || latex_source.size > 10.megabytes # Max 10MB
+      render plain: "LaTeX  to big, limit 10MB.", status: :unprocessable_entity
+      return
+    end
+
+    random_id = SecureRandom.uuid
+    pdf_path = generate_pdf(latex_source, random_id)
+    if pdf_path
+      # brakeman is dumb this code is safe, the parameter :latex_source is not being used in the filename
+      # and is sanitized in the sanitize_latex function
+      send_file pdf_path, type: "application/pdf", disposition: "inline"
+    else
+      render plain: "Error generating PDF", status: :unprocessable_entity
+    end
+  ensure
+    CleanupJob.perform_later(pdf_path) # Queue cleanup after serving
+  end
+
+  def cover_letter
+    resume_name = sanitize_latex(params[:cover_letter_name], "cover_letter")
+    latex_source = CoverLetter.find_by(subject: resume_name).latex_source
+    if latex_source.blank? || latex_source.size > 10.megabytes # Max 10MB
+      render plain: "LaTeX  to big, limit 10MB.", status: :unprocessable_entity
+      return
+    end
+
+    random_id = SecureRandom.uuid
+    pdf_path = generate_pdf(latex_source, random_id)
     if pdf_path
       # brakeman is dumb this code is safe, the parameter :latex_source is not being used in the filename
       # and is sanitized in the sanitize_latex function

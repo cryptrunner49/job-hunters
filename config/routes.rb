@@ -21,4 +21,6 @@ Rails.application.routes.draw do
   end
 
   post "preview", to: "previews#create", as: :preview
+  post "preview_resume", to: "previews#resume", as: :preview_resume
+  post "preview_cover_letter", to: "previews#cover_letter", as: :preview_cover_letter
 end

@@ -1,24 +1,6 @@
-<script data-controller="monaco-editor"></script>
+<script data-controller="applications-resume-preview"></script>
+<script data-controller="applications-cover-letter-preview"></script>
 <div class="grid grid-cols-2 gap-4">
-  <div id="new-resume-form" class="hidden mt-4">
-    <%= form_with(model: Resume.new, url: resumes_path, data: { remote: true }, class: "flex flex-col gap-2") do |form| %>
-      <%= form.select :resume_type, options_for_select(Resume.resume_types.keys.map { |key| [key.humanize, key] }),
-            { include_blank: false },
-            { class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600 focus:outline-blue-600 dark:focus:outline-blue-400 appearance-none" } %>
-      <%= form.text_field :title,
-            placeholder: "Resume title",
-            class: "block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
-      <%= form.text_area :latex_source,
-            placeholder: "Latex source",
-            class: "hidden block shadow rounded-md border outline-none px-3 py-2 w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-600" %>
-      <div id="resume-editor" style="height: 300px; width: 100%; margin-top: -8px;"></div>
-      <%= form.submit "Create", class: "w-full mt-2 rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white font-medium cursor-pointer shadow-md transition-colors" %>
-    <% end %>
-  </div>
-  <!-- PDF Preview -->
-  <div id="preview-resume-div" class="hidden">
-    <iframe id="resume-preview" style="width: 100%; height: 500px;" frameborder="0"></iframe>
-  </div>
   <div id="new-cover_letter-form" class="hidden mt-4">
     <%= form_with(model: CoverLetter.new, url: cover_letters_path, data: { remote: true }, class: "flex flex-col gap-2") do |form| %>
       <%= form.text_field :subject,
@@ -30,10 +12,6 @@
       <div id="cover_letter-editor" style="height: 400px; width: 100%; margin-top: -8px;"></div>
       <%= form.submit "Create", class: "w-full mt-2 rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white font-medium cursor-pointer shadow-md transition-colors" %>
     <% end %>
-  </div>
-  <!-- PDF Preview -->
-  <div id="preview-cover_letter-div" class="hidden">
-    <iframe id="cover_letter-preview" style="width: 100%; height: 500px; margin-top: 5px;" frameborder="0"></iframe>
   </div>
   <div>
     <%= form_with(model: job_application, class: "contents") do |form| %>
@@ -124,5 +102,17 @@
         <%= form.submit class: "w-full rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 dark:bg-blue-800 dark:hover:bg-blue-700 text-white font-medium cursor-pointer shadow-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-500" %>
       </div>
     <% end %>
+  </div>
+  <div>
+    <!-- PDF Preview -->
+    <div id="preview-resume-div" class="">
+      <h1  class="dark:text-gray-200 text-center mb-0 block bg-zinc-800">Resume</h1>
+      <iframe id="resume-preview" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+    </div>
+    <!-- PDF Preview -->
+    <div id="preview-cover_letter-div" class="">
+      <h1  class="dark:text-gray-200 text-center mt-2 block bg-zinc-800">Cover Letter</h1>
+      <iframe id="cover_letter-preview" style="width: 100%; height: 500px; margin-top: 0px;" frameborder="0"></iframe>
+    </div>
   </div>
 </div>
