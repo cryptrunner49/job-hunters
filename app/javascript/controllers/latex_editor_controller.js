@@ -124,10 +124,18 @@ export default class extends Controller {
   connect() {
     console.log("LaTeX Editor Controller is connected! - updated at " + new Date().toISOString())
 
-    const latexSource = document.getElementById("resume_latex_source").value;
+    let latexSource;
+    let formType;
+    try {
+      latexSource = document.getElementById("resume_latex_source").value;
+      formType = "resume";
+    } catch (e) { }
+    if (!latexSource) {
+      latexSource = document.getElementById("cover_letter_latex_source").value;
+      formType = "cover_letter";
+    }
 
-    const fieldType = "resume";
-    const formType = fieldType.replace('_id', '');
+    console.log("formType: ", formType);
 
     const editorId = `${formType}-editor`;
     const editorDiv = document.getElementById(editorId);

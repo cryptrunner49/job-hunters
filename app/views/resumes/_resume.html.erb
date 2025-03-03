@@ -1,32 +1,15 @@
-<script data-controller="resume-preview"></script>
-<h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 border-b pb-2">
-  Resume Details
-</h2>
+<h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4"><%= resume.title %></h2>
 <div class="space-y-4">
-  <!--
-  <div>
-    <dt class="font-semibold text-gray-700 dark:text-gray-300">Hunter</dt>
-    <dd class="mt-1 text-gray-600 dark:text-gray-400">
-      <%#= resume.hunter_id %>
-    </dd>
-  </div>
-  -->
-  <div>
-    <dt class="font-semibold text-gray-700 dark:text-gray-300">Title</dt>
-    <dd class="mt-1 text-gray-600 dark:text-gray-400">
-      <%= resume.title %>
-    </dd>
-  </div>
-  <div  class="hidden">
-    <dt class="font-semibold text-gray-700 dark:text-gray-300">LaTeX Source</dt>
-    <dd id="resume-source" class="mt-1 text-gray-600 dark:text-gray-400 font-mono bg-gray-100 dark:bg-gray-900 p-3 rounded-md overflow-x-auto">
-      <%= resume.latex_source %>
-    </dd>
-  </div>
   <div>
     <dt class="font-semibold text-gray-700 dark:text-gray-300">Resume Type</dt>
-    <div class="mt-1 text-gray-600 dark:text-gray-400 capitalize">
+    <dd class="mt-1 text-gray-600 dark:text-gray-400 capitalize">
       <%= resume.resume_type %>
-    </div>
+    </dd>
+  </div>
+  <div class="hidden">
+    <dt class="font-semibold text-gray-700 dark:text-gray-300">LaTeX Source</dt>
+    <dd id="resume-source" class="mt-1 text-gray-600 dark:text-gray-400 font-mono bg-gray-100 dark:bg-gray-900 p-3 rounded-md overflow-x-auto whitespace-pre-wrap">
+      <%= resume.latex_source %>
+    </dd>
   </div>
 </div>

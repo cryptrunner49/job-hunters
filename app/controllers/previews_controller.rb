@@ -3,6 +3,8 @@ class PreviewsController < ApplicationController
 
   def create
     latex_source = sanitize_latex(params[:latex_source], params[:type])
+    puts("------------------")
+    puts(params[:type])
     if latex_source.blank? || latex_source.size > 10.megabytes # Max 10MB
       render plain: "LaTeX  to big, limit 10MB.", status: :unprocessable_entity
       return
@@ -43,8 +45,8 @@ class PreviewsController < ApplicationController
   end
 
   def cover_letter
-    resume_name = sanitize_latex(params[:cover_letter_name], "cover_letter")
-    latex_source = CoverLetter.find_by(subject: resume_name).latex_source
+    cover_letter_name = sanitize_latex(params[:cover_letter_name], "cover_letter")
+    latex_source = CoverLetter.find_by(subject: cover_letter_name).latex_source
     if latex_source.blank? || latex_source.size > 10.megabytes # Max 10MB
       render plain: "LaTeX  to big, limit 10MB.", status: :unprocessable_entity
       return

@@ -1,9 +1,4 @@
 <% content_for :title, "Editing cover letter" %>
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-  <h1 class="font-bold text-4xl text-gray-900 dark:text-gray-300">Editing cover letter</h1>
+<div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
   <%= render "form", cover_letter: @cover_letter %>
-  <div class="mt-6 space-x-3">
-    <%= link_to "Show this cover letter", @cover_letter, class: "rounded-md px-4 py-2 bg-gray-100 hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300 font-medium" %>
-    <%= link_to "Back to cover letters", cover_letters_path, class: "rounded-md px-4 py-2 bg-gray-100 hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300 font-medium" %>
-  </div>
 </div>

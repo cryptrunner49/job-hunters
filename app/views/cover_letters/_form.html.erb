@@ -1,31 +1,38 @@
-<%= form_with(model: cover_letter, class: "space-y-6") do |form| %>
-  <% if cover_letter.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 dark:bg-red-900 text-red-500 dark:text-red-300 px-4 py-3 font-medium rounded-md">
-      <h2 class="text-lg"><%= pluralize(cover_letter.errors.count, "error") %> prohibited this cover letter from being saved:</h2>
-      <ul class="list-disc ml-6 mt-2">
-        <% cover_letter.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<div class="space-y-6">
+  <%= form_with(model: cover_letter, class: "space-y-6") do |form| %>
+    <% if cover_letter.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 dark:bg-red-900 text-red-500 dark:text-red-300 px-4 py-3 font-medium rounded-md">
+        <h2 class="text-lg"><%= pluralize(cover_letter.errors.count, "error") %> prohibited this cover letter from being saved:</h2>
+        <ul class="list-disc ml-6 mt-2">
+          <% cover_letter.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Left Column: Form Fields and Editor -->
+      <div class="space-y-6">
+        <div>
+          <%= form.label :subject, class: "block text-gray-700 dark:text-gray-300 font-medium" %>
+          <%= form.text_field :subject, class: ["block w-full shadow rounded-md border px-3 py-2 mt-1 outline-none", {"border-gray-400 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500": cover_letter.errors[:subject].none?, "border-red-400 dark:border-red-600 focus:ring-2 focus:ring-red-500 focus:border-red-500": cover_letter.errors[:subject].any?}] %>
+        </div>
+        <div class="hidden">
+          <%= form.label :latex_source, class: "block text-gray-700 dark:text-gray-300 font-medium" %>
+          <%= form.textarea :latex_source, rows: 4, class: ["hidden", {"border-gray-400 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500": cover_letter.errors[:latex_source].none?, "border-red-400 dark:border-red-600 focus:ring-2 focus:ring-red-500 focus:border-red-500": cover_letter.errors[:latex_source].any?}], data: { "latex-editor-target": "source" } %>
+        </div>
+        <div id="cover_letter-editor" data-controller="latex-editor" data-latex-editor-target="editor" class="border border-gray-300 dark:border-gray-600 rounded-md" style="height: 400px; width: 100%;"></div>
+      </div>
+      <!-- Right Column: Preview -->
+      <div>
+        <div id="preview-cover_letter-div" class="border border-gray-200 dark:border-gray-700 rounded-md">
+          <iframe id="cover_letter-preview" data-latex-editor-target="preview" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6 flex justify-between gap-4">
+      <%= form.submit class: "rounded-md px-4 py-2 bg-blue-600 hover:bg-blue-500 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-medium cursor-pointer" %>
+      <%= link_to "Back to cover letters", cover_letters_path, class: "rounded-MArounded-md px-4 py-2 bg-gray-100 hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300 font-medium transition-colors" %>
     </div>
   <% end %>
-  <div class="space-y-6">
-    <div>
-      <%= form.label :subject, class: "block text-gray-700 dark:text-gray-300 font-medium" %>
-      <%= form.text_field :subject, class: ["block w-full shadow rounded-md border px-3 py-2 mt-1 outline-none", {"border-gray-400 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500": cover_letter.errors[:subject].none?, "border-red-400 dark:border-red-600 focus:ring-2 focus:ring-red-500 focus:border-red-500": cover_letter.errors[:subject].any?}] %>
-    </div>
-    <div>
-      <%= form.label :latex_source, class: "block text-gray-700 dark:text-gray-300 font-medium" %>
-      <%= form.textarea :latex_source, rows: 4, class: ["block w-full shadow rounded-md border px-3 py-2 mt-1 outline-none", {"border-gray-400 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500": cover_letter.errors[:latex_source].none?, "border-red-400 dark:border-red-600 focus:ring-2 focus:ring-red-500 focus:border-red-500": cover_letter.errors[:latex_source].any?}], data: { "latex-editor-target": "source" } %>
-      <%# Optional: Add Monaco Editor div if integrating %>
-      <div id="cover_letter-editor" data-controller="latex-editor" data-latex-editor-target="editor" class="mt-2" style="height: 300px; width: 100%;"></div>
-    </div>
-    <div>
-      <%= form.label :pdf_path, class: "block text-gray-700 dark:text-gray-300 font-medium" %>
-      <%= form.text_field :pdf_path, class: ["block w-full shadow rounded-md border px-3 py-2 mt-1 outline-none", {"border-gray-400 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500": cover_letter.errors[:pdf_path].none?, "border-red-400 dark:border-red-600 focus:ring-2 focus:ring-red-500 focus:border-red-500": cover_letter.errors[:pdf_path].any?}] %>
-    </div>
-  </div>
-  <div class="mt-6">
-    <%= form.submit class: "rounded-md px-4 py-2 bg-blue-600 hover:bg-blue-500 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-medium cursor-pointer" %>
-  </div>
-<% end %>
+</div>
