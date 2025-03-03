@@ -120,10 +120,10 @@ monaco.editor.defineTheme('latex-dark', {
   }
 });
 
-
 export default class extends Controller {
   connect() {
-    console.log("Monaco Editor Controller is connected!");
+    console.log("Latex editor connected - updated at " + new Date().toISOString())
+    console.log("LaTeX00 Editor Controller is connected!");
     const resumeTemplate = [
       "\\setmainfont{Arial}",
       "\\setlength{\\parindent}{0pt}",
@@ -192,8 +192,7 @@ export default class extends Controller {
       "\\end{document}"
     ].join("\n");
 
-    //document.querySelectorAll('.application-add-new-btn').forEach(button => {
-      const fieldType = button.dataset.fieldType;
+      const fieldType = "resume";
       const formType = fieldType.replace('_id', '');
 
       const editorId = `${formType}-editor`;
@@ -238,30 +237,11 @@ export default class extends Controller {
           })
           .catch(console.error);
         }, 1000);
-      });
-      
-      button.addEventListener('click', function() {
-        const fieldType = this.dataset.fieldType;
-        const formId = `new-${fieldType.replace('_id', '')}-form`;
-        const form = document.getElementById(formId);
-        form.classList.toggle('hidden');
-        // Toggle pdf preview
-        const previewId = `preview-${fieldType.replace('_id', '')}-div`;
-        const previewDiv = document.getElementById(previewId);
-        previewDiv.classList.toggle('hidden');
-        this.textContent = this.textContent === 'Add New' ? 'Cancel' : 'Add New';
-        if(editor.getValue() == "") {
-          if (formType == "resume") {
-            editor.setValue(resumeTemplate);
-          } else {
-            editor.setValue(coverLetterTemplate);
-          }
-        }
-      });
-    //});
+    });
   }
 
   disconnect() {
-    this.editor.dispose()
+    this.editor.dispose();
+    console.log("Latex editor disconnected");
   }
 }

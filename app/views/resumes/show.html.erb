@@ -1,10 +1,12 @@
 <% content_for :title, "Showing Resume" %>
 <div class="max-w-3xl mx-auto px-4 py-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
-  <% if notice.present? %>
+  <!--
+  <%# if notice.present? %>
     <p id="notice" class="py-2 px-3 bg-green-50 dark:bg-green-800 mb-5 text-green-500 dark:text-green-300 font-medium rounded-md">
-      <%= notice %>
+      <%#= notice %>
     </p>
-  <% end %>
+  <%#end %>
+  -->
   <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-6">Showing Resume</h1>
   <div id="resume" class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
     <%= render @resume %>

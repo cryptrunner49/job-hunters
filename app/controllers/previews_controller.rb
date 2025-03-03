@@ -82,24 +82,25 @@ Streamlined supply chain operations reducing overhead by 15\\%.
 
   def sanitize_latex(latex_source, type)
     sanitized = latex_source.dup
+    sanitized
 
     # Remove explicitly dangerous commands that trigger external execution
-    dangerous_patterns = [
-      /\\write18\s*\{.*?\}/m,             # external shell commands
-      /\\(input|include)\s*\{.*?\}/m,      # including external files
-      /\\openout\d*\s*\{.*?\}/m,           # writing to files
-      /\\read\s*\{.*?\}/m,                # reading from files
-      /\\catcode\s*\S+/m,                 # altering category codes
-      /\\csname\s+.*?\\endcsname/m,        # constructing commands dynamically
-      /\\def\s+\\[a-zA-Z@]+.*?{/m,         # defining new macros
-      /\\newcommand\s*\*?\s*\\[a-zA-Z@]+\s*(\[[^\]]*\])?\s*\{.*?\}/m,
-      /\\renewcommand\s*\*?\s*\\[a-zA-Z@]+\s*(\[[^\]]*\])?\s*\{.*?\}/m,
-      /\\usepackage\s*\{.*?\}/m,           # loading additional packages
-      /\\documentclass\s*\{.*?\}/m        # forcing a different document class
-    ]
-    dangerous_patterns.each do |pattern|
-      sanitized.gsub!(pattern, "")
-    end
+    # dangerous_patterns = [
+    #   /\\write18\s*\{.*?\}/m,             # external shell commands
+    #   /\\(input|include)\s*\{.*?\}/m,      # including external files
+    #   /\\openout\d*\s*\{.*?\}/m,           # writing to files
+    #   /\\read\s*\{.*?\}/m,                # reading from files
+    #   /\\catcode\s*\S+/m,                 # altering category codes
+    #   /\\csname\s+.*?\\endcsname/m,        # constructing commands dynamically
+    #   /\\def\s+\\[a-zA-Z@]+.*?{/m,         # defining new macros
+    #   /\\newcommand\s*\*?\s*\\[a-zA-Z@]+\s*(\[[^\]]*\])?\s*\{.*?\}/m,
+    #   /\\renewcommand\s*\*?\s*\\[a-zA-Z@]+\s*(\[[^\]]*\])?\s*\{.*?\}/m,
+    #   /\\usepackage\s*\{.*?\}/m,           # loading additional packages
+    #   /\\documentclass\s*\{.*?\}/m        # forcing a different document class
+    # ]
+    # dangerous_patterns.each do |pattern|
+    #   sanitized.gsub!(pattern, "")
+    # end
 
     # TODO: Make more secure using allowed list instead of a blocklist
     # Allowed list as needed for your application.
@@ -115,24 +116,24 @@ Streamlined supply chain operations reducing overhead by 15\\%.
     # end
     #
 
-    if type == "resume" then
-      default_resume_packages = [
-        "\\documentclass[12pt]{article}",
-        "\\n",
-        "\\usepackage[margin=1in]{geometry}",
-        "\\n",
-        "\\usepackage{fontspec}"
-     ].join
-     default_resume_packages + "\n" + sanitized
-    else
-      default_cover_letter_packages = [
-        "\\documentclass[12pt]{letter}",
-        "\\n",
-        "\\usepackage[margin=1in]{geometry}",
-        "\\n",
-        "\\usepackage{fontspec}"
-      ].join
-      default_cover_letter_packages + "\n" + sanitized
-    end
+    # if type == "resume" then
+    #   default_resume_packages = [
+    #     "\\documentclass[12pt]{article}",
+    #     "\\n",
+    #     "\\usepackage[margin=1in]{geometry}",
+    #     "\\n",
+    #     "\\usepackage{fontspec}"
+    #  ].join
+    #  default_resume_packages + "\n" + sanitized
+    # else
+    #   default_cover_letter_packages = [
+    #     "\\documentclass[12pt]{letter}",
+    #     "\\n",
+    #     "\\usepackage[margin=1in]{geometry}",
+    #     "\\n",
+    #     "\\usepackage{fontspec}"
+    #   ].join
+    #   default_cover_letter_packages + "\n" + sanitized
+    # end
   end
 end

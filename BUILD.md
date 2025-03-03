@@ -3,6 +3,9 @@
 ## Running
 
 ```bash
+bin/dev
+
+bin/rails assets:precompile && bin/dev
 bin/rails assets:precompile && bin/rails server
 ```
 
