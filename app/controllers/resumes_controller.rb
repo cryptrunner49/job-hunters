@@ -27,8 +27,8 @@ class ResumesController < ApplicationController
     respond_to do |format|
       if @resume.save
         # format.js  # Renders create.js.erb
-        # format.html { redirect_to @resume, notice: "Resume was successfully created." }
-        format.json { render :show, status: :created, location: @resume }
+        format.html { redirect_to @resume, notice: "Resume was successfully created." }
+        # format.json { render :show, status: :created, location: @resume }
       else
         # format.js   # Renders create.js.erb with errors
         format.html { render :new, status: :unprocessable_entity }
@@ -68,6 +68,6 @@ class ResumesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def resume_params
-      params.expect(resume: [ :title, :latex_source, :pdf_path, :resume_type ])
+      params.expect(resume: [ :title, :resume_type, :latex_source ])
     end
 end

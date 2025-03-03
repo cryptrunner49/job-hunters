@@ -192,7 +192,7 @@ export default class extends Controller {
       "\\end{document}"
     ].join("\n");
 
-    document.querySelectorAll('.application-add-new-btn').forEach(button => {
+    //document.querySelectorAll('.application-add-new-btn').forEach(button => {
       const fieldType = button.dataset.fieldType;
       const formType = fieldType.replace('_id', '');
 
@@ -258,7 +258,7 @@ export default class extends Controller {
           }
         }
       });
-    });
+    //});
   }
 
   disconnect() {

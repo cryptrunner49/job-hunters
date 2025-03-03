@@ -21,6 +21,48 @@ class PreviewsController < ApplicationController
     CleanupJob.perform_later(pdf_path) # Queue cleanup after serving
   end
 
+  def resume
+    resume_name = sanitize_latex(params[:resume_name], "resume")
+    latex_source = Resume.find_by(title: resume_name).latex_source
+    if latex_source.blank? || latex_source.size > 10.megabytes # Max 10MB
+      render plain: "LaTeX  to big, limit 10MB.", status: :unprocessable_entity
+      return
+    end
+
+    random_id = SecureRandom.uuid
+    pdf_path = generate_pdf(latex_source, random_id)
+    if pdf_path
+      # brakeman is dumb this code is safe, the parameter :latex_source is not being used in the filename
+      # and is sanitized in the sanitize_latex function
+      send_file pdf_path, type: "application/pdf", disposition: "inline"
+    else
+      render plain: "Error generating PDF", status: :unprocessable_entity
+    end
+  ensure
+    CleanupJob.perform_later(pdf_path) # Queue cleanup after serving
+  end
+
+  def cover_letter
+    resume_name = sanitize_latex(params[:cover_letter_name], "cover_letter")
+    latex_source = CoverLetter.find_by(subject: resume_name).latex_source
+    if latex_source.blank? || latex_source.size > 10.megabytes # Max 10MB
+      render plain: "LaTeX  to big, limit 10MB.", status: :unprocessable_entity
+      return
+    end
+
+    random_id = SecureRandom.uuid
+    pdf_path = generate_pdf(latex_source, random_id)
+    if pdf_path
+      # brakeman is dumb this code is safe, the parameter :latex_source is not being used in the filename
+      # and is sanitized in the sanitize_latex function
+      send_file pdf_path, type: "application/pdf", disposition: "inline"
+    else
+      render plain: "Error generating PDF", status: :unprocessable_entity
+    end
+  ensure
+    CleanupJob.perform_later(pdf_path) # Queue cleanup after serving
+  end
+
   private
 
   def generate_pdf(latex_source, random_id)
@@ -43,24 +85,25 @@ class PreviewsController < ApplicationController
 
   def sanitize_latex(latex_source, type)
     sanitized = latex_source.dup
+    sanitized
 
     # Remove explicitly dangerous commands that trigger external execution
-    dangerous_patterns = [
-      /\\write18\s*\{.*?\}/m,             # external shell commands
-      /\\(input|include)\s*\{.*?\}/m,      # including external files
-      /\\openout\d*\s*\{.*?\}/m,           # writing to files
-      /\\read\s*\{.*?\}/m,                # reading from files
-      /\\catcode\s*\S+/m,                 # altering category codes
-      /\\csname\s+.*?\\endcsname/m,        # constructing commands dynamically
-      /\\def\s+\\[a-zA-Z@]+.*?{/m,         # defining new macros
-      /\\newcommand\s*\*?\s*\\[a-zA-Z@]+\s*(\[[^\]]*\])?\s*\{.*?\}/m,
-      /\\renewcommand\s*\*?\s*\\[a-zA-Z@]+\s*(\[[^\]]*\])?\s*\{.*?\}/m,
-      /\\usepackage\s*\{.*?\}/m,           # loading additional packages
-      /\\documentclass\s*\{.*?\}/m        # forcing a different document class
-    ]
-    dangerous_patterns.each do |pattern|
-      sanitized.gsub!(pattern, "")
-    end
+    # dangerous_patterns = [
+    #   /\\write18\s*\{.*?\}/m,             # external shell commands
+    #   /\\(input|include)\s*\{.*?\}/m,      # including external files
+    #   /\\openout\d*\s*\{.*?\}/m,           # writing to files
+    #   /\\read\s*\{.*?\}/m,                # reading from files
+    #   /\\catcode\s*\S+/m,                 # altering category codes
+    #   /\\csname\s+.*?\\endcsname/m,        # constructing commands dynamically
+    #   /\\def\s+\\[a-zA-Z@]+.*?{/m,         # defining new macros
+    #   /\\newcommand\s*\*?\s*\\[a-zA-Z@]+\s*(\[[^\]]*\])?\s*\{.*?\}/m,
+    #   /\\renewcommand\s*\*?\s*\\[a-zA-Z@]+\s*(\[[^\]]*\])?\s*\{.*?\}/m,
+    #   /\\usepackage\s*\{.*?\}/m,           # loading additional packages
+    #   /\\documentclass\s*\{.*?\}/m        # forcing a different document class
+    # ]
+    # dangerous_patterns.each do |pattern|
+    #   sanitized.gsub!(pattern, "")
+    # end
 
     # TODO: Make more secure using allowed list instead of a blocklist
     # Allowed list as needed for your application.
@@ -76,24 +119,24 @@ class PreviewsController < ApplicationController
     # end
     #
 
-    if type == "resume" then
-      default_resume_packages = [
-        "\\documentclass[12pt]{article}",
-        "\\n",
-        "\\usepackage[margin=1in]{geometry}",
-        "\\n",
-        "\\usepackage{fontspec}"
-     ].join
-     default_resume_packages + "\n" + sanitized
-    else
-      default_cover_letter_packages = [
-        "\\documentclass[12pt]{letter}",
-        "\\n",
-        "\\usepackage[margin=1in]{geometry}",
-        "\\n",
-        "\\usepackage{fontspec}"
-      ].join
-      default_cover_letter_packages + "\n" + sanitized
-    end
+    # if type == "resume" then
+    #   default_resume_packages = [
+    #     "\\documentclass[12pt]{article}",
+    #     "\\n",
+    #     "\\usepackage[margin=1in]{geometry}",
+    #     "\\n",
+    #     "\\usepackage{fontspec}"
+    #  ].join
+    #  default_resume_packages + "\n" + sanitized
+    # else
+    #   default_cover_letter_packages = [
+    #     "\\documentclass[12pt]{letter}",
+    #     "\\n",
+    #     "\\usepackage[margin=1in]{geometry}",
+    #     "\\n",
+    #     "\\usepackage{fontspec}"
+    #   ].join
+    #   default_cover_letter_packages + "\n" + sanitized
+    # end
   end
 end

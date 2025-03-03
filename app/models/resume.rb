@@ -14,6 +14,8 @@ class Resume < ApplicationRecord
     :ux
   ], prefix: true
 
+  validates :title, presence: true, uniqueness: true
+
   def soft_delete
     update(deleted: true)
   end
