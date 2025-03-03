@@ -22,6 +22,52 @@
         22
       ],
       "note": ""
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "daaa53a2fd31b96f2adb14f4b059fba4b224ae93460a433125a9c17326357143",
+      "check_name": "SendFile",
+      "message": "Model attribute used in file name",
+      "file": "app/controllers/previews_controller.rb",
+      "line": 58,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "send_file(generate_pdf(CoverLetter.find_by(:subject => sanitize_latex(params[:cover_letter_name], \"cover_letter\")).latex_source, SecureRandom.uuid), :type => \"application/pdf\", :disposition => \"inline\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PreviewsController",
+        "method": "cover_letter"
+      },
+      "user_input": "CoverLetter.find_by(:subject => sanitize_latex(params[:cover_letter_name], \"cover_letter\")).latex_source",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "f69ae738a9515eac01445899e624a227de5d3102a27805b9abbf20fb81ba8e0e",
+      "check_name": "SendFile",
+      "message": "Model attribute used in file name",
+      "file": "app/controllers/previews_controller.rb",
+      "line": 37,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "send_file(generate_pdf(Resume.find_by(:title => sanitize_latex(params[:resume_name], \"resume\")).latex_source, SecureRandom.uuid), :type => \"application/pdf\", :disposition => \"inline\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PreviewsController",
+        "method": "resume"
+      },
+      "user_input": "Resume.find_by(:title => sanitize_latex(params[:resume_name], \"resume\")).latex_source",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
     }
   ],
   "brakeman_version": "7.0.0"

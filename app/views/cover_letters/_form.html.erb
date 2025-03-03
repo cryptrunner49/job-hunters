@@ -1,37 +1,31 @@
-<%= form_with(model: cover_letter, class: "contents") do |form| %>
+<%= form_with(model: cover_letter, class: "space-y-6") do |form| %>
   <% if cover_letter.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(cover_letter.errors.count, "error") %> prohibited this cover_letter from being saved:</h2>
-
-      <ul class="list-disc ml-6">
+    <div id="error_explanation" class="bg-red-50 dark:bg-red-900 text-red-500 dark:text-red-300 px-4 py-3 font-medium rounded-md">
+      <h2 class="text-lg"><%= pluralize(cover_letter.errors.count, "error") %> prohibited this cover letter from being saved:</h2>
+      <ul class="list-disc ml-6 mt-2">
         <% cover_letter.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
-
-  <div class="my-5">
-    <%= form.label :hunter_id %>
-    <%= form.text_field :hunter_id, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": cover_letter.errors[:hunter_id].none?, "border-red-400 focus:outline-red-600": cover_letter.errors[:hunter_id].any?}] %>
+  <div class="space-y-6">
+    <div>
+      <%= form.label :subject, class: "block text-gray-700 dark:text-gray-300 font-medium" %>
+      <%= form.text_field :subject, class: ["block w-full shadow rounded-md border px-3 py-2 mt-1 outline-none", {"border-gray-400 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500": cover_letter.errors[:subject].none?, "border-red-400 dark:border-red-600 focus:ring-2 focus:ring-red-500 focus:border-red-500": cover_letter.errors[:subject].any?}] %>
+    </div>
+    <div>
+      <%= form.label :latex_source, class: "block text-gray-700 dark:text-gray-300 font-medium" %>
+      <%= form.textarea :latex_source, rows: 4, class: ["block w-full shadow rounded-md border px-3 py-2 mt-1 outline-none", {"border-gray-400 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500": cover_letter.errors[:latex_source].none?, "border-red-400 dark:border-red-600 focus:ring-2 focus:ring-red-500 focus:border-red-500": cover_letter.errors[:latex_source].any?}], data: { "latex-editor-target": "source" } %>
+      <%# Optional: Add Monaco Editor div if integrating %>
+      <div id="cover_letter-editor" data-controller="latex-editor" data-latex-editor-target="editor" class="mt-2" style="height: 300px; width: 100%;"></div>
+    </div>
+    <div>
+      <%= form.label :pdf_path, class: "block text-gray-700 dark:text-gray-300 font-medium" %>
+      <%= form.text_field :pdf_path, class: ["block w-full shadow rounded-md border px-3 py-2 mt-1 outline-none", {"border-gray-400 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500": cover_letter.errors[:pdf_path].none?, "border-red-400 dark:border-red-600 focus:ring-2 focus:ring-red-500 focus:border-red-500": cover_letter.errors[:pdf_path].any?}] %>
+    </div>
   </div>
-
-  <div class="my-5">
-    <%= form.label :subject %>
-    <%= form.text_field :subject, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": cover_letter.errors[:subject].none?, "border-red-400 focus:outline-red-600": cover_letter.errors[:subject].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :latex_source %>
-    <%= form.textarea :latex_source, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": cover_letter.errors[:latex_source].none?, "border-red-400 focus:outline-red-600": cover_letter.errors[:latex_source].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :pdf_path %>
-    <%= form.text_field :pdf_path, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": cover_letter.errors[:pdf_path].none?, "border-red-400 focus:outline-red-600": cover_letter.errors[:pdf_path].any?}] %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  <div class="mt-6">
+    <%= form.submit class: "rounded-md px-4 py-2 bg-blue-600 hover:bg-blue-500 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-medium cursor-pointer" %>
   </div>
 <% end %>
