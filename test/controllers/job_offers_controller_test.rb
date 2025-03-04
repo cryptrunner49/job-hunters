@@ -3,45 +3,60 @@ require "test_helper"
 class JobOffersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @job_offer = job_offers(:one)
+    @job_application = job_applications(:one)
     @hunter = hunters(:one)
     sign_in_as(@hunter.email_address, "password")
   end
 
   test "should get new" do
-    get new_job_offer_url
+    get new_job_application_job_offer_url(@job_application)
     assert_response :success
   end
 
   test "should create job_offer" do
     assert_difference("JobOffer.count") do
-      post job_offers_url, params: { job_offer: { company_id: @job_offer.company_id, hunter_id: @job_offer.hunter_id, job_post_id: @job_offer.job_post_id, message: @job_offer.message, offer_date: @job_offer.offer_date, salary: @job_offer.salary, start_date: @job_offer.start_date, status: @job_offer.status } }
+      post job_application_job_offers_url(@job_application), params: { job_offer: {
+        job_application_id: @job_offer.job_application_id,
+        message: @job_offer.message,
+        offer_date: @job_offer.offer_date,
+        salary: @job_offer.salary,
+        start_date: @job_offer.start_date,
+        status: @job_offer.status
+      } }
     end
 
-    assert_redirected_to job_offer_url(JobOffer.last)
+    assert_redirected_to job_application_job_offer_url(@job_application, JobOffer.last)
   end
 
   test "should show job_offer" do
-    get job_offer_url(@job_offer)
+    get job_application_job_offer_url(@job_application, @job_offer)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_job_offer_url(@job_offer)
+    get edit_job_application_job_offer_url(@job_application, @job_offer)
     assert_response :success
   end
 
   test "should update job_offer" do
-    patch job_offer_url(@job_offer), params: { job_offer: { company_id: @job_offer.company_id, hunter_id: @job_offer.hunter_id, job_post_id: @job_offer.job_post_id, message: @job_offer.message, offer_date: @job_offer.offer_date, salary: @job_offer.salary, start_date: @job_offer.start_date, status: @job_offer.status } }
-    assert_redirected_to job_offer_url(@job_offer)
+    patch job_application_job_offer_url(@job_application, @job_offer), params: { job_offer: {
+      job_application_id: @job_offer.job_application_id,
+      message: @job_offer.message,
+      offer_date: @job_offer.offer_date,
+      salary: @job_offer.salary,
+      start_date: @job_offer.start_date,
+      status: @job_offer.status
+    } }
+    assert_redirected_to job_application_job_offer_url(@job_application, @job_offer)
   end
 
   test "should destroy job_offer" do
     assert_no_difference("JobOffer.count") do
-      delete job_offer_url(@job_offer)
+      delete job_application_job_offer_url(@job_application, @job_offer)
     end
 
     @job_offer.reload
     assert @job_offer.deleted
-    assert_redirected_to job_offers_url
+    assert_redirected_to job_application_job_offers_url(@job_application)
   end
 end

@@ -4,8 +4,8 @@ class HomeController < ApplicationController
   def index
     @job_posts = JobPost.where(deleted: false)
     @job_applications = []
-    @interviews = []
-    @job_offers = []
+    @interviews = {}
+    @job_offers = {}
 
     if authenticated?
       @job_applications = JobApplication.where(hunter_id: current_hunter.id, deleted: false)

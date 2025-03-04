@@ -1,7 +1,6 @@
 class JobPost < ApplicationRecord
   belongs_to :company
   belongs_to :role
-  has_many :job_offers, dependent: :destroy
   has_many :job_applications, dependent: :destroy
 
   enum :remote, [ :unknown, :no, :partial, :full ], prefix: true
