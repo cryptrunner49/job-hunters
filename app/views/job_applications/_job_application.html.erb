@@ -1,38 +1,42 @@
-<div id="<%= dom_id job_application %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Hunter:</strong>
-    <%= job_application.hunter_id %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Job offer:</strong>
-    <%= job_application.job_post_id %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Resume:</strong>
-    <%= job_application.resume_id %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Cover letter:</strong>
-    <%= job_application.cover_letter_id %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Status:</strong>
-    <%= job_application.status %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Phase:</strong>
-    <%= job_application.phase %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Mail:</strong>
-    <%= job_application.mail %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Applied at:</strong>
-    <%= job_application.applied_at %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Feedback:</strong>
-    <%= job_application.feedback %>
-  </p>
+<div id="<%= dom_id job_application %>" class="space-y-4">
+  <dl class="space-y-4">
+    <!--
+    <div>
+      <dt class="font-bold text-gray-700 dark:text-gray-200">Hunter</dt>
+      <dd class="mt-1 text-gray-900 dark:text-gray-100"><%#= job_application.hunter_id %></dd>
+    </div>
+    -->
+    <div>
+      <dt class="font-bold text-gray-700 dark:text-gray-200">Job Post</dt>
+      <dd class="mt-1 text-gray-900 dark:text-gray-100"><%= JobPost.find_by(id=job_application.job_post_id.to_s).title %></dd>
+    </div>
+    <div>
+      <dt class="font-bold text-gray-700 dark:text-gray-200">Resume</dt>
+      <dd class="mt-1 text-gray-900 dark:text-gray-100"><%= Resume.find_by(id=job_application.resume_id.to_s).title %></dd>
+    </div>
+    <div>
+      <dt class="font-bold text-gray-700 dark:text-gray-200">Cover Letter</dt>
+      <dd class="mt-1 text-gray-900 dark:text-gray-100"><%= CoverLetter.find_by(id=job_application.cover_letter_id.to_s).subject %></dd>
+    </div>
+    <div>
+      <dt class="font-bold text-gray-700 dark:text-gray-200">Status</dt>
+      <dd class="mt-1 text-gray-900 dark:text-gray-100"><%= job_application.status %></dd>
+    </div>
+    <div>
+      <dt class="font-bold text-gray-700 dark:text-gray-200">Phase</dt>
+      <dd class="mt-1 text-gray-900 dark:text-gray-100"><%= job_application.phase %></dd>
+    </div>
+    <div>
+      <dt class="font-bold text-gray-700 dark:text-gray-200">Mail</dt>
+      <dd class="mt-1 text-gray-900 dark:text-gray-100"><%= job_application.mail %></dd>
+    </div>
+    <div>
+      <dt class="font-bold text-gray-700 dark:text-gray-200">Applied At</dt>
+      <dd class="mt-1 text-gray-900 dark:text-gray-100"><%= job_application.applied_at %></dd>
+    </div>
+    <div>
+      <dt class="font-bold text-gray-700 dark:text-gray-200">Feedback</dt>
+      <dd class="mt-1 text-gray-900 dark:text-gray-100 whitespace-pre-wrap"><%=job_application.feedback.empty? ? "None" : job_application.feedback %></dd>
+    </div>
+  </dl>
 </div>

@@ -1,27 +1,37 @@
-<p>
-  <strong>Interview Type:</strong>
-  <%= @interview.interview_type %>
-</p>
-
-<p>
-  <strong>Mode:</strong>
-  <%= @interview.mode %>
-</p>
-
-<p>
-  <strong>Scheduled Date:</strong>
-  <%= @interview.scheduled_date %>
-</p>
-
-<p>
-  <strong>Result:</strong>
-  <%= @interview.result %>
-</p>
-
-<p>
-  <strong>Notes:</strong>
-  <%= @interview.notes %>
-</p>
-
-<%= link_to 'Edit', edit_job_application_interview_path(@job_application, @interview) %> |
-<%= link_to 'Back', job_application_interviews_path(@job_application) %>
+<% content_for :title, "Interview Details" %>
+<div class="container mx-auto px-4 py-6">
+  <!--
+  <%# if notice.present? %>
+    <p class="py-2 px-4 bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-300 font-medium rounded-md mb-5" id="notice">
+      <%#= notice %>
+    </p>
+  <%# end %>
+  -->
+  <h1 class="font-bold text-4xl text-gray-900 dark:text-white mb-6">Interview Details</h1>
+  <div class="bg-white dark:bg-gray-900 rounded-lg shadow p-6">
+    <p class="my-4">
+      <strong class="block font-medium text-gray-700 dark:text-gray-300">Interview Type:</strong>
+      <span class="text-gray-900 dark:text-gray-100"><%= @interview.interview_type %></span>
+    </p>
+    <p class="my-4">
+      <strong class="block font-medium text-gray-700 dark:text-gray-300">Mode:</strong>
+      <span class="text-gray-900 dark:text-gray-100"><%= @interview.mode %></span>
+    </p>
+    <p class="my-4">
+      <strong class="block font-medium text-gray-700 dark:text-gray-300">Scheduled Date:</strong>
+      <span class="text-gray-900 dark:text-gray-100"><%= @interview.scheduled_date %></span>
+    </p>
+    <p class="my-4">
+      <strong class="block font-medium text-gray-700 dark:text-gray-300">Result:</strong>
+      <span class="text-gray-900 dark:text-gray-100"><%= @interview.result %></span>
+    </p>
+    <p class="my-4">
+      <strong class="block font-medium text-gray-700 dark:text-gray-300">Notes:</strong>
+      <span class="text-gray-900 dark:text-gray-100"><%= @interview.notes %></span>
+    </p>
+    <div class="mt-6 flex gap-4">
+      <%= link_to "Edit", edit_job_application_interview_path(@job_application, @interview), class: "rounded-md px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium transition-colors" %>
+      <%= link_to "Back to Interviews", job_application_interviews_path(@job_application), class: "rounded-md px-4 py-2 bg-gray-100 hover:bg-gray-50 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-300 font-medium transition-colors" %>
+    </div>
+  </div>
+</div>

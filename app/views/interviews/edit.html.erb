@@ -1,5 +1,6 @@
-<h1>Editing Interview</h1>
-
-<%= render 'form', job_application: @job_application, interview: @interview %>
-
-<%= link_to 'Back', job_application_interviews_path(@job_application) %>
+<% content_for :title, "Editing interview" %>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Editing Interview</h1>
+  <%= render "form", job_application: @job_application, interview: @interview %>
+  <%= link_to "Back to interviews", job_application_interviews_path(@job_application), class: "mt-4 inline-block px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 font-semibold transition-colors" %>
+</div>

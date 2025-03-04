@@ -3,7 +3,9 @@ class JobApplication < ApplicationRecord
   belongs_to :job_post
   belongs_to :resume
   belongs_to :cover_letter
+
   has_many :interviews, dependent: :destroy
+  has_many :job_offers, dependent: :destroy
 
   def soft_delete
     update(deleted: true)

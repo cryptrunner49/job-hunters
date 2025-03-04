@@ -15,9 +15,9 @@ Rails.application.routes.draw do
   resources :roles
   resources :companies
   resources :job_posts, only: %i[new create edit update show destroy]
-  resources :job_offers, only: %i[new create edit update show destroy]
   resources :job_applications, only: %i[new create edit update show destroy] do
-    resources :interviews, only: %i[new create edit update show destroy]
+    resources :job_offers, only: %i[index new create edit update show destroy]
+    resources :interviews, only: %i[index new create edit update show destroy]
   end
 
   post "preview", to: "previews#create", as: :preview

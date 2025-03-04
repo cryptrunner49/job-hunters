@@ -1,9 +1,5 @@
-<% content_for :title, "New job offer" %>
-
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New job offer</h1>
-
-  <%= render "form", job_offer: @job_offer %>
-
-  <%= link_to "Back to job offers", job_offers_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+<% content_for :title, "New Job Offer" %>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 bg-gray-50 dark:bg-gray-900">
+  <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">New Job Offer</h1>
+  <%= render "form", job_application: @job_application, job_offer: @job_offer %>
 </div>
