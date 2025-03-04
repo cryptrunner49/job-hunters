@@ -1,29 +1,26 @@
 <% content_for :title, "Roles" %>
-
-<div class="w-full px-4 py-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
   <% if notice.present? %>
-    <p id="notice" class="py-2 px-3 bg-green-50 dark:bg-green-800 mb-5 text-green-500 dark:text-green-300 font-medium rounded-md">
+    <p id="notice" class="py-2 px-4 bg-green-100 dark:bg-green-800 text-green-700 dark:text_gray-300 font-medium rounded-md mb-6">
       <%= notice %>
     </p>
   <% end %>
-
   <div class="flex flex-col md:flex-row md:justify-between items-center mb-8">
-    <h1 class="text-4xl font-bold text-gray-900 dark:text-white">Roles</h1>
-    <%= link_to "New Role", new_role_path, class: "mt-4 md:mt-0 px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md font-semibold transition-colors shadow hover:shadow-lg" %>
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100">Roles</h1>
+    <%= link_to "New Role", new_role_path, class: "mt-4 md:mt-0 px-5 py-2 bg-blue-600 hover:bg-blue-500 dark:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-md font-semibold shadow-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500" %>
   </div>
-
-  <div id="roles" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-center">
+  <div id="roles" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     <% if @roles.any? %>
       <% @roles.each do |role| %>
-        <div id="<%= dom_id role %>" class="w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 m-4 border border-gray-200 dark:border-gray-700 transition transform hover:scale-105">
+        <div id="<%= dom_id role %>" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700 transition-transform hover:scale-105">
           <%= render role %>
-          <div class="mt-6 flex flex-col gap-2">
-            <%= link_to "Show this Role", role, class: "w-full text-center px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 font-semibold transition-colors" %>
+          <div class="mt-6">
+            <%= link_to "Show", role, class: "w-full text-center px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-md font-semibold shadow-md transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500" %>
           </div>
         </div>
       <% end %>
     <% else %>
-      <p class="text-center text-gray-600 dark:text-gray-400 my-10">No roles found.</p>
+      <p class="text-center text-gray-600 dark:text-gray-400 my-10 text-lg">No roles found.</p>
     <% end %>
   </div>
 </div>

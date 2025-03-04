@@ -27,6 +27,29 @@ export default class extends Controller {
                 })
                 .catch(console.error);
         });
+
+        let debounceTimer;
+        debounceTimer = setTimeout(() => {
+            coverLetterName = coverLetterSelectElement[coverLetterSelectElement.value].text;
+            const formType = "cover_letter";
+
+            const formData = new FormData();
+            formData.append('cover_letter_name', coverLetterName);
+
+            fetch('/preview_cover_letter', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: formData
+            })
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    document.getElementById(formType + "-preview").src = `${url}#navpanes=0&toolbar=0&pagemode=none`;
+                })
+                .catch(console.error);
+        }, 2600);
     }
 
     disconnect() {

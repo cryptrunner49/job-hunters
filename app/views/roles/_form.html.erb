@@ -1,27 +1,26 @@
-<%= form_with(model: role, class: "contents") do |form| %>
-  <% if role.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(role.errors.count, "error") %> prohibited this role from being saved:</h2>
-
-      <ul class="list-disc ml-6">
-        <% role.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<div class="space-y-6">
+  <%= form_with(model: role, class: "space-y-6") do |form| %>
+    <% if role.errors.any? %>
+      <div class="bg-red-50 dark:bg-red-900 text-red-500 dark:text-red-300 px-4 py-3 rounded-md shadow-md">
+        <h2 class="font-medium text-lg"><%= pluralize(role.errors.count, "error") %> prohibited this role from being saved:</h2>
+        <ul class="list-disc ml-6 mt-2">
+          <% role.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div>
+      <%= form.label :name, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+      <%= form.text_field :name, class: "mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100 text-gray-900 #{"border-red-400 dark:border-red-600" if role.errors[:name].any?}" %>
+    </div>
+    <div>
+      <%= form.label :description, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+      <%= form.text_area :description, rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100 text-gray-900 #{"border-red-400 dark:border-red-600" if role.errors[:description].any?}" %>
+    </div>
+    <div class="flex gap-4">
+      <%= form.submit class: "rounded-md px-4 py-2 bg-blue-600 hover:bg-blue-500 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-medium shadow-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      <%= link_to "Cancel", roles_path, class: "rounded-md px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-medium shadow-md transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500" %>
     </div>
   <% end %>
-
-  <div class="my-5">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": role.errors[:name].none?, "border-red-400 focus:outline-red-600": role.errors[:name].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :description %>
-    <%= form.textarea :description, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": role.errors[:description].none?, "border-red-400 focus:outline-red-600": role.errors[:description].any?}] %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
-  </div>
-<% end %>
+</div>

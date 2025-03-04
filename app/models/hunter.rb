@@ -4,7 +4,6 @@ class Hunter < ApplicationRecord
   has_many :resumes, dependent: :destroy
   has_many :cover_letters, dependent: :destroy
   has_many :job_applications, dependent: :destroy
-  has_many :job_offers, dependent: :destroy
   has_one_attached :profile_picture
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }

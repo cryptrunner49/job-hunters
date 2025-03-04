@@ -1,31 +1,26 @@
 class JobOffersController < ApplicationController
-  before_action :set_job_offer, only: %i[ show edit update destroy ]
+  before_action :set_job_offer, only: %i[show edit update destroy]
+  before_action :set_job_application, only: %i[index new create edit update destroy show]
 
-  # GET /job_offers or /job_offers.json
   def index
-    @job_offers = JobOffer.all
+    @job_offers = @job_application.job_offers.where(deleted: false) # Only show non-deleted offers
   end
 
-  # GET /job_offers/1 or /job_offers/1.json
   def show
   end
 
-  # GET /job_offers/new
   def new
-    @job_offer = JobOffer.new
+    @job_offer = @job_application.job_offers.build
   end
 
-  # GET /job_offers/1/edit
   def edit
   end
 
-  # POST /job_offers or /job_offers.json
   def create
-    @job_offer = JobOffer.new(job_offer_params)
-
+    @job_offer = @job_application.job_offers.build(job_offer_params)
     respond_to do |format|
       if @job_offer.save
-        format.html { redirect_to @job_offer, notice: "Job offer was successfully created." }
+        format.html { redirect_to job_application_job_offer_path(@job_application, @job_offer), notice: "Job offer was successfully created." }
         format.json { render :show, status: :created, location: @job_offer }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -34,11 +29,10 @@ class JobOffersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /job_offers/1 or /job_offers/1.json
   def update
     respond_to do |format|
       if @job_offer.update(job_offer_params)
-        format.html { redirect_to @job_offer, notice: "Job offer was successfully updated." }
+        format.html { redirect_to job_application_job_offer_path(@job_application, @job_offer), notice: "Job offer was successfully updated." }
         format.json { render :show, status: :ok, location: @job_offer }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -47,24 +41,25 @@ class JobOffersController < ApplicationController
     end
   end
 
-  # DELETE /job_offers/1 or /job_offers/1.json
   def destroy
     @job_offer.soft_delete
-
     respond_to do |format|
-      format.html { redirect_to job_offers_path, status: :see_other, notice: "Job offer was successfully destroyed." }
+      format.html { redirect_to job_application_job_offers_path(@job_application), status: :see_other, notice: "Job offer was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_job_offer
-      @job_offer = JobOffer.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def job_offer_params
-      params.expect(job_offer: [ :hunter_id, :job_post_id, :company_id, :status, :salary, :start_date, :offer_date, :message ])
-    end
+  def set_job_offer
+    @job_offer = JobOffer.find(params[:id])
+  end
+
+  def set_job_application
+    @job_application = JobApplication.find(params[:job_application_id])
+  end
+
+  def job_offer_params
+    params.require(:job_offer).permit(:status, :salary, :start_date, :offer_date, :message)
+  end
 end
