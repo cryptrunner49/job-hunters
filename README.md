@@ -19,6 +19,7 @@ to run without docker you need to have ruby 3.3.6 installed.
 git clone https://github.com/cryptrunner49/job-hunters
 cd job-hunters
 bin/rails db:migrate
+bin/bundle install
 bin/dev
 Available in: http://localhost:3000/
 ```
