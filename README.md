@@ -20,7 +20,7 @@ JobHunters is a modern web application designed to help job seekers organize the
 
 - **Fullstack**: Ruby on Rails, TailwindCSS for styling
 - **Database**: Sqlite3
-- **Authentication**: OAuth
+- **Authentication**: Rails Auth
 
 📌 Why JobHunters?
 
