@@ -1,6 +1,6 @@
-# JobHunters – A Job Hunting Web Application  
+# JobHunters: Your Ultimate Job Hunting Companion Web App
 
-JobHunters is a modern web application designed to help job seekers organize their job search, track applications, and stay on top of opportunities. Whether you're applying for multiple roles, preparing for interviews, or following up with recruiters, JobHunters provides an intuitive and streamlined solution to manage your job hunt effectively.  
+JobHunters is a modern web application designed to help job seekers organize their job search, track cold job applications, and stay on top of opportunities. Whether you're applying for multiple roles, preparing for interviews, or following up with recruiters, JobHunters provides an intuitive and streamlined solution to manage your job hunt effectively.  
 
 🌟 Key Features  
 
