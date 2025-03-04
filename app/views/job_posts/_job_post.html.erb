@@ -1,66 +1,64 @@
-<div id="<%= dom_id job_post %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Title:</strong>
-    <%= job_post.title %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Description:</strong>
-    <%= job_post.description %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Skills required:</strong>
-    <%= job_post.skills_required %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Experience:</strong>
-    <%= job_post.experience %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Location:</strong>
-    <%= job_post.location %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Relocation:</strong>
-    <%= job_post.relocation %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Apply from anywhere:</strong>
-    <%= job_post.apply_from_anywhere %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Remote:</strong>
-    <%= job_post.remote %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">English level:</strong>
-    <%= job_post.english_level %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Japanese level:</strong>
-    <%= job_post.japanese_level %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Salary:</strong>
-    <%= job_post.salary %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Employment type:</strong>
-    <%= job_post.employment_type %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Posted at:</strong>
-    <%= job_post.posted_at %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Closing date:</strong>
-    <%= job_post.closing_date %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Company:</strong>
-    <%= job_post.company_id %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Role:</strong>
-    <%= job_post.role_id %>
-  </p>
+<div id="<%= dom_id job_post %>" class="space-y-6">
+  <dl class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
+      <dt class="font-semibold text-gray-900 dark:text-gray-200 mb-1">Title</dt>
+      <dd class="text-gray-700 dark:text-gray-300"><%= job_post.title %></dd>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
+      <dt class="font-semibold text-gray-900 dark:text-gray-200 mb-1">Location</dt>
+      <dd class="text-gray-700 dark:text-gray-300"><%= job_post.location %></dd>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg md:col-span-2">
+      <dt class="font-semibold text-gray-900 dark:text-gray-200 mb-1">Description</dt>
+      <dd class="text-gray-700 dark:text-gray-300 prose dark:prose-invert"><%= job_post.description %></dd>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
+      <dt class="font-semibold text-gray-900 dark:text-gray-200 mb-1">Skills Required</dt>
+      <dd class="text-gray-700 dark:text-gray-300"><%= job_post.skills_required %></dd>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
+      <dt class="font-semibold text-gray-900 dark:text-gray-200 mb-1">Experience</dt>
+      <dd class="text-gray-700 dark:text-gray-300"><%= job_post.experience %></dd>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
+      <dt class="font-semibold text-gray-900 dark:text-gray-200 mb-1">Salary</dt>
+      <dd class="text-gray-700 dark:text-gray-300"><%= number_to_currency(job_post.salary) if job_post.salary %></dd>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
+      <dt class="font-semibold text-gray-900 dark:text-gray-200 mb-1">Employment Type</dt>
+      <dd class="text-gray-700 dark:text-gray-300 capitalize"><%= job_post.employment_type %></dd>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
+      <dt class="font-semibold text-gray-900 dark:text-gray-200 mb-1">Remote Status</dt>
+      <dd class="text-gray-700 dark:text-gray-300 capitalize"><%= job_post.remote %></dd>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
+      <dt class="font-semibold text-gray-900 dark:text-gray-200 mb-1">Relocation</dt>
+      <dd class="text-gray-700 dark:text-gray-300"><%= job_post.relocation ? "Yes" : "No" %></dd>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
+      <dt class="font-semibold text-gray-900 dark:text-gray-200 mb-1">English Level</dt>
+      <dd class="text-gray-700 dark:text-gray-300 capitalize"><%= job_post.english_level %></dd>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
+      <dt class="font-semibold text-gray-900 dark:text-gray-200 mb-1">Japanese Level</dt>
+      <dd class="text-gray-700 dark:text-gray-300 capitalize"><%= job_post.japanese_level %></dd>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
+      <dt class="font-semibold text-gray-900 dark:text-gray-200 mb-1">Posted At</dt>
+      <dd class="text-gray-700 dark:text-gray-300"><%= job_post.posted_at&.strftime("%B %d, %Y") %></dd>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
+      <dt class="font-semibold text-gray-900 dark:text-gray-200 mb-1">Closing Date</dt>
+      <dd class="text-gray-700 dark:text-gray-300"><%= job_post.closing_date&.strftime("%B %d, %Y") %></dd>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
+      <dt class="font-semibold text-gray-900 dark:text-gray-200 mb-1">Company</dt>
+      <dd class="text-gray-700 dark:text-gray-300"><%= job_post.company&.name || "N/A" %></dd>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
+      <dt class="font-semibold text-gray-900 dark:text-gray-200 mb-1">Role</dt>
+      <dd class="text-gray-700 dark:text-gray-300"><%= job_post.role&.name || "N/A" %></dd>
+    </div>
+  </dl>
 </div>
