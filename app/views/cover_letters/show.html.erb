@@ -1,18 +1,15 @@
 <% content_for :title, "Showing Cover Letter" %>
-
-<div class="max-w-3xl mx-auto px-4 py-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
-  <% if notice.present? %>
-    <p id="notice" class="py-2 px-3 bg-green-50 dark:bg-green-800 mb-5 text-green-500 dark:text-green-300 font-medium rounded-md">
-      <%= notice %>
-    </p>
-  <% end %>
-
-  <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-6">Showing Cover Letter</h1>
-  
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+  <script data-controller="cover-letter-preview"></script>
   <div id="cover_letter" class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
     <%= render @cover_letter %>
+    <div class="mt-6">
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Preview</h3>
+      <div id="preview-cover_letter-div" class="border border-gray-200 dark:border-gray-700 rounded-md">
+        <iframe id="cover_letter-preview" title="Cover Letter Preview" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+      </div>
+    </div>
   </div>
-
   <div class="mt-6 flex flex-wrap gap-4">
     <%= link_to "Edit this cover letter", edit_cover_letter_path(@cover_letter), class: "px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md font-semibold transition-colors" %>
     <%= link_to "Back to cover letters", cover_letters_path, class: "px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 font-semibold transition-colors" %>

@@ -19,4 +19,8 @@ class Resume < ApplicationRecord
   def soft_delete
     update(deleted: true)
   end
+
+  def deleted?
+    deleted
+  end
 end

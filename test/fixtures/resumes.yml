@@ -9,7 +9,7 @@ one:
 
 two:
   hunter: two
-  title: MyString
+  title: MySecondString
   latex_source: MyText
   pdf_path: MyString
   resume_type: 1
