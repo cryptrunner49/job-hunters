@@ -103,9 +103,7 @@ class Interview {
 ' JobOffer represents the actual offer extended by a company.
 class JobOffer {
   + id: int                      ' Primary key
-  + candidate_id: int            ' Foreign key to Candidate receiving the offer
-  + job_post_id: int             ' Foreign key to JobPost from which the offer originates
-  + company_id: int              ' Foreign key to Company extending the offer
+  + job_application_id: int      ' Foreign key to JobApplication
   + status: string               ' Current status of the offer (e.g., pending, accepted, declined)
   + salary: decimal              ' Final offered salary (may differ from job post salary)
   + start_date: date             ' Proposed start date for employment
@@ -167,18 +165,16 @@ enum InterviewType {
 Candidate "1" -- "0..*" Resume : owns
 Candidate "1" -- "0..*" CoverLetter : creates
 Candidate "1" -- "0..*" JobApplication : applies
-Candidate "1" -- "0..*" JobOffer : receives
 
 Company "1" -- "0..*" JobPost : posts
-Company "1" -- "0..*" JobOffer : extends
 
 Role "1" -- "0..*" JobPost : defines
 
 JobPost "1" -- "0..*" JobApplication : receives
-JobPost "1" -- "0..*" JobOffer : generates
 
 JobApplication "1" -- "1" Resume : uses
 JobApplication "0..1" -- "1" CoverLetter : includes
 JobApplication "1" -- "0..*" Interview : triggers
+JobApplication "1" -- "0..*" JobOffer : may_have
 
 @enduml
