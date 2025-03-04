@@ -25,7 +25,7 @@
           <% @job_offers.each do |job_offer| %>
             <tr>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"><%= job_offer.status %></td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"><%= job_offer.salary %></td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">$ <%= job_offer.salary %></td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"><%= job_offer.start_date %></td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"><%= job_offer.offer_date %></td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
