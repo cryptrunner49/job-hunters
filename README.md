@@ -8,7 +8,7 @@ JobHunters is a modern web application designed to help job seekers organize the
 git clone https://github.com/cryptrunner49/job-hunters
 cd job-hunters
 sudo docker compose up
-Available in: http://localhost/
+Open the url in your browser: http://localhost/
 ```
 
 ## Running without Docker
@@ -21,7 +21,7 @@ cd job-hunters
 bin/rails db:migrate
 bin/bundle install
 bin/dev
-Available in: http://localhost:3000/
+Open the url in your browser: http://localhost:3000/
 ```
 
 ## 🌟 Key Features  
