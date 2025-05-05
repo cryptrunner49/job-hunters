@@ -75,4 +75,7 @@ Rails.application.configure do
 
   # Force reload for all changes
   config.hotwire_livereload.force_reload = true
+
+  # Enable DNS rebinding protection and other `Host` header attacks.
+  config.hosts << "job-hunters-7i9x.onrender.com"
 end
