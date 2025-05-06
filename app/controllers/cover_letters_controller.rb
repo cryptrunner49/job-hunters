@@ -1,25 +1,20 @@
 class CoverLettersController < ApplicationController
   before_action :set_cover_letter, only: %i[ show edit update destroy ]
 
-  # GET /cover_letters or /cover_letters.json
   def index
     @cover_letters = CoverLetter.where(deleted: false)
   end
 
-  # GET /cover_letters/1 or /cover_letters/1.json
   def show
   end
 
-  # GET /cover_letters/new
   def new
     @cover_letter = CoverLetter.new
   end
 
-  # GET /cover_letters/1/edit
   def edit
   end
 
-  # POST /cover_letters or /cover_letters.json
   def create
     @cover_letter = CoverLetter.new(cover_letter_params)
     @cover_letter.hunter=current_hunter
@@ -37,7 +32,6 @@ class CoverLettersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /cover_letters/1 or /cover_letters/1.json
   def update
     respond_to do |format|
       if @cover_letter.update(cover_letter_params)
@@ -50,7 +44,6 @@ class CoverLettersController < ApplicationController
     end
   end
 
-  # DELETE /cover_letters/1 or /cover_letters/1.json
   def destroy
     @cover_letter.soft_delete
 

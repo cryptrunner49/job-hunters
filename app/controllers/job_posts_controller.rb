@@ -1,29 +1,24 @@
 class JobPostsController < ApplicationController
   before_action :set_job_post, only: %i[ show edit update destroy ]
 
-  # GET /job_posts or /job_posts.json
   def index
     @job_posts = JobPost.where(deleted: false)
   end
 
-  # GET /job_posts/1 or /job_posts/1.json
   def show
   end
 
-  # GET /job_posts/new
   def new
     @job_post = JobPost.new
     @companies = Company.where(deleted: false)
     @roles = Role.where(deleted: false)
   end
 
-  # GET /job_posts/1/edit
   def edit
     @companies = Company.where(deleted: false)
     @roles = Role.where(deleted: false)
   end
 
-  # POST /job_posts or /job_posts.json
   def create
     @job_post = JobPost.new(job_post_params)
     @companies = Company.where(deleted: false)
@@ -44,7 +39,6 @@ class JobPostsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /job_posts/1 or /job_posts/1.json
   def update
     respond_to do |format|
       if @job_post.update(job_post_params)
@@ -57,7 +51,6 @@ class JobPostsController < ApplicationController
     end
   end
 
-  # DELETE /job_posts/1 or /job_posts/1.json
   def destroy
     @job_post.soft_delete
 

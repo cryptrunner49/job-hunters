@@ -1,29 +1,24 @@
 class JobApplicationsController < ApplicationController
   before_action :set_job_application, only: %i[ show edit update destroy ]
 
-  # GET /job_applications or /job_applications.json
   def index
     @job_applications = JobApplication.where(deleted: false)
   end
 
-  # GET /job_applications/1 or /job_applications/1.json
   def show
   end
 
-  # GET /job_applications/new
   def new
     @job_application = JobApplication.new
     @resumes = Resume.all
     @cover_letters = CoverLetter.all
   end
 
-  # GET /job_applications/1/edit
   def edit
     @resumes = Resume.where(deleted: false)
     @cover_letters = CoverLetter.where(deleted: false)
   end
 
-  # POST /job_applications or /job_applications.json
   def create
     @job_application = JobApplication.new(job_application_params)
     @resumes = Resume.where(deleted: false)
@@ -41,7 +36,6 @@ class JobApplicationsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /job_applications/1 or /job_applications/1.json
   def update
     respond_to do |format|
       if @job_application.update(job_application_params)
@@ -54,7 +48,6 @@ class JobApplicationsController < ApplicationController
     end
   end
 
-  # DELETE /job_applications/1 or /job_applications/1.json
   def destroy
     @job_application.soft_delete
 

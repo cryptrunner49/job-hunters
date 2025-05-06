@@ -1,25 +1,20 @@
 class ResumesController < ApplicationController
   before_action :set_resume, only: %i[ show edit update destroy ]
 
-  # GET /resumes or /resumes.json
   def index
     @resumes = Resume.where(deleted: false)
   end
 
-  # GET /resumes/1 or /resumes/1.json
   def show
   end
 
-  # GET /resumes/new
   def new
     @resume = Resume.new
   end
 
-  # GET /resumes/1/edit
   def edit
   end
 
-  # POST /resumes or /resumes.json
   def create
     @resume = Resume.new(resume_params)
     @resume.hunter=current_hunter
@@ -37,7 +32,6 @@ class ResumesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /resumes/1 or /resumes/1.json
   def update
     respond_to do |format|
       if @resume.update(resume_params)
@@ -50,7 +44,6 @@ class ResumesController < ApplicationController
     end
   end
 
-  # DELETE /resumes/1 or /resumes/1.json
   def destroy
     @resume.soft_delete
 
