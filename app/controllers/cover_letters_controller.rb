@@ -3,7 +3,7 @@ class CoverLettersController < ApplicationController
 
   # GET /cover_letters or /cover_letters.json
   def index
-    @cover_letters = CoverLetter.all
+    @cover_letters = CoverLetter.where(deleted: false)
   end
 
   # GET /cover_letters/1 or /cover_letters/1.json

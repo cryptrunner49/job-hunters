@@ -26,16 +26,6 @@
             <%= link_to "Companies", companies_path, 
                 class: "px-4 #{current_page?(companies_path) ? 'py-3 bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : 'py-2'} text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors" %>
           </li>
-          <!--
-          <li>
-            <%#= link_to "Job Offers", job_offers_path, 
-                class: "px-4 #{current_page?(job_offers_path) ? 'py-3 bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : 'py-2'} text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors" %>
-          </li>
-          <li>
-            <%#= link_to "Interviews", interviews_path, 
-                class: "px-4 #{current_page?(interviews_path) ? 'py-3 bg-white dark:bg-gray-900 border-b-2 border-blue-600 dark:border-blue-500' : 'py-2'} text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-t-md transition-colors" %>
-          </li>
-          -->
         </ul>
         <% if authenticated? && !current_hunter.nil? %>
           <div class="relative" data-controller="dropdown">

@@ -130,10 +130,12 @@ export default class extends Controller {
       latexSource = document.getElementById("resume_latex_source").value;
       formType = "resume";
     } catch (e) { }
-    if (!latexSource) {
-      latexSource = document.getElementById("cover_letter_latex_source").value;
-      formType = "cover_letter";
-    }
+    try {
+      if (!latexSource) {
+        latexSource = document.getElementById("cover_letter_latex_source").value;
+        formType = "cover_letter";
+      }
+    } catch (e) { }
 
     console.log("formType: ", formType);
 

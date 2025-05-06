@@ -33,8 +33,6 @@
           <div class="flex items-center gap-2">
             <%= form.collection_select :resume_id, @resumes, :id, :title, { prompt: "Select a Resume" }, 
                   class: "block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100 text-gray-900 #{"border-red-400 dark:border-red-600" if job_application.errors[:resume_id].any?}" %>
-            <!-- Uncomment if needed -->
-            <!-- <button type="button" class="rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-medium transition-colors" data-field-type="resume_id">Add New</button> -->
           </div>
         </div>
         <div>
@@ -42,8 +40,6 @@
           <div class="flex items-center gap-2">
             <%= form.collection_select :cover_letter_id, @cover_letters, :id, :subject, { prompt: "Select a Cover Letter" }, 
                   class: "block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100 text-gray-900 #{"border-red-400 dark:border-red-600" if job_application.errors[:cover_letter_id].any?}" %>
-            <!-- Uncomment if needed -->
-            <!-- <button type="button" class="rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-medium transition-colors" data-field-type="cover_letter_id">Add New</button> -->
           </div>
         </div>
         <div>
